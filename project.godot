@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="lethal-science-project"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+run/main_scene="res://scenes/andrew_workspace.tscn"
+config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 
 [dotnet]
@@ -22,3 +23,4 @@ project/assembly_name="lethal-science-project"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
