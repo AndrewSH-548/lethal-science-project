@@ -5,3 +5,4 @@
 [node name="Root" type="Node"]
 
 [node name="Wave" parent="." instance=ExtResource("1_y8q0v")]
+Orientation = -1.0
