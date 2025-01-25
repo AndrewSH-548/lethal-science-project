@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Phrase" load_steps=2 format=3 uid="uid://bjhphywn83fb4"]
+
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="1_dkxcn"]
+
+[resource]
+script = ExtResource("1_dkxcn")
