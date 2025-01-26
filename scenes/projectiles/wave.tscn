@@ -7,7 +7,6 @@
 size = Vector2(42.1053, 19)
 
 [node name="Wave" type="CharacterBody2D"]
-position = Vector2(349, 223)
 scale = Vector2(1.52, 1)
 script = ExtResource("1_kvcsj")
 
