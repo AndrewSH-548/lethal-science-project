@@ -113,9 +113,9 @@ position = Vector2(176, 288)
 script = ExtResource("3_7lfjn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-0.5, 1)
+position = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2npt3")
-animation = &"side"
+animation = &"down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-0.5, 16)

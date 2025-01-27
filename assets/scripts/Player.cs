@@ -14,20 +14,16 @@ public partial class Player : CharacterBody2D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
+		// Get the input direction.
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 		if (direction != Vector2.Zero)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
+			Velocity = new Vector2(direction.X * Speed, direction.Y * Speed);
 			Animate(direction);
 		}
-		else velocity = Vector2.Zero;
-
-		Velocity = velocity;
+		else Velocity = Vector2.Zero;
+		
 		MoveAndSlide();
 	}
 
