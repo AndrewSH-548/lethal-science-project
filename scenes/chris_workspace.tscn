@@ -1,17 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://dito24bir3q1a"]
+[gd_scene load_steps=10 format=3 uid="uid://dito24bir3q1a"]
 
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
+[ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="2_adic1"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="2_eobf4"]
+[ext_resource type="AudioStream" uid="uid://bjq3lnp4m5626" path="res://assets/sound-fx/counting-in.mp3" id="2_fd2lt"]
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="2_r7u3d"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="4_6lgvk"]
+
+[sub_resource type="Resource" id="Resource_jsqs2"]
+script = ExtResource("2_eobf4")
+loop = ExtResource("2_fd2lt")
+Key = 0
+
+[sub_resource type="Resource" id="Resource_utnuj"]
+script = ExtResource("2_eobf4")
+loop = ExtResource("2_adic1")
+Key = 0
 
 [node name="Root" type="Node"]
 
 [node name="Conductor" type="Node" parent="."]
 script = ExtResource("1_e2iuu")
+intro = SubResource("Resource_jsqs2")
+phrase = SubResource("Resource_utnuj")
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("2_r7u3d")
 script = ExtResource("3_ixf7h")
 tickSound = ExtResource("2_r7u3d")
 accentedTickSound = ExtResource("4_6lgvk")
+
+[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
