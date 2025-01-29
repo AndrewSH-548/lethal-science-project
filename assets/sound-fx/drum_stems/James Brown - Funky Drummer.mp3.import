@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dv5jy3htqohkw"
+path="res://.godot/imported/James Brown - Funky Drummer.mp3-25032c1d55e13ce4752b3678cefccd6f.mp3str"
+
+[deps]
+
+source_file="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3"
+dest_files=["res://.godot/imported/James Brown - Funky Drummer.mp3-25032c1d55e13ce4752b3678cefccd6f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=100.0
+beat_count=4
+bar_beats=4
