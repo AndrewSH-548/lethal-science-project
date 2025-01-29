@@ -7,28 +7,28 @@ public partial class Conductor : Node
 {
 	// Variables
 
-	private double bpm = 120.0f;
-	private int beatsPerMeasure = 4;
+	private double bpm = 120.0f; // bpm for the Conductor - will adjust to the bpm of the current phrase
+	private int beatsPerMeasure = 4; // same as above
 	private Pitch key;
 
-	private Timer beatTimer;
+	private Timer beatTimer; // time between each beat
 	private int beatsThisMeasure = 1;
 
 	private MetronomePlayer clickTrack;
-	[Export] public bool clickTrackEnabled = true;
-	[Export] public int accentedBeat = 1;
+	[Export] public bool ClickTrackEnabled {get; set;} = true;
+	[Export] public int AccentedBeat {get; set;} = 1;
 
-	// dont go over 20 channels total
+	// rule of thumb - dont go over 20 channels total
 
 	[Export] public Phrase intro;
 	[Export] public Phrase phrase;
 
-	//private Queue<Phrase> loopQueue = new();
-	private Phrase[] loopsToPlay;
-	private int loopsLeft = 0;
-	
+	private Phrase[] loopsToPlay; // variable for testing - in future PR this will be dynamic
 
-	// Mono
+	public delegate void BeatEventHandler(int beat);
+	public event BeatEventHandler OnBeat;
+
+	// Godot methods
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -38,77 +38,82 @@ public partial class Conductor : Node
 		beatTimer = new Timer();
 		AddChild(beatTimer);
 
-		//QueuePhrase(new Phrase(120, 4, Pitch.C));
 		loopsToPlay = new Phrase[] {intro, phrase};
 
-		Play();
-		//QueuePhrase(intro, 1);
-		//QueuePhrase(phrase, 1);
+		OnBeat += PrintBeat;
 
+		Play();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(Input.IsActionJustPressed("P"))
+		{
+			Pause();
+		}
 	}
 
 	// Methods
 
+	/// <summary>
+	/// Starting off point for the Conductor, call this to make things happen.
+	/// </summary>
 	private void Play()
 	{
-		
-		GD.Print("seconds per beat: " + 60.0f / bpm);
-		beatTimer.WaitTime = 60.0f / bpm;
-		beatTimer.OneShot = true;
-		beatTimer.Timeout += () => Beat();
+		var secondsPerBeat = 60.0f / bpm;
+		GD.Print("seconds per beat: " + secondsPerBeat);
+		beatTimer.WaitTime = secondsPerBeat;
+		beatTimer.OneShot = true; // do not loop automatically
+		beatTimer.Timeout += () => Beat(); // play another beat AFTER the last beat
 		beatTimer.Start();
 
-		beatsThisMeasure = 1;
+		beatsThisMeasure = 1; // start on 1st beat
 	}
 
 	/// <summary>
-	/// Queues a phrase to be played a certain number of times.
+	/// Stops the beat timer, but will play out any more stems until they are done with their loop.
 	/// </summary>
-	/// <param name="phrase"></param>
-	/// <param name="times"></param>
-	private void QueuePhrase(Phrase phrase, int times = 1)
+	private void Pause()
 	{
-		loopsLeft = times;
-
-		beatsPerMeasure = phrase.loop._GetBeatCount();
-		bpm = phrase.loop._GetBpm();
-		key = phrase.Key;
-
-		beatTimer.WaitTime = 60.0f / bpm;
-
-		//loopQueue.Enqueue(phrase);
-		GD.Print("enqueue: " + phrase.loop.ResourcePath);
+		GD.Print("pause conductor");
+		beatTimer.Stop();
 	}
 
 	/// <summary>
-	/// Plays the metronome sound.
+	/// Plays the metronome sound. Accented beat will sound different than the others.
 	/// </summary>
 	private void PlayClickTrack()
 	{
-		if(beatsThisMeasure == accentedBeat)
+		if(beatsThisMeasure == AccentedBeat)
 			clickTrack.PlayAccentedTick();
 		else
-			clickTrack.PlayTick(); // plays metronome sound
+			clickTrack.PlayTick();
 	}
 
-	private void PlayPhraseOnNextBeat(Phrase phrase)
+
+	private void SetNextMeasurePhrase(Phrase phrase)
+	{
+		SetConductorParameters(phrase);
+
+		var channel1 = GetNode<AudioStreamPlayer>("Channel_1");
+
+		// TODO - remove this in future to transition to other loops
+		if(channel1.Stream != loopsToPlay[1].loop)
+			channel1.Stream = loopsToPlay[1].loop;
+	}
+
+	/// <summary>
+	/// Sets the conductor parameters to sync with the current phrase.
+	/// </summary>
+	/// <param name="phrase"></param>
+	private void SetConductorParameters(Phrase phrase)
 	{
 		beatsPerMeasure = phrase.loop.BeatCount;
 		bpm = phrase.loop.Bpm;
 		key = phrase.Key;
 
 		beatTimer.WaitTime = 60.0 / bpm;
-
-		var channel1 = GetNode<AudioStreamPlayer>("Channel_1");
-		//channel1.Stream = loopQueue.Peek().loop;
-		if(channel1.Stream != loopsToPlay[1].loop)
-			channel1.Stream = loopsToPlay[1].loop;
-		//beatTimer.Timeout += () => {channel1.Play();};
 	}
 
 	/// <summary>
@@ -116,75 +121,39 @@ public partial class Conductor : Node
 	/// </summary>
 	private void Beat()
 	{
-		if (clickTrackEnabled)
+		if (ClickTrackEnabled)
 		{
 			PlayClickTrack();
 		}
 		
-		GD.Print("beat " + beatsThisMeasure);
+		OnBeat?.Invoke(beatsThisMeasure);
 
 		// start of loop logic
 		if(beatsThisMeasure == 1)
 		{
 			GD.Print("new bar");
-			//beatTimer.Timeout -= () => GetNode<AudioStreamPlayer>("Channel_1").Play();
 			GetNode<AudioStreamPlayer>("Channel_1").Play();
-			
-			
-			
-
-			// if(!channel1.Playing)
-			// {
-			// 	GD.Print("play the stream");
-			// 	channel1.Finished += () => channel1.Play();;
-			// 	//channel1.Play();
-			// }
-			// else
-			// {
-			// 	GD.Print("channel 1 is already playing");
-			// }
 		}
 		
-		//  stem loop logic
+		//  end of loop logic
 		if(beatsThisMeasure >= beatsPerMeasure)
 		{
-			
 			beatsThisMeasure = 0;
-			PlayPhraseOnNextBeat(loopsToPlay[1]);
-			
-			// if the loops are done
-			// if(loopsLeft == 1)
-			// {
-			// 	if(loopQueue.Count > 0)
-			// 	{
-			// 		loopQueue.Dequeue();
-			// 		GD.Print("dequeue and play next: " + loopQueue.Peek().loop.ResourcePath);
-			// 		var channel1 = GetNode<AudioStreamPlayer>("Channel_1");
-			// 		channel1.Stream = loopQueue.Peek().loop;
-			// 		channel1.Play();
-			// 		channel1.Finished += () => channel1.Play();
-					
-
-			// 		if(loopQueue.Count > 0)
-			// 		{
-			// 			//QueuePhrase(loopQueue.Peek(), 2);
-			// 		}
-			// 		else
-			// 		{
-			// 			GD.PrintErr("The Conductor loop queue is empty.");
-			// 		}
-			// 	}
-			// 	else
-			// 	{
-			// 		GD.PrintErr("No loops are queued in the Conductor.");
-			// 	}
-			// }
-			loopsLeft--;
+			SetNextMeasurePhrase(loopsToPlay[1]);
 		}
 
 		beatsThisMeasure++;
 
 		beatTimer.Start();
+	}
+
+	/// <summary>
+	/// Debug method tied to the OnBeat event.
+	/// </summary>
+	/// <param name="beat"></param>
+	private void PrintBeat(int beat)
+	{
+		GD.Print("beat: " + beat);
 	}
 
 }
