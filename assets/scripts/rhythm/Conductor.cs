@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Channels;
 
 public partial class Conductor : Node
@@ -23,7 +24,11 @@ public partial class Conductor : Node
 	[Export] public Phrase intro;
 	[Export] public Phrase phrase;
 
+	[Export] Godot.Collections.Array<ProjectileEvent> events;
+	[Export] StaticBody2D boss;
+	int eventIndex = 0;
 	private Phrase[] loopsToPlay; // variable for testing - in future PR this will be dynamic
+	
 
 	public delegate void BeatEventHandler(int beat);
 	public event BeatEventHandler OnBeat;
@@ -154,6 +159,15 @@ public partial class Conductor : Node
 	private void PrintBeat(int beat)
 	{
 		GD.Print("beat: " + beat);
+		for (int i = eventIndex; i < events.Count; i++)
+		{
+			if (events[eventIndex].beat == beat)
+			{
+				events[eventIndex].SpawnProjectile(this, boss.Position);
+				eventIndex++;
+				if (eventIndex > 4) eventIndex = 0;
+			}
+			else break;
+		}
 	}
-
 }
