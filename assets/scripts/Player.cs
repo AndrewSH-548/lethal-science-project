@@ -5,7 +5,7 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 200.0f;
 
-	AnimatedSprite2D sprites;
+	[Export] AnimatedSprite2D sprites;
 
 	//Absorption variables
 	bool isAbsorbing;
@@ -27,7 +27,7 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		sprites = GetChild<AnimatedSprite2D>(0);
+		//sprites = GetChild<AnimatedSprite2D>(0);
 		absorptionTimer.Timeout += () =>
 		{
 			isAbsorbing = false;
