@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Threading.Channels;
 
 public partial class Conductor : Node
 {
@@ -24,6 +21,7 @@ public partial class Conductor : Node
 	[Export] public Phrase phrase;
 
 	private Phrase[] loopsToPlay; // variable for testing - in future PR this will be dynamic
+	
 
 	public delegate void BeatEventHandler(int beat);
 	public event BeatEventHandler OnBeat;
@@ -155,5 +153,4 @@ public partial class Conductor : Node
 	{
 		GD.Print("beat: " + beat);
 	}
-
 }

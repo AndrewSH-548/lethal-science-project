@@ -5,15 +5,20 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 200.0f;
 
-	AnimatedSprite2D sprites;
+	[Export] AnimatedSprite2D sprites;
 
 	//Absorption variables
 	bool isAbsorbing;
 	const float absorptionLength = 0.4f;
-	float absorptionTimer = absorptionLength;
+	//float absorptionTimer = absorptionLength;
 	bool isOnCooldown;
 	const float absorptionCooldown = 1f;
-	float cooldownTimer = absorptionCooldown;
+	//float cooldownTimer = absorptionCooldown;
+
+	[Export]
+	Timer absorptionTimer;
+	[Export]
+	Timer cooldownTimer;
 
 	public bool IsAbsorbing
 	{
@@ -22,7 +27,19 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		sprites = GetChild<AnimatedSprite2D>(0);
+		//sprites = GetChild<AnimatedSprite2D>(0);
+		absorptionTimer.Timeout += () =>
+		{
+			isAbsorbing = false;
+			Modulate = Color.FromHtml("FF0000");
+			isOnCooldown = true;
+			cooldownTimer.Start();
+		};
+		cooldownTimer.Timeout += () =>
+		{
+			Modulate = Color.FromHtml("FFFFFF");
+			isOnCooldown = false;
+		};
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -40,31 +57,9 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("absorb") && !isOnCooldown)
 		{
 			isAbsorbing = true;
+            absorptionTimer.Start();
             Modulate = Color.FromHtml("FFFF00");
         }
-
-		if (isAbsorbing) {
-			
-			absorptionTimer -= (float)delta;
-			if (absorptionTimer < 0)
-			{
-				isOnCooldown = true;
-				isAbsorbing = false;
-				absorptionTimer = absorptionLength;
-                Modulate = Color.FromHtml("FF0000");
-            }
-		}
-
-		if (isOnCooldown)
-		{
-			cooldownTimer -= (float)delta;
-			if (cooldownTimer < 0)
-			{
-				Modulate = Color.FromHtml("FFFFFF");
-				isOnCooldown = false;
-				cooldownTimer = absorptionCooldown;
-			}
-		}
 		MoveAndSlide();
 	}
 

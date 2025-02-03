@@ -1,9 +1,18 @@
-[gd_scene load_steps=12 format=4 uid="uid://b2pa7q0i3g6l6"]
+[gd_scene load_steps=23 format=4 uid="uid://b2pa7q0i3g6l6"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0vela"]
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="1_y8q0v"]
 [ext_resource type="Script" path="res://assets/scripts/Player.cs" id="3_7lfjn"]
 [ext_resource type="Texture2D" uid="uid://36lod8i17k2n" path="res://assets/sprites/demo-player.png" id="4_7fyc5"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="5_dxyk0"]
+[ext_resource type="AudioStream" uid="uid://bjq3lnp4m5626" path="res://assets/sound-fx/counting-in.mp3" id="6_b5ahu"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="7_0oxp0"]
+[ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="8_1kor6"]
+[ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="9_8ryr3"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="10_rfh3l"]
+[ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="11_esn8m"]
+[ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_4k3gs"]
+[ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="13_hafbm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dn6p4"]
 texture = ExtResource("1_0vela")
@@ -98,6 +107,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wij28"]
 size = Vector2(32, 32)
 
+[sub_resource type="Resource" id="Resource_h0cdy"]
+script = ExtResource("7_0oxp0")
+loop = ExtResource("6_b5ahu")
+Key = 0
+
+[sub_resource type="Resource" id="Resource_ykeed"]
+script = ExtResource("7_0oxp0")
+loop = ExtResource("8_1kor6")
+Key = 0
+
 [node name="Root" type="Node"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -105,10 +124,13 @@ position = Vector2(64, 0)
 tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAADAAAAAAAIAAEAAAADAAEAAAAIAAIAAAADAAEAAAAIAAMAAAADAAEAAAAIAAQAAAADAAEAAAAIAAUAAAADAAEAAAAIAAYAAAADAAEAAAAIAAcAAAADAAEAAAAIAAgAAAADAAEAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAUAAAAIAAoAAAADAAUAAAAIAAkAAAADAAQAAAD//woAAAACAAUAAAAAAAoAAAACAAUAAAABAAoAAAACAAUAAAACAAoAAAACAAUAAAADAAoAAAACAAUAAAAEAAoAAAACAAUAAAAFAAoAAAACAAUAAAAGAAoAAAACAAUAAAAHAAoAAAACAAUAAAA=")
 tile_set = SubResource("TileSet_54ltr")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("sprites", "absorptionTimer", "cooldownTimer")]
 position = Vector2(176, 288)
 collision_layer = 3
 script = ExtResource("3_7lfjn")
+sprites = NodePath("AnimatedSprite2D")
+absorptionTimer = NodePath("AbsorptionTimer")
+cooldownTimer = NodePath("CooldownTimer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(-1, 1)
@@ -119,6 +141,34 @@ animation = &"down"
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_wij28")
 
-[node name="Wave" parent="." instance=ExtResource("1_y8q0v")]
-position = Vector2(176, 32)
-Orientation = -0.2
+[node name="AbsorptionTimer" type="Timer" parent="Player"]
+process_callback = 0
+wait_time = 0.4
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Player"]
+process_callback = 0
+one_shot = true
+
+[node name="Conductor" type="Node" parent="."]
+script = ExtResource("5_dxyk0")
+intro = SubResource("Resource_h0cdy")
+phrase = SubResource("Resource_ykeed")
+
+[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
+stream = ExtResource("9_8ryr3")
+script = ExtResource("10_rfh3l")
+tickSound = ExtResource("9_8ryr3")
+accentedTickSound = ExtResource("11_esn8m")
+
+[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
+position = Vector2(175, 86)
+script = ExtResource("13_hafbm")
+projectileScene = ExtResource("1_y8q0v")
+conductor = NodePath("../Conductor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Boss"]
+position = Vector2(0, -9)
+texture = ExtResource("13_4k3gs")
