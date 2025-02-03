@@ -11,18 +11,21 @@ public partial class Enemy : StaticBody2D
 	{
 		SpawnProjectile();
 
-		conductor.OnBeat += (int i) => SpawnProjectile();
+		conductor.OnBeat += Beat;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	/// <summary>
+	/// Instead of _Process() let's use Beat() to run logic every beat.
+	/// </summary>
+	private void Beat(int beatIndex)
 	{
+		SpawnProjectile();
 	}
 
 	public void SpawnProjectile()
 	{
 		Projectile projectile = projectileScene.Instantiate() as Projectile;
-		projectile.Orientation = GD.Randf() * 2 - 1;
+		projectile.Orientation = GD.Randf() - 0.5f;
 		AddChild(projectile);
 	}
 }
