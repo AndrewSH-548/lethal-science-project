@@ -81,13 +81,16 @@ public partial class Conductor : Node
 	/// </summary>
 	public void Play()
 	{
-		//SetConductorParameters(currentPhrase);
+		
 		if(beatTimer == null)
 		{
 			beatTimer = new Timer();
 			AddChild(beatTimer);
 			beatTimer.Timeout += () => Beat(); // play another beat AFTER the last beat
 		}
+
+		SetConductorParameters(currentPhrase);
+		rootChannel.Stream = currentPhrase.loop;
 
 		var secondsPerBeat = 60.0f / bpm;
 		GD.Print("seconds per beat: " + secondsPerBeat);
@@ -98,7 +101,7 @@ public partial class Conductor : Node
 		Beat(); // start the first beat - this will play the next ones too
 
 
-		rootChannel.Stream = currentPhrase.loop;
+		//rootChannel.Play();
 
 		IsPlaying = true;
 	}
@@ -188,8 +191,14 @@ public partial class Conductor : Node
 		// start of loop logic
 		if(beatsThisMeasure == 1)
 		{
-			GD.Print("new bar");
-			//GetNode<AudioStreamPlayer>("Channel_1").Play();
+			//GD.Print("new bar");
+
+			if(!pauseQueued)
+			{
+				GD.Print("reloop");
+				//GetNode<AudioStreamPlayer>("Channel_1").Play();
+				rootChannel.Play();
+			}
 		}
 		
 		//  end of loop logic
