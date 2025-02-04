@@ -20,11 +20,18 @@ public partial class Conductor : Node
 	[Export] public Phrase intro;
 	[Export] public Phrase phrase;
 
-	private Phrase[] loopsToPlay; // variable for testing - in future PR this will be dynamic
-	
+	private Phrase currentPhrase;
+
+	private bool pauseQueued = false;
+	public bool IsPlaying {get; set;} = false;
+
+	[Export] private AudioStreamPlayer rootChannel;
 
 	public delegate void BeatEventHandler(int beat);
 	public event BeatEventHandler OnBeat;
+
+	public delegate void VoidEventHandler();
+	public event VoidEventHandler OnFinalBeat;
 
 	// Godot methods
 
@@ -33,22 +40,37 @@ public partial class Conductor : Node
 	{
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
-		beatTimer = new Timer();
-		AddChild(beatTimer);
+		
 
-		loopsToPlay = new Phrase[] {intro, phrase};
+		currentPhrase = phrase;
 
 		OnBeat += PrintBeat;
 
-		Play();
+		//Play();
 	}
 
+	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Input.IsActionJustPressed("P"))
+		if(Input.IsActionJustPressed("P") && IsPlaying)
 		{
 			Pause();
+		}
+		else if(Input.IsActionJustPressed("P") && !IsPlaying)
+		{
+			Play();
+		}
+
+		if(pauseQueued && beatsThisMeasure == 1)
+		{
+			beatTimer.Stop();
+			IsPlaying = false;
+			pauseQueued = false;
+
+			GD.Print("pause conductor");
+			PlayFinalBeat();
+			
 		}
 	}
 
@@ -57,25 +79,36 @@ public partial class Conductor : Node
 	/// <summary>
 	/// Starting off point for the Conductor, call this to make things happen.
 	/// </summary>
-	private void Play()
+	public void Play()
 	{
+		//SetConductorParameters(currentPhrase);
+		if(beatTimer == null)
+		{
+			beatTimer = new Timer();
+			AddChild(beatTimer);
+			beatTimer.Timeout += () => Beat(); // play another beat AFTER the last beat
+		}
+
 		var secondsPerBeat = 60.0f / bpm;
 		GD.Print("seconds per beat: " + secondsPerBeat);
 		beatTimer.WaitTime = secondsPerBeat;
 		beatTimer.OneShot = true; // do not loop automatically
-		beatTimer.Timeout += () => Beat(); // play another beat AFTER the last beat
-		beatTimer.Start();
-
+		//beatTimer.Start();
 		beatsThisMeasure = 1; // start on 1st beat
+		Beat(); // start the first beat - this will play the next ones too
+
+
+		rootChannel.Stream = currentPhrase.loop;
+
+		IsPlaying = true;
 	}
 
 	/// <summary>
 	/// Stops the beat timer, but will play out any more stems until they are done with their loop.
 	/// </summary>
-	private void Pause()
+	public void Pause()
 	{
-		GD.Print("pause conductor");
-		beatTimer.Stop();
+		pauseQueued = true;
 	}
 
 	/// <summary>
@@ -89,16 +122,42 @@ public partial class Conductor : Node
 			clickTrack.PlayTick();
 	}
 
+	/// <summary>
+	/// Plays one more beat after the conductor is finished.
+	/// This is the "first" beat of a measure that doesn't exist,
+	/// but it serves a good purpose for UI and logic cleanup.
+	/// </summary>
+	private void PlayFinalBeat()
+	{
+		// make this final beat timer for cleanup purposes
+		Timer finalBeatTimer = new Timer();
+		AddChild(finalBeatTimer);
+		finalBeatTimer.WaitTime = 60.0 / bpm;
+
+		finalBeatTimer.OneShot = true;
+		finalBeatTimer.Timeout += () => {
+			GD.Print("final beat hit");
+			OnFinalBeat?.Invoke();
+			finalBeatTimer.QueueFree();
+		};
+		finalBeatTimer.Start();
+	}
+
 
 	private void SetNextMeasurePhrase(Phrase phrase)
 	{
 		SetConductorParameters(phrase);
 
-		var channel1 = GetNode<AudioStreamPlayer>("Channel_1");
-
 		// TODO - remove this in future to transition to other loops
-		if(channel1.Stream != loopsToPlay[1].loop)
-			channel1.Stream = loopsToPlay[1].loop;
+		if(rootChannel.Stream != currentPhrase.loop)
+		{
+			GD.Print("play a loop");
+			rootChannel.Stream = currentPhrase.loop;
+		}
+		else
+		{
+			GD.Print("keep the looop");
+		}
 	}
 
 	/// <summary>
@@ -130,14 +189,14 @@ public partial class Conductor : Node
 		if(beatsThisMeasure == 1)
 		{
 			GD.Print("new bar");
-			GetNode<AudioStreamPlayer>("Channel_1").Play();
+			//GetNode<AudioStreamPlayer>("Channel_1").Play();
 		}
 		
 		//  end of loop logic
 		if(beatsThisMeasure >= beatsPerMeasure)
 		{
 			beatsThisMeasure = 0;
-			SetNextMeasurePhrase(loopsToPlay[1]);
+			//SetNextMeasurePhrase(currentPhrase);
 		}
 
 		beatsThisMeasure++;

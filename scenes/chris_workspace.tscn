@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dito24bir3q1a"]
+[gd_scene load_steps=11 format=3 uid="uid://dito24bir3q1a"]
 
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
 [ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="2_adic1"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="2_r7u3d"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="4_6lgvk"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/RhythmDebugUI.cs" id="8_v0ks8"]
 
 [sub_resource type="Resource" id="Resource_jsqs2"]
 script = ExtResource("2_eobf4")
@@ -20,10 +21,11 @@ Key = 0
 
 [node name="Root" type="Node"]
 
-[node name="Conductor" type="Node" parent="."]
+[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("1_e2iuu")
 intro = SubResource("Resource_jsqs2")
 phrase = SubResource("Resource_utnuj")
+rootChannel = NodePath("Channel_1")
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("2_r7u3d")
@@ -32,3 +34,98 @@ tickSound = ExtResource("2_r7u3d")
 accentedTickSound = ExtResource("4_6lgvk")
 
 [node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("conductor")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_v0ks8")
+conductor = NodePath("../../Conductor")
+
+[node name="1" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.314
+anchor_top = 0.646
+anchor_right = 0.339
+anchor_bottom = 0.688
+offset_left = -0.0559998
+offset_top = 0.215973
+offset_right = 0.343994
+offset_bottom = -6.35202
+text = "1
+"
+
+[node name="2" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.405
+anchor_top = 0.646
+anchor_right = 0.43
+anchor_bottom = 0.688
+offset_left = -0.120026
+offset_top = 0.215973
+offset_right = 0.279999
+offset_bottom = -6.35202
+text = "2"
+
+[node name="3" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.503
+anchor_top = 0.646
+anchor_right = 0.528
+anchor_bottom = 0.688
+offset_left = 0.888
+offset_top = 0.215973
+offset_right = 0.287994
+offset_bottom = -6.35202
+text = "3"
+
+[node name="4" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.602
+anchor_top = 0.646
+anchor_right = 0.628
+anchor_bottom = 0.688
+offset_left = 0.191956
+offset_top = 0.215973
+offset_right = -0.112
+offset_bottom = -6.35202
+text = "4
+"
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.273
+anchor_top = 0.375
+anchor_right = 0.331
+anchor_bottom = 0.419
+offset_left = -0.192001
+offset_top = -3.05176e-05
+offset_right = -0.0240173
+offset_bottom = 0.0239868
+text = "Play"
+
+[node name="PauseButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.554
+anchor_top = 0.371
+anchor_right = 0.632
+anchor_bottom = 0.415
+offset_left = -0.0160217
+offset_top = -0.184021
+offset_right = 0.071991
+offset_bottom = -0.160004
+text = "Pause"
+
+[connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="CanvasLayer/Control" method="PressPlay"]
+[connection signal="pressed" from="CanvasLayer/Control/PauseButton" to="CanvasLayer/Control" method="PressPause"]
