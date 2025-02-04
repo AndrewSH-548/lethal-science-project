@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="lethal-science-project"
-run/main_scene="res://scenes/magnus_workspace.tscn"
+run/main_scene="res://scenes/main_game.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 
 [display]
 
-window/size/viewport_width=704
-window/size/viewport_height=704
+window/size/viewport_width=832
+window/size/viewport_height=832
 window/stretch/scale=2.0
 
 [dotnet]

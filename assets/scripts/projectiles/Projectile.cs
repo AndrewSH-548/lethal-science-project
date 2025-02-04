@@ -5,7 +5,11 @@ public partial class Projectile : Area2D
 {
     // Projectile's starting orientation in radians. 0 makes the projectile go straight down.
     [Export] public float Orientation { get; set; } = 0;
-    [Export] protected int Speed = 6;
+    [Export] public int Speed { get; set; } = 6;
+
+    // If enabled, the projectile will always appear upright, and orientation will only affect its movement direction.
+    [Export] bool lockOrientation;
+    public Color GlowColor { get; set; } = Color.FromHtml("FFFFFF");
     protected Vector2 direction;
 
     // Called when the node enters the scene tree for the first time.
@@ -15,9 +19,18 @@ public partial class Projectile : Area2D
         // Ensure negative values are compatible
         if (Orientation < 0) Orientation = Mathf.Pi * 2 + Orientation;
 
-        // -sin as x and cos as y, because the origin is down.
-        Rotation += Orientation;
-        direction = new Vector2(-Mathf.Sin(Orientation) * Speed, Mathf.Cos(Orientation) * Speed);
+        direction = CurveMotion(Orientation);
+
+        // Color the glow
+        GetChild<Sprite2D>(1).Modulate = GlowColor;
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    // Simply moves the projectile in its given direction. May be altered by inherited classes.
+    public override void _Process(double delta)
+    {
+        Position += direction;
+        if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 
     public void OnBodyEntered(Player body)
@@ -28,5 +41,16 @@ public partial class Projectile : Area2D
         }
         //body.Damage();
         QueueFree();
+    }
+
+    protected Vector2 CurveMotion(float rotation)
+    {
+        Rotate(rotation);
+        if (lockOrientation)
+        {
+            GetChild<Sprite2D>(1).GlobalRotation = 0;
+            GetChild<Sprite2D>(2).GlobalRotation = 0;
+        }
+        return new Vector2(-Mathf.Sin(Rotation) * Speed, Mathf.Cos(Rotation) * Speed);
     }
 }
