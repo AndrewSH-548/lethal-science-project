@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qbi14r4ulav3"
-path="res://.godot/imported/Tess.png-6c9cf3c2578182039ee87f5b0150ddab.ctex"
+uid="uid://ccpfyircn7ghx"
+path="res://.godot/imported/wave-glow.png-e5818aea01115d5fb0c1188fbdd5dfe0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tess.png"
-dest_files=["res://.godot/imported/Tess.png-6c9cf3c2578182039ee87f5b0150ddab.ctex"]
+source_file="res://assets/sprites/projectiles/wave-glow.png"
+dest_files=["res://.godot/imported/wave-glow.png-e5818aea01115d5fb0c1188fbdd5dfe0.ctex"]
 
 [params]
 
