@@ -16,6 +16,8 @@ public partial class Conductor : Node
 	[Export] public bool ClickTrackEnabled {get; set;} = true;
 	[Export] public int AccentedBeat {get; set;} = 1;
 
+	[Export] public bool PrintToConsoleEnabled {get; set;} = false; // for debugging
+
 	// rule of thumb - dont go over 20 channels total
 
 	[Export] public Phrase intro;
@@ -234,6 +236,8 @@ public partial class Conductor : Node
 	/// <param name="beat"></param>
 	private void PrintBeat(float beat)
 	{
+		if(!PrintToConsoleEnabled) return;
+		
 		GD.Print("beat: " + beat);
 		GD.Print("whole beats: " + wholeBeatsThisMeasure);
 	}

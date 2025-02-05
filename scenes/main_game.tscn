@@ -150,10 +150,11 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
-[node name="Conductor" type="Node" parent="."]
+[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("4_tsv5s")
 intro = SubResource("Resource_1ghmw")
 phrase = SubResource("Resource_k65tn")
+rootChannel = NodePath("Channel_1")
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("8_yubpw")
