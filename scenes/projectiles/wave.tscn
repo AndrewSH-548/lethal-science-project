@@ -1,20 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://csiuj07ubewhu"]
+[gd_scene load_steps=5 format=3 uid="uid://csiuj07ubewhu"]
 
-[ext_resource type="Script" path="res://assets/scripts/projectiles/Straight.cs" id="1_kvcsj"]
+[ext_resource type="Script" path="res://assets/scripts/projectiles/Projectile.cs" id="1_mk3qo"]
+[ext_resource type="Texture2D" uid="uid://ccpfyircn7ghx" path="res://assets/sprites/projectiles/wave-glow.png" id="2_bn75w"]
 [ext_resource type="Texture2D" uid="uid://ciijaheb44fvw" path="res://assets/sprites/projectiles/wave.png" id="2_u0aa4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4mnq"]
-size = Vector2(42.1053, 19)
+size = Vector2(59.5263, 19)
 
-[node name="Wave" type="CharacterBody2D"]
-position = Vector2(349, 223)
-scale = Vector2(1.52, 1)
-script = ExtResource("1_kvcsj")
+[node name="Wave" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_mk3qo")
 
 [node name="WaveHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_b4mnq")
+
+[node name="WaveGlow" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_bn75w")
 
 [node name="WaveSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_u0aa4")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
