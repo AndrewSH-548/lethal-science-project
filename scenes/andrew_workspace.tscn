@@ -6,3 +6,4 @@
 
 [node name="Diamond" parent="." instance=ExtResource("1_gi0u1")]
 Orientation = -1.0
+lockOrientation = false
