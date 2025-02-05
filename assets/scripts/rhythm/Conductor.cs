@@ -119,7 +119,6 @@ public partial class Conductor : Node
 	private void UpdateBeatRate()
 	{
 		var secondsPerBeatEvent = (60.0 / bpm) * ((double)1/BeatRate);
-		GD.Print("bpm: " + bpm);
 		GD.Print("seconds per beat event: " + secondsPerBeatEvent);
 		beatTimer.WaitTime = secondsPerBeatEvent;
 		beatTimer.OneShot = true; // do not loop automatically
