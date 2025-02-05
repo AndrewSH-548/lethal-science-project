@@ -12,23 +12,34 @@
 
 [node name="Root" type="Node"]
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("3_mfp40")
-
-[node name="PauseManager" type="Node" parent="Node2D"]
+[node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("1_eyjk2")
 
-[node name="Pausemenu" type="CanvasLayer" parent="Node2D/PauseManager"]
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+script = ExtResource("2_5l7qw")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("3_mfp40")
+
+[node name="Control" type="Control" parent="Node2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 744.0
+offset_bottom = 736.0
+
+[node name="Pausemenu" type="CanvasLayer" parent="Node2D/Control"]
 script = ExtResource("2_5l7qw")
 visableOnPause = false
 
-[node name="ColorRect" type="ColorRect" parent="Node2D/PauseManager/Pausemenu"]
+[node name="ColorRect" type="ColorRect" parent="Node2D/Control/Pausemenu"]
 offset_right = 409.0
 offset_bottom = 400.0
 color = Color(0.684842, 0.19404, 0.556889, 1)
 
-[node name="resume" type="TextureButton" parent="Node2D/PauseManager/Pausemenu/ColorRect"]
+[node name="resume" type="TextureButton" parent="Node2D/Control/Pausemenu/ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,14 +50,12 @@ offset_left = -140.5
 offset_top = -109.0
 offset_right = 63.5
 offset_bottom = -43.0
-grow_horizontal = 2
-grow_vertical = 2
 texture_normal = ExtResource("4_bxebd")
 texture_hover = ExtResource("5_76hgk")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="options" type="TextureButton" parent="Node2D/PauseManager/Pausemenu/ColorRect"]
+[node name="options" type="TextureButton" parent="Node2D/Control/Pausemenu/ColorRect"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 176.0
@@ -57,7 +66,7 @@ texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="quit" type="TextureButton" parent="Node2D/PauseManager/Pausemenu/ColorRect"]
+[node name="quit" type="TextureButton" parent="Node2D/Control/Pausemenu/ColorRect"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 269.0
@@ -68,7 +77,7 @@ texture_hover = ExtResource("9_i5e0d")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextEdit" type="TextEdit" parent="Node2D/PauseManager/Pausemenu/ColorRect"]
+[node name="TextEdit" type="TextEdit" parent="Node2D/Control/Pausemenu/ColorRect"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 8.0
@@ -76,17 +85,6 @@ offset_right = 144.0
 offset_bottom = 48.0
 text = "PAUSED"
 
-[node name="PauseMenu" type="CanvasLayer" parent="Node2D/PauseManager"]
-process_mode = 2
-visible = false
-script = ExtResource("2_5l7qw")
-
-[node name="Control" type="Control" parent="Node2D"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 744.0
-offset_bottom = 736.0
-
-[connection signal="pressed" from="Node2D/PauseManager/Pausemenu/ColorRect/resume" to="Node2D" method="_on_resume_pressed"]
-[connection signal="pressed" from="Node2D/PauseManager/Pausemenu/ColorRect/options" to="Node2D" method="_on_options_pressed"]
-[connection signal="pressed" from="Node2D/PauseManager/Pausemenu/ColorRect/quit" to="Node2D" method="_on_quit_pressed"]
+[connection signal="pressed" from="Node2D/Control/Pausemenu/ColorRect/resume" to="Node2D" method="_on_resume_pressed"]
+[connection signal="pressed" from="Node2D/Control/Pausemenu/ColorRect/options" to="Node2D" method="_on_options_pressed"]
+[connection signal="pressed" from="Node2D/Control/Pausemenu/ColorRect/quit" to="Node2D" method="_on_quit_pressed"]
