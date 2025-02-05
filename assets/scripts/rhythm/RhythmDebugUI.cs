@@ -1,6 +1,11 @@
 using Godot;
 using System;
 
+/// <summary>
+/// This class is for use in chris_workspace.tscn.
+/// It displays a few beats and highlights the one that is currently playing.
+/// Good for visualizing the rhythm.
+/// </summary>
 public partial class RhythmDebugUI : Control
 {
 	[Export] Conductor conductor;
@@ -30,21 +35,18 @@ public partial class RhythmDebugUI : Control
 		conductor.OnFinalBeat += ResetColors;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
 	private void Beat(float beatIndex)
 	{
 		ColorOnBeat(beatIndex);
 	}
 
+	/// <summary>
+	/// Highlights the beat number that is currently playing.
+	/// If it is inbetween it will highligh the &.
+	/// </summary>
+	/// <param name="beatThatIsOn"></param>
 	private void ColorOnBeat(float beatThatIsOn)
 	{
-		GD.Print("beat for coloring " + beatThatIsOn);
-
 		if(beatThatIsOn % 1 == 0)
 		{
 			beatLabels[(int)beatThatIsOn].SelfModulate = Colors.Red;
@@ -63,11 +65,11 @@ public partial class RhythmDebugUI : Control
 		{
 			and.SelfModulate = Colors.Red;
 		}
-
-		
-		
 	}
 
+	/// <summary>
+	/// Turns all the beat numbers white if it is off.
+	/// </summary>
 	private void ResetColors()
 	{
 		if(!conductor.IsPlaying)

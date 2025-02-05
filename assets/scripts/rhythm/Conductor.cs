@@ -31,6 +31,7 @@ public partial class Conductor : Node
 	/// <summary>
 	/// The rate at which the beat will play.
 	/// ex. 1 = every beat, 2 = every half beat, 4 = every quarter note.
+	/// Do not set this directly.
 	/// </summary>
 	[Export] public int BeatRate {get; set;} = 1;
 	private int queuedBeatRateChange = 0;
@@ -52,13 +53,12 @@ public partial class Conductor : Node
 
 		OnBeat += PrintBeat;
 
-		//Play();
 	}
 
-	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		// P will toggle the conductor
 		if(Input.IsActionJustPressed("P") && IsPlaying)
 		{
 			Pause();
@@ -68,6 +68,7 @@ public partial class Conductor : Node
 			Play(currentPhrase);
 		}
 
+		// up and down will change the beat rate - applied at end of measure
 		if(Input.IsActionJustPressed("up"))
 		{
 			queuedBeatRateChange += 1;
@@ -80,14 +81,13 @@ public partial class Conductor : Node
 			}
 		}
 
-
+		// pause will take effect at end of measure
 		if(pauseQueued && wholeBeatsThisMeasure == 1)
 		{
 			beatTimer.Stop();
 			IsPlaying = false;
 			pauseQueued = false;
 
-			GD.Print("pause conductor");
 			PlayFinalBeat();
 		}
 	}
@@ -99,8 +99,6 @@ public partial class Conductor : Node
 	/// </summary>
 	public void Play(Phrase entryPhrase)
 	{
-		GD.Print("PLAY");
-		
 		if(beatTimer == null)
 		{
 			beatTimer = new Timer();
@@ -155,14 +153,12 @@ public partial class Conductor : Node
 	/// </summary>
 	private void PlayFinalBeat()
 	{
-		// make this final beat timer for cleanup purposes
 		Timer finalBeatTimer = new Timer();
 		AddChild(finalBeatTimer);
 		finalBeatTimer.WaitTime = 60.0 / bpm;
 
 		finalBeatTimer.OneShot = true;
 		finalBeatTimer.Timeout += () => {
-			GD.Print("final beat hit");
 			OnFinalBeat?.Invoke();
 			finalBeatTimer.QueueFree();
 		};
@@ -192,8 +188,6 @@ public partial class Conductor : Node
 			PlayClickTrack();
 		}
 		
-		//OnBeat?.Invoke(beatEventsThisMeasure / (float)beatsPerMeasure);
-		//GD.Print(beatSubdivisions + " / " + BeatRate + " beat subdivisions");
 		float beat = wholeBeatsThisMeasure + ((float)beatSubdivisions / BeatRate);
 		OnBeat?.Invoke(beat);
 
@@ -210,8 +204,6 @@ public partial class Conductor : Node
 
 			if(!pauseQueued)
 			{
-				GD.Print("reloop");
-				//GetNode<AudioStreamPlayer>("Channel_1").Play();
 				rootChannel.Play();
 			}
 		}
@@ -219,31 +211,22 @@ public partial class Conductor : Node
 		//  end of measure logic
 		if(wholeBeatsThisMeasure == beatsPerMeasure && beatSubdivisions == BeatRate - 1)
 		{
-			GD.Print("END of measure - last note");
-			GD.Print("beat subdivisions true: " + (beatSubdivisions == BeatRate - 1));
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
-
-			//SetNextMeasurePhrase(currentPhrase);
-			//beatTimer.Stop();
 		}
+		// end of beat logic
 		else
 		{
 			beatSubdivisions += 1;
 
-		}
-		
-		if(beatSubdivisions / BeatRate >= 1)
-		{
-			beatSubdivisions = 0;
-			wholeBeatsThisMeasure += 1;
+			if(beatSubdivisions / BeatRate >= 1)
+			{
+				beatSubdivisions = 0;
+				wholeBeatsThisMeasure += 1;
+			}
 		}
 
 		beatTimer.Start();
-		
-		//wholeBeatsThisMeasure = (int)beat;
-
-		
 	}
 
 	/// <summary>
