@@ -10,6 +10,8 @@ public partial class RhythmDebugUI : Control
 	Label beat3;
 	Label beat4;
 
+	Label and;
+
 	private Label[] beatLabels;
 
 	// Called when the node enters the scene tree for the first time.
@@ -19,6 +21,8 @@ public partial class RhythmDebugUI : Control
 		beat2 = GetNode<Label>("2");
 		beat3 = GetNode<Label>("3");
 		beat4 = GetNode<Label>("4");
+
+		and = GetNode<Label>("&");
 
 		beatLabels = new Label[] { null, beat1, beat2, beat3, beat4 };
 
@@ -32,22 +36,35 @@ public partial class RhythmDebugUI : Control
 		
 	}
 
-	private void Beat(int beatIndex)
+	private void Beat(float beatIndex)
 	{
 		ColorOnBeat(beatIndex);
 	}
 
-	private void ColorOnBeat(int beatThatIsOn)
+	private void ColorOnBeat(float beatThatIsOn)
 	{
-		beatLabels[beatThatIsOn].SelfModulate = Colors.Red;
+		GD.Print("beat for coloring " + beatThatIsOn);
 
-		foreach (Label label in beatLabels)
+		if(beatThatIsOn % 1 == 0)
 		{
-			if (label != null && label != beatLabels[beatThatIsOn])
+			beatLabels[(int)beatThatIsOn].SelfModulate = Colors.Red;
+
+			foreach (Label label in beatLabels)
 			{
-				label.SelfModulate = Colors.White;
+				if (label != null && label != beatLabels[(int)beatThatIsOn])
+				{
+					label.SelfModulate = Colors.White;
+				}
 			}
+
+			and.SelfModulate = Colors.White;
 		}
+		else
+		{
+			and.SelfModulate = Colors.Red;
+		}
+
+		
 		
 	}
 
@@ -70,7 +87,7 @@ public partial class RhythmDebugUI : Control
 	/// </summary>
 	public void PressPlay()
 	{
-		conductor.Play();
+		conductor.Play(conductor.phrase);
 	}
 
 	public void PressPause()

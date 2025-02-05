@@ -17,7 +17,7 @@ public partial class Enemy : StaticBody2D
 	/// <summary>
 	/// Instead of _Process() let's use Beat() to run logic every beat.
 	/// </summary>
-	private void Beat(int beatIndex)
+	private void Beat(float beatIndex)
 	{
 		SpawnProjectile();
 	}
