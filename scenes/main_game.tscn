@@ -1,0 +1,176 @@
+[gd_scene load_steps=23 format=4 uid="uid://maknoij2sh4o"]
+
+[ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
+[ext_resource type="Script" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
+[ext_resource type="Texture2D" uid="uid://36lod8i17k2n" path="res://assets/sprites/demo-player.png" id="3_0vpfr"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="4_tsv5s"]
+[ext_resource type="AudioStream" uid="uid://bjq3lnp4m5626" path="res://assets/sound-fx/counting-in.mp3" id="5_03muf"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="6_8sxkw"]
+[ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="7_sjyxo"]
+[ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="8_yubpw"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="9_tvib1"]
+[ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="10_hjm76"]
+[ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="11_5og6n"]
+[ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
+[ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
+texture = ExtResource("1_0uvb2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:5/0 = 0
+2:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_aaalo"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_l2epv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etyni"]
+atlas = ExtResource("3_0vpfr")
+region = Rect2(0, 0, 25, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckf35"]
+atlas = ExtResource("3_0vpfr")
+region = Rect2(25, 0, 25, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10ld0"]
+atlas = ExtResource("3_0vpfr")
+region = Rect2(50, 0, 25, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwecv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etyni")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckf35")
+}],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10ld0")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_1ghmw"]
+script = ExtResource("6_8sxkw")
+loop = ExtResource("5_03muf")
+Key = 0
+
+[sub_resource type="Resource" id="Resource_k65tn"]
+script = ExtResource("6_8sxkw")
+loop = ExtResource("7_sjyxo")
+Key = 0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(64, 0)
+tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAACAAEAAAAIAAMAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAACAAMAAAAIAAcAAAACAAMAAAAIAAgAAAACAAMAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAMAAAAIAAoAAAACAAMAAAAIAAkAAAACAAMAAAD//woAAAACAAMAAAAAAAoAAAACAAMAAAABAAoAAAACAAMAAAACAAoAAAACAAMAAAADAAoAAAACAAMAAAAEAAoAAAACAAMAAAAFAAoAAAACAAMAAAAGAAoAAAACAAMAAAAHAAoAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAMAAAAJAAoAAAACAAMAAAD//wsAAAACAAMAAAAAAAsAAAACAAMAAAABAAsAAAACAAMAAAACAAsAAAACAAMAAAADAAsAAAACAAMAAAAEAAsAAAACAAMAAAAFAAsAAAACAAMAAAAGAAsAAAACAAMAAAAHAAsAAAACAAMAAAAIAAsAAAACAAMAAAAJAAsAAAACAAMAAAD+/wsAAAAAAAMAAAD+/wwAAAAAAAUAAAD//wwAAAABAAUAAAAAAAwAAAABAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAADAAUAAAAKAAsAAAADAAQAAAAKAAoAAAADAAQAAAAKAAkAAAADAAQAAAAKAAgAAAADAAQAAAAKAAcAAAADAAQAAAAKAAYAAAADAAQAAAAKAAUAAAADAAQAAAAKAAQAAAADAAQAAAAKAAMAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAKAAAAAAADAAAAAAAJAAAAAAACAAAAAAAJAAMAAAACAAEAAAAJAAIAAAACAAEAAAAJAAEAAAACAAEAAAAJAAQAAAACAAIAAAA=")
+tile_set = SubResource("TileSet_aaalo")
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("sprites", "absorptionTimer", "cooldownTimer")]
+position = Vector2(208, 288)
+collision_layer = 3
+script = ExtResource("2_s6vgu")
+sprites = NodePath("AnimatedSprite2D")
+absorptionTimer = NodePath("AbsorptionTimer")
+cooldownTimer = NodePath("CooldownTimer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_dwecv")
+animation = &"up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_sehyx")
+
+[node name="AbsorptionTimer" type="Timer" parent="Player"]
+process_callback = 0
+wait_time = 0.4
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Player"]
+process_callback = 0
+one_shot = true
+
+[node name="Conductor" type="Node" parent="."]
+script = ExtResource("4_tsv5s")
+intro = SubResource("Resource_1ghmw")
+phrase = SubResource("Resource_k65tn")
+
+[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
+stream = ExtResource("8_yubpw")
+script = ExtResource("9_tvib1")
+tickSound = ExtResource("8_yubpw")
+accentedTickSound = ExtResource("10_hjm76")
+
+[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
+position = Vector2(207, 85)
+script = ExtResource("11_5og6n")
+projectileScene = ExtResource("12_4he15")
+conductor = NodePath("../Conductor")
+projectileColor = Color(1, 1, 0, 1)
+projectileSpeed = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="Boss"]
+position = Vector2(0, -9)
+texture = ExtResource("13_ymsut")
