@@ -23,6 +23,7 @@ Key = 0
 
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("1_e2iuu")
+PrintToConsoleEnabled = true
 intro = SubResource("Resource_jsqs2")
 phrase = SubResource("Resource_utnuj")
 rootChannel = NodePath("Channel_1")

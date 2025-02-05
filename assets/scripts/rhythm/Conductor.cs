@@ -73,14 +73,11 @@ public partial class Conductor : Node
 		// up and down will change the beat rate - applied at end of measure
 		if(Input.IsActionJustPressed("up"))
 		{
-			queuedBeatRateChange += 1;
+			IncrementBeatRate();
 		}
 		else if (Input.IsActionJustPressed("down"))
 		{
-			if(BeatRate - queuedBeatRateChange > 1)
-			{
-				queuedBeatRateChange -= 1;
-			}
+			DecrementBeatRate();
 		}
 
 		// pause will take effect at end of measure
@@ -134,6 +131,22 @@ public partial class Conductor : Node
 	public void Pause()
 	{
 		pauseQueued = true;
+	}
+
+	/// <summary>
+	/// Public facing functions to queue up a new beat rate.
+	/// </summary>
+	public void IncrementBeatRate()
+	{
+		queuedBeatRateChange += 1;
+	}
+
+	public void DecrementBeatRate()
+	{
+		if(BeatRate - queuedBeatRateChange > 1)
+		{
+			queuedBeatRateChange -= 1;
+		}
 	}
 
 	/// <summary>
