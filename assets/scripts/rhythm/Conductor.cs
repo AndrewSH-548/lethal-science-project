@@ -71,11 +71,11 @@ public partial class Conductor : Node
 		}
 
 		// up and down will change the beat rate - applied at end of measure
-		if(Input.IsActionJustPressed("up"))
+		if(Input.IsActionJustPressed("addBeat"))
 		{
 			IncrementBeatRate();
 		}
-		else if (Input.IsActionJustPressed("down"))
+		else if (Input.IsActionJustPressed("subtractBeat"))
 		{
 			DecrementBeatRate();
 		}

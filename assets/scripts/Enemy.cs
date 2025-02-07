@@ -7,6 +7,8 @@ public partial class Enemy : StaticBody2D
 	[Export] Conductor conductor;
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
+	[Export] string shootingGuide;
+	[Export] int guidePhrase;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,7 +21,9 @@ public partial class Enemy : StaticBody2D
 	/// </summary>
 	private void Beat(float beatIndex)
 	{
-		SpawnProjectile();
+		GD.Print(beatIndex * conductor.BeatRate - conductor.BeatRate);
+		if (shootingGuide[Mathf.FloorToInt(beatIndex * conductor.BeatRate - conductor.BeatRate)] == '1')
+			SpawnProjectile();
 	}
 
 	public void SpawnProjectile()
