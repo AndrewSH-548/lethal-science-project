@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LoopSong" load_steps=2 format=3 uid="uid://bqcuxufur7pe4"]
+
+[ext_resource type="Script" path="res://assets/scripts/rhythm/LoopSong.cs" id="1_dlux6"]
+
+[resource]
+script = ExtResource("1_dlux6")
+LoopForever = true
+Phrases = Array[Object]([null])

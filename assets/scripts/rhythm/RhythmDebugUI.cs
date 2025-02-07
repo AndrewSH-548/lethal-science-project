@@ -17,6 +17,8 @@ public partial class RhythmDebugUI : Control
 
 	Label and;
 
+	MenuButton menuSelect;
+
 	private Label[] beatLabels;
 
 	// Called when the node enters the scene tree for the first time.
@@ -33,6 +35,11 @@ public partial class RhythmDebugUI : Control
 
 		conductor.OnBeat += Beat;
 		conductor.OnFinalBeat += ResetColors;
+
+		menuSelect = GetNode<MenuButton>("TrackSelect");
+		PopulateTrackChoices();
+
+		menuSelect.AboutToPopup += UpdateCurrentTrackText;
 	}
 
 	private void Beat(float beatIndex)
@@ -95,5 +102,16 @@ public partial class RhythmDebugUI : Control
 	public void PressPause()
 	{
 		conductor.Pause();
+	}
+
+	private void PopulateTrackChoices()
+	{
+		UpdateCurrentTrackText();
+
+	}
+
+	private void UpdateCurrentTrackText()
+	{
+		//menuSelect.Text = "Current track: " + conductor.currentPhrase.loop.ResourceName;
 	}
 }

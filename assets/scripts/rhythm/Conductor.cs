@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 
 public partial class Conductor : Node
@@ -23,7 +24,11 @@ public partial class Conductor : Node
 	[Export] public Phrase intro;
 	[Export] public Phrase phrase;
 
-	private Phrase currentPhrase;
+	[Export] public Phrase[] Loops {get; set;} = new Phrase[0];
+
+	[Export] public Song song;
+	private int currentPhraseIndex = 0;
+	private int currentPhraseRepetitions = 0;
 
 	private bool pauseQueued = false;
 	public bool IsPlaying {get; set;} = false;
@@ -51,8 +56,6 @@ public partial class Conductor : Node
 	{
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
-		currentPhrase = phrase;
-
 		OnBeat += PrintBeat;
 
 	}
@@ -67,7 +70,7 @@ public partial class Conductor : Node
 		}
 		else if(Input.IsActionJustPressed("P") && !IsPlaying)
 		{
-			Play(currentPhrase);
+			Play(song.Phrases[currentPhraseIndex]);
 		}
 
 		// up and down will change the beat rate - applied at end of measure
@@ -219,6 +222,7 @@ public partial class Conductor : Node
 			if(!pauseQueued)
 			{
 				rootChannel.Play();
+				GD.Print("the channel fired");
 			}
 		}
 

@@ -111,11 +111,13 @@ size = Vector2(32, 32)
 script = ExtResource("6_8sxkw")
 loop = ExtResource("5_03muf")
 Key = 0
+Repetitions = 0
 
 [sub_resource type="Resource" id="Resource_k65tn"]
 script = ExtResource("6_8sxkw")
 loop = ExtResource("7_sjyxo")
 Key = 0
+Repetitions = 0
 
 [node name="Node2D" type="Node2D"]
 

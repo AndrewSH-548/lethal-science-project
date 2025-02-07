@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dito24bir3q1a"]
+[gd_scene load_steps=12 format=3 uid="uid://dito24bir3q1a"]
 
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
 [ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="2_adic1"]
@@ -7,17 +7,20 @@
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="2_r7u3d"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="4_6lgvk"]
+[ext_resource type="Resource" uid="uid://bqcuxufur7pe4" path="res://scenes/songs/funkyDrummer.tres" id="5_acxja"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/RhythmDebugUI.cs" id="8_v0ks8"]
 
 [sub_resource type="Resource" id="Resource_jsqs2"]
 script = ExtResource("2_eobf4")
 loop = ExtResource("2_fd2lt")
 Key = 0
+Repetitions = 0
 
 [sub_resource type="Resource" id="Resource_utnuj"]
 script = ExtResource("2_eobf4")
 loop = ExtResource("2_adic1")
 Key = 0
+Repetitions = 0
 
 [node name="Root" type="Node"]
 
@@ -26,6 +29,7 @@ script = ExtResource("1_e2iuu")
 PrintToConsoleEnabled = true
 intro = SubResource("Resource_jsqs2")
 phrase = SubResource("Resource_utnuj")
+song = ExtResource("5_acxja")
 rootChannel = NodePath("Channel_1")
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
@@ -140,6 +144,21 @@ offset_top = -0.184021
 offset_right = 0.071991
 offset_bottom = -0.160004
 text = "Pause"
+
+[node name="TrackSelect" type="MenuButton" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.105
+anchor_top = 0.105
+anchor_right = 0.367
+anchor_bottom = 0.142
+offset_left = -0.360001
+offset_top = -0.360001
+offset_right = -90.344
+offset_bottom = -0.144005
+text = "Current Track:"
+item_count = 1
+popup/item_0/text = "first one"
 
 [connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="CanvasLayer/Control" method="PressPlay"]
 [connection signal="pressed" from="CanvasLayer/Control/PauseButton" to="CanvasLayer/Control" method="PressPause"]
