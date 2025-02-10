@@ -21,14 +21,11 @@ public partial class Conductor : Node
 
 	// rule of thumb - dont go over 20 channels total
 
-	[Export] public Phrase intro;
-	[Export] public Phrase phrase;
-
-	[Export] public Phrase[] Loops {get; set;} = new Phrase[0];
-
 	[Export] public Song song;
 	private int currentPhraseIndex = 0;
 	private int currentPhraseRepetitions = 0;
+	private bool phraseQueued = false;
+	private Phrase nextPhrase;
 
 	private bool pauseQueued = false;
 	public bool IsPlaying {get; set;} = false;
@@ -42,6 +39,7 @@ public partial class Conductor : Node
 	/// </summary>
 	[Export] public int BeatRate {get; set;} = 1;
 	private int queuedBeatRateChange = 0;
+	public event VoidEventHandler OnBeatRateChanged;
 
 	public delegate void BeatEventHandler(float beat); // beats can be decimals (1/2 beat, 1/4 beat)
 	public event BeatEventHandler OnBeat;
@@ -126,6 +124,8 @@ public partial class Conductor : Node
 		beatTimer.OneShot = true; // do not loop automatically
 		wholeBeatsThisMeasure = 1; // start on 1st beat
 		beatSubdivisions = 0;
+
+		OnBeatRateChanged?.Invoke();
 	}
 
 	/// <summary>
@@ -188,11 +188,12 @@ public partial class Conductor : Node
 	/// <param name="phrase"></param>
 	private void SetConductorParameters(Phrase phrase)
 	{
-		beatsPerMeasure = phrase.loop.BeatCount;
+		beatsPerMeasure = phrase.Beats;
 		bpm = phrase.loop.Bpm;
 		key = phrase.Key;
 
 		beatTimer.WaitTime = 60.0 / bpm;
+		
 	}
 
 	/// <summary>
@@ -221,8 +222,18 @@ public partial class Conductor : Node
 
 			if(!pauseQueued)
 			{
+				if(phraseQueued)
+				{
+					SetConductorParameters(nextPhrase);
+					UpdateBeatRate();
+
+					rootChannel.Stream = nextPhrase.loop;
+					phraseQueued = false;
+				}
+
 				rootChannel.Play();
 				GD.Print("the channel fired");
+				//currentPhraseIndex++;
 			}
 		}
 
@@ -231,6 +242,14 @@ public partial class Conductor : Node
 		{
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
+
+			GD.Print("the measure has ended");
+			// loop back to beginning
+			if(currentPhraseIndex >= song.Phrases.Length)
+			{
+				currentPhraseIndex = 0;
+			}
+			QueuePhrase(song.Phrases[currentPhraseIndex++]);
 		}
 		// end of beat logic
 		else
@@ -245,6 +264,21 @@ public partial class Conductor : Node
 		}
 
 		beatTimer.Start();
+	}
+
+	private void QueuePhrase(Phrase queuedPhrase)
+	{
+		GD.Print("NEW PHRASE QUEUED: " + queuedPhrase.ResourceName);
+
+		phraseQueued = true;
+		nextPhrase = queuedPhrase;
+
+		
+
+		//SetConductorParameters(nextPhrase);
+		//rootChannel.Stream = nextPhrase.loop;
+
+		//UpdateBeatRate();
 	}
 
 	/// <summary>

@@ -96,7 +96,7 @@ public partial class RhythmDebugUI : Control
 	/// </summary>
 	public void PressPlay()
 	{
-		conductor.Play(conductor.phrase);
+		conductor.Play(conductor.song.Phrases[0]);
 	}
 
 	public void PressPause()
