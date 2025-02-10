@@ -27,6 +27,7 @@ public partial class Conductor : Node
 
 	private bool pauseQueued = false;
 	public bool IsPlaying {get; set;} = false;
+	public int BeatsPerMeasure { get { return beatsPerMeasure; } }
 
 	[Export] private AudioStreamPlayer rootChannel;
 

@@ -12,7 +12,6 @@ public partial class Curve : Projectile
     {
 
         direction = CurveMotion((float)delta * rotationalDirection);
-        Position += direction;
 
         base._Process(delta);
     }
