@@ -17,7 +17,7 @@ public partial class RhythmDebugUI : Control
 
 	Label and;
 
-	MenuButton menuSelect;
+	Label currentPhraseName;
 
 	private Label[] beatLabels;
 
@@ -33,18 +33,17 @@ public partial class RhythmDebugUI : Control
 
 		beatLabels = new Label[] { null, beat1, beat2, beat3, beat4 };
 
+		currentPhraseName = GetNode<Label>("CurrentPhraseName");
+
 		conductor.OnBeat += Beat;
 		conductor.OnFinalBeat += ResetColors;
-
-		menuSelect = GetNode<MenuButton>("TrackSelect");
-		PopulateTrackChoices();
-
-		menuSelect.AboutToPopup += UpdateCurrentTrackText;
 	}
 
 	private void Beat(float beatIndex)
 	{
 		ColorOnBeat(beatIndex);
+
+		currentPhraseName.Text = conductor.CurrentPhrase.Description;
 	}
 
 	/// <summary>
@@ -102,16 +101,5 @@ public partial class RhythmDebugUI : Control
 	public void PressPause()
 	{
 		conductor.Pause();
-	}
-
-	private void PopulateTrackChoices()
-	{
-		UpdateCurrentTrackText();
-
-	}
-
-	private void UpdateCurrentTrackText()
-	{
-		//menuSelect.Text = "Current track: " + conductor.currentPhrase.loop.ResourceName;
 	}
 }

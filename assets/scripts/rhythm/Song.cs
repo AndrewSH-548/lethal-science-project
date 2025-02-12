@@ -1,7 +1,8 @@
 using Godot;
 using Godot.Collections;
 
-public abstract partial class Song : Resource
+[GlobalClass]
+public partial class Song : Resource
 {
     [Export] public Phrase[] Phrases {get; set; }
 

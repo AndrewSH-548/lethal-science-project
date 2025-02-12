@@ -21,6 +21,7 @@ public partial class Conductor : Node
 	// rule of thumb - dont go over 20 channels total
 
 	[Export] public Song song;
+	public Phrase CurrentPhrase => song.Phrases[currentPhraseIndex- 1];
 	private int currentPhraseIndex = 1;
 	private int currentPhraseRepetitions = 0;
 	private bool phraseQueued = false;
@@ -107,6 +108,8 @@ public partial class Conductor : Node
 
 		SetConductorParameters(entryPhrase);
 		rootChannel.Stream = entryPhrase.loop;
+
+		currentPhraseRepetitions = entryPhrase.Repetitions;
 
 		UpdateBeatRate();
 		Beat(); // start the first beat - this will play the next ones too
@@ -248,12 +251,22 @@ public partial class Conductor : Node
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
 
-			// loop back to beginning
+			// loop back to beginning if all phrases have been played
 			if(currentPhraseIndex >= song.Phrases.Length)
 			{
 				currentPhraseIndex = 0;
 			}
-			QueuePhrase(song.Phrases[currentPhraseIndex++]);
+
+			// handle phrase repeating or queueing the next one
+			if(currentPhraseRepetitions > 0)
+			{
+				currentPhraseRepetitions -= 1;
+			}
+			else
+			{
+				QueuePhrase(song.Phrases[currentPhraseIndex++]);
+				currentPhraseRepetitions = nextPhrase.Repetitions;
+			}
 		}
 		// end of beat logic
 		else
@@ -276,8 +289,6 @@ public partial class Conductor : Node
 	/// <param name="queuedPhrase"></param>
 	private void QueuePhrase(Phrase queuedPhrase)
 	{
-		if(PrintToConsoleEnabled) GD.Print("queue phrase with description: " + queuedPhrase.Description);
-
 		phraseQueued = true;
 		nextPhrase = queuedPhrase;
 	}
