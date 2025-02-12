@@ -21,8 +21,8 @@ public partial class Conductor : Node
 	// rule of thumb - dont go over 20 channels total
 
 	[Export] public Song song;
-	public Phrase CurrentPhrase => song.Phrases[currentPhraseIndex- 1];
-	private int currentPhraseIndex = 1;
+	public Phrase CurrentPhrase => song.Phrases[currentPhraseIndex];
+	private int currentPhraseIndex = 0;
 	private int currentPhraseRepetitions = 0;
 	private bool phraseQueued = false;
 	private Phrase nextPhrase;
@@ -123,8 +123,8 @@ public partial class Conductor : Node
 	/// </summary>
 	public void Play()
 	{
-		currentPhraseIndex = 1;
-		Play(song.Phrases[0]);
+		currentPhraseIndex = 0;
+		Play(song.Phrases[currentPhraseIndex]);
 	}
 
 	/// <summary>
@@ -252,11 +252,7 @@ public partial class Conductor : Node
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
 
-			// loop back to beginning if all phrases have been played
-			if(currentPhraseIndex >= song.Phrases.Length)
-			{
-				currentPhraseIndex = 0;
-			}
+			
 
 			// handle phrase repeating or queueing the next one
 			if(currentPhraseRepetitions > 0)
@@ -265,7 +261,17 @@ public partial class Conductor : Node
 			}
 			else
 			{
-				QueuePhrase(song.Phrases[currentPhraseIndex++]);
+				// loop back to beginning if all phrases have been played
+				if(currentPhraseIndex >= song.Phrases.Length - 1)
+				{
+					currentPhraseIndex = 0;
+				}
+				else
+				{
+					currentPhraseIndex += 1;
+				}
+
+				QueuePhrase(song.Phrases[currentPhraseIndex]);
 				currentPhraseRepetitions = nextPhrase.Repetitions;
 			}
 		}
