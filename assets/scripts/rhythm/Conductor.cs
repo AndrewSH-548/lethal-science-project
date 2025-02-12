@@ -114,6 +114,19 @@ public partial class Conductor : Node
 		IsPlaying = true;
 	}
 
+	/// <summary>
+	/// Always plays from the start of the song.
+	/// </summary>
+	public void Play()
+	{
+		currentPhraseIndex = 1;
+		Play(song.Phrases[0]);
+	}
+
+	/// <summary>
+	/// Adjusts the beat timer to the new bpm. Also takes into account the BeatRate.
+	/// BeatRate can split whole notes into smaller subdivisions.
+	/// </summary>
 	private void UpdateBeatRate()
 	{
 		var secondsPerBeatEvent = (60.0 / bpm) * ((double)1/BeatRate);
@@ -127,7 +140,7 @@ public partial class Conductor : Node
 	}
 
 	/// <summary>
-	/// Stops the beat timer, but will play out any more stems until they are done with their loop.
+	/// Stops the beat timer, but will finish playing phrase until the loop is done.
 	/// </summary>
 	public void Pause()
 	{
@@ -189,9 +202,6 @@ public partial class Conductor : Node
 		beatsPerMeasure = phrase.Beats;
 		bpm = phrase.loop.Bpm;
 		key = phrase.Key;
-
-		beatTimer.WaitTime = 60.0 / bpm;
-		
 	}
 
 	/// <summary>
@@ -210,7 +220,6 @@ public partial class Conductor : Node
 		// start of new measure logic
 		if(beat == 1)
 		{
-
 			if(queuedBeatRateChange != 0)
 			{
 				BeatRate += queuedBeatRateChange;
@@ -230,8 +239,6 @@ public partial class Conductor : Node
 				}
 
 				rootChannel.Play();
-				GD.Print("the channel fired");
-				//currentPhraseIndex++;
 			}
 		}
 
@@ -241,11 +248,9 @@ public partial class Conductor : Node
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
 
-			GD.Print("the measure has ended");
 			// loop back to beginning
 			if(currentPhraseIndex >= song.Phrases.Length)
 			{
-				GD.Print("looop back");
 				currentPhraseIndex = 0;
 			}
 			QueuePhrase(song.Phrases[currentPhraseIndex++]);
@@ -265,13 +270,16 @@ public partial class Conductor : Node
 		beatTimer.Start();
 	}
 
+	/// <summary>
+	/// Sets a phrase to be played at the start of the next measure.
+	/// </summary>
+	/// <param name="queuedPhrase"></param>
 	private void QueuePhrase(Phrase queuedPhrase)
 	{
-		GD.Print("queue phrase with description: " + queuedPhrase.Description);
+		if(PrintToConsoleEnabled) GD.Print("queue phrase with description: " + queuedPhrase.Description);
 
 		phraseQueued = true;
 		nextPhrase = queuedPhrase;
-
 	}
 
 	/// <summary>
