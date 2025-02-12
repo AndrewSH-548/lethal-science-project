@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://b2pa7q0i3g6l6"]
+[gd_scene load_steps=2 format=3 uid="uid://b2pa7q0i3g6l6"]
+
+[ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="1_gi0u1"]
 
 [node name="Root" type="Node"]
+
+[node name="Diamond" parent="." instance=ExtResource("1_gi0u1")]
+Orientation = -1.0
+lockOrientation = false
