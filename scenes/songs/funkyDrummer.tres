@@ -8,6 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_caenc"]
 script = ExtResource("2_g4xde")
+Description = "taiko1"
 loop = ExtResource("1_tdjv3")
 Key = 0
 Repetitions = 0
@@ -15,6 +16,7 @@ Beats = 4
 
 [sub_resource type="Resource" id="Resource_ovya7"]
 script = ExtResource("2_g4xde")
+Description = "funky drummer"
 loop = ExtResource("1_2qwjt")
 Key = 0
 Repetitions = 0
@@ -22,6 +24,7 @@ Beats = 4
 
 [sub_resource type="Resource" id="Resource_0qleh"]
 script = ExtResource("2_g4xde")
+Description = "taiko least intense"
 loop = ExtResource("4_jn70u")
 Key = 0
 Repetitions = 0

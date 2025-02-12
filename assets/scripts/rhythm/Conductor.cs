@@ -1,4 +1,3 @@
-using System.Linq;
 using Godot;
 
 public partial class Conductor : Node
@@ -22,7 +21,7 @@ public partial class Conductor : Node
 	// rule of thumb - dont go over 20 channels total
 
 	[Export] public Song song;
-	private int currentPhraseIndex = 0;
+	private int currentPhraseIndex = 1;
 	private int currentPhraseRepetitions = 0;
 	private bool phraseQueued = false;
 	private Phrase nextPhrase;
@@ -55,7 +54,6 @@ public partial class Conductor : Node
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
 		OnBeat += PrintBeat;
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -119,7 +117,7 @@ public partial class Conductor : Node
 	private void UpdateBeatRate()
 	{
 		var secondsPerBeatEvent = (60.0 / bpm) * ((double)1/BeatRate);
-		GD.Print("seconds per beat event: " + secondsPerBeatEvent);
+		if(PrintToConsoleEnabled) GD.Print("seconds per beat event: " + secondsPerBeatEvent);
 		beatTimer.WaitTime = secondsPerBeatEvent;
 		beatTimer.OneShot = true; // do not loop automatically
 		wholeBeatsThisMeasure = 1; // start on 1st beat
@@ -247,6 +245,7 @@ public partial class Conductor : Node
 			// loop back to beginning
 			if(currentPhraseIndex >= song.Phrases.Length)
 			{
+				GD.Print("looop back");
 				currentPhraseIndex = 0;
 			}
 			QueuePhrase(song.Phrases[currentPhraseIndex++]);
@@ -268,17 +267,11 @@ public partial class Conductor : Node
 
 	private void QueuePhrase(Phrase queuedPhrase)
 	{
-		GD.Print("NEW PHRASE QUEUED: " + queuedPhrase.ResourceName);
+		GD.Print("queue phrase with description: " + queuedPhrase.Description);
 
 		phraseQueued = true;
 		nextPhrase = queuedPhrase;
 
-		
-
-		//SetConductorParameters(nextPhrase);
-		//rootChannel.Stream = nextPhrase.loop;
-
-		//UpdateBeatRate();
 	}
 
 	/// <summary>
