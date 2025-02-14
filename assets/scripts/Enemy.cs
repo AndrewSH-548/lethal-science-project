@@ -5,6 +5,11 @@ public partial class Enemy : StaticBody2D
 {
 	[Export] PackedScene projectileScene;
 	[Export] Conductor conductor;
+
+	int calmMax = 50;
+	int calmCurrent = 0;
+	[Export] ProgressBar calmMeter;
+
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
 	[Export] string shootingGuide;
@@ -16,6 +21,8 @@ public partial class Enemy : StaticBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		calmMeter.MaxValue = calmMax;
+
 		conductor.OnBeat += Beat;
 		ResetGuide();
 	}
@@ -49,4 +56,15 @@ public partial class Enemy : StaticBody2D
         guideLength = Mathf.FloorToInt(shootingGuide.Length / conductor.BeatsPerMeasure - 1);
 		currentMeasure = 0;
 	}
+
+	public void Pacify()
+	{
+		calmCurrent += 5;
+		UpdateCalmness();
+	}
+
+	private void UpdateCalmness()
+	{
+        calmMeter.Value = calmCurrent;
+    }
 }

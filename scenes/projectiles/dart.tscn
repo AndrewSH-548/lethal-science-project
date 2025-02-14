@@ -11,6 +11,7 @@ radius = 22.0227
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_sfgvy")
+Damage = 10
 
 [node name="DartHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)

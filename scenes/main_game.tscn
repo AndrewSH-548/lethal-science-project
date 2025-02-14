@@ -206,11 +206,11 @@ position = Vector2(64, 0)
 tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAACAAEAAAAIAAMAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAACAAMAAAAIAAcAAAACAAMAAAAIAAgAAAACAAMAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAMAAAAIAAoAAAACAAMAAAAIAAkAAAACAAMAAAD//woAAAACAAMAAAAAAAoAAAACAAMAAAABAAoAAAACAAMAAAACAAoAAAACAAMAAAADAAoAAAACAAMAAAAEAAoAAAACAAMAAAAFAAoAAAACAAMAAAAGAAoAAAACAAMAAAAHAAoAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAMAAAAJAAoAAAACAAMAAAD//wsAAAACAAMAAAAAAAsAAAACAAMAAAABAAsAAAACAAMAAAACAAsAAAACAAMAAAADAAsAAAACAAMAAAAEAAsAAAACAAMAAAAFAAsAAAACAAMAAAAGAAsAAAACAAMAAAAHAAsAAAACAAMAAAAIAAsAAAACAAMAAAAJAAsAAAACAAMAAAD+/wsAAAAAAAMAAAD+/wwAAAAAAAUAAAD//wwAAAABAAUAAAAAAAwAAAABAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAADAAUAAAAKAAsAAAADAAQAAAAKAAoAAAADAAQAAAAKAAkAAAADAAQAAAAKAAgAAAADAAQAAAAKAAcAAAADAAQAAAAKAAYAAAADAAQAAAAKAAUAAAADAAQAAAAKAAQAAAADAAQAAAAKAAMAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAKAAAAAAADAAAAAAAJAAAAAAACAAAAAAAJAAMAAAACAAEAAAAJAAIAAAACAAEAAAAJAAEAAAACAAEAAAAJAAQAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_aaalo")
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("sprites", "absorptionTimer", "cooldownTimer")]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar", "absorptionTimer", "cooldownTimer")]
 position = Vector2(208, 288)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
-sprites = NodePath("AnimatedSprite2D")
+healthBar = NodePath("../UI Elements/PlayerHealth")
 absorptionTimer = NodePath("AbsorptionTimer")
 cooldownTimer = NodePath("CooldownTimer")
 
@@ -218,7 +218,7 @@ cooldownTimer = NodePath("CooldownTimer")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
 animation = &"down"
-frame_progress = 0.0443497
+frame_progress = 0.829952
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
@@ -233,26 +233,12 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
-[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
-script = ExtResource("4_tsv5s")
-PrintToConsoleEnabled = true
-intro = SubResource("Resource_1ghmw")
-phrase = SubResource("Resource_k65tn")
-rootChannel = NodePath("Channel_1")
-
-[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
-stream = ExtResource("8_yubpw")
-script = ExtResource("9_tvib1")
-tickSound = ExtResource("8_yubpw")
-accentedTickSound = ExtResource("10_hjm76")
-
-[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
-
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
 projectileScene = ExtResource("12_4he15")
-conductor = NodePath("../Conductor")
+conductor = NodePath("../UI Elements/Conductor")
+calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
 shootingGuide = "110110110100"
@@ -260,3 +246,38 @@ shootingGuide = "110110110100"
 [node name="Sprite2D" type="Sprite2D" parent="Boss"]
 position = Vector2(0, -9)
 texture = ExtResource("13_ymsut")
+
+[node name="UI Elements" type="Node" parent="."]
+
+[node name="PlayerHealth" type="ProgressBar" parent="UI Elements"]
+modulate = Color(1, 0.26, 0.432666, 1)
+offset_left = 31.0
+offset_top = 388.0
+offset_right = 385.0
+offset_bottom = 415.0
+max_value = 10.0
+step = 1.0
+show_percentage = false
+
+[node name="BossCalmness" type="ProgressBar" parent="UI Elements"]
+modulate = Color(0.2, 1, 0.0196078, 1)
+offset_left = 31.0
+offset_top = 3.0
+offset_right = 385.0
+offset_bottom = 30.0
+show_percentage = false
+
+[node name="Conductor" type="Node" parent="UI Elements" node_paths=PackedStringArray("rootChannel")]
+script = ExtResource("4_tsv5s")
+PrintToConsoleEnabled = true
+intro = SubResource("Resource_1ghmw")
+phrase = SubResource("Resource_k65tn")
+rootChannel = NodePath("Channel_1")
+
+[node name="Metronome" type="AudioStreamPlayer" parent="UI Elements/Conductor"]
+stream = ExtResource("8_yubpw")
+script = ExtResource("9_tvib1")
+tickSound = ExtResource("8_yubpw")
+accentedTickSound = ExtResource("10_hjm76")
+
+[node name="Channel_1" type="AudioStreamPlayer" parent="UI Elements/Conductor"]
