@@ -38,6 +38,7 @@ Beats = 4
 [sub_resource type="Resource" id="Resource_hs8ly"]
 script = ExtResource("6_6tc1y")
 Phrases = Array[Object]([SubResource("Resource_m28l1"), SubResource("Resource_dgn0d"), SubResource("Resource_mnl16")])
+Sequences = Array[Object]([])
 
 [node name="Root" type="Node"]
 
