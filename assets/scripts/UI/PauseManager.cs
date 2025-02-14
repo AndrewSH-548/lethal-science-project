@@ -24,6 +24,7 @@ public partial class PauseManager : Node
 
             EmitSignal(SignalName.GamePauseToggle, isPaused);
             GetTree().Paused = isPaused;
+
         }
     }
     public void OnResumePressed()
@@ -38,4 +39,15 @@ public partial class PauseManager : Node
         GetTree().Quit();
     }
    
+    public void OnOptionsPressed()
+    {
+        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        options.Show();
+    }
+
+    public void OnBackPressed()
+    {
+        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        options.Hide();
+    }
 }
