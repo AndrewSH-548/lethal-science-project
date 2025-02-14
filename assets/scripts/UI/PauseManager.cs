@@ -10,7 +10,7 @@ public partial class PauseManager : Node
 
     private bool isPaused = false;
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public override void _EnterTree()
     {
         Instance = this;
     }
@@ -23,6 +23,31 @@ public partial class PauseManager : Node
             isPaused = !isPaused;
 
             EmitSignal(SignalName.GamePauseToggle, isPaused);
+            GetTree().Paused = isPaused;
+
         }
+    }
+    public void OnResumePressed()
+    {
+        isPaused = !isPaused;
+
+        EmitSignal(SignalName.GamePauseToggle, isPaused);
+        GetTree().Paused = isPaused;
+    }
+    public void OnQuitPressed()
+    {
+        GetTree().Quit();
+    }
+   
+    public void OnOptionsPressed()
+    {
+        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        options.Show();
+    }
+
+    public void OnBackPressed()
+    {
+        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        options.Hide();
     }
 }
