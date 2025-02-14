@@ -189,16 +189,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
-[sub_resource type="Resource" id="Resource_1ghmw"]
-script = ExtResource("6_8sxkw")
-loop = ExtResource("5_03muf")
-Key = 0
-
-[sub_resource type="Resource" id="Resource_k65tn"]
-script = ExtResource("6_8sxkw")
-loop = ExtResource("7_sjyxo")
-Key = 0
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -236,8 +226,6 @@ one_shot = true
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("4_tsv5s")
 PrintToConsoleEnabled = true
-intro = SubResource("Resource_1ghmw")
-phrase = SubResource("Resource_k65tn")
 rootChannel = NodePath("Channel_1")
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
@@ -255,7 +243,6 @@ projectileScene = ExtResource("12_4he15")
 conductor = NodePath("../Conductor")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
-shootingGuide = "110110110100"
 
 [node name="Sprite2D" type="Sprite2D" parent="Boss"]
 position = Vector2(0, -9)
