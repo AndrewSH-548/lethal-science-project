@@ -30,13 +30,15 @@ alignment_vertical = 0
 layout_mode = 2
 color = Color(0.684842, 0.19404, 0.556889, 1)
 
-[node name="TextEdit" type="TextEdit" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
+[node name="titlePaused" type="Label" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 144.0
-offset_bottom = 48.0
-text = "PAUSED"
+offset_left = 144.0
+offset_top = 40.0
+offset_right = 336.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 50
+text = "PAUSED
+"
 
 [node name="quit" type="TextureButton" parent="PauseManager/PauseMenu"]
 offset_left = 125.0
@@ -67,8 +69,6 @@ texture_normal = ExtResource("6_xnre3")
 texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
 stretch_mode = 0
-
-[node name="ButtonManager" type="Node" parent="PauseManager"]
 
 [connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
 [connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
