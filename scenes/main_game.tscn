@@ -197,7 +197,6 @@ Key = 0
 script = ExtResource("6_8sxkw")
 loop = ExtResource("7_sjyxo")
 Key = 0
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -232,7 +231,20 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
+[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
+script = ExtResource("4_tsv5s")
+PrintToConsoleEnabled = true
+rootChannel = NodePath("Channel_1")
+
+[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
+stream = ExtResource("8_yubpw")
+script = ExtResource("9_tvib1")
+tickSound = ExtResource("8_yubpw")
+accentedTickSound = ExtResource("10_hjm76")
+
+[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
 projectileScene = ExtResource("12_4he15")
@@ -240,7 +252,6 @@ conductor = NodePath("../UI Elements/Conductor")
 calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
-shootingGuide = "110110110100"
 
 [node name="Sprite2D" type="Sprite2D" parent="Boss"]
 position = Vector2(0, -9)
