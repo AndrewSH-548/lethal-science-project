@@ -15,3 +15,6 @@ data_*/
 mono_crash.*.json
 
 .vs/
+
+# Ignore temporary files that spawn when you run the game
+.tmp
