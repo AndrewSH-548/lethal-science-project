@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/mus_freakbattle_initial-2.ogg-b2605f757b09f67
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
-beat_count=0
+loop_offset=0.0
+bpm=140.0
+beat_count=128
 bar_beats=4
