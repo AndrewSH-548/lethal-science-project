@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=44 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
@@ -9,15 +9,13 @@
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="6_8sxkw"]
 [ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="7_gfuox"]
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="8_yubpw"]
-[ext_resource type="AudioStream" uid="uid://dss5wdtmkwx0u" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="9_6r0lc"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Song.cs" id="9_gnkye"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="9_tvib1"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="10_hjm76"]
-[ext_resource type="AudioStream" uid="uid://dfq3s1jelmmaa" path="res://assets/songs/freakbattle/mus_freakbattle_loop-3.ogg" id="10_s8oen"]
-[ext_resource type="AudioStream" uid="uid://dl8ylfch44asi" path="res://assets/songs/freakbattle/mus_freakbattle_loop-4.ogg" id="11_3pis3"]
 [ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="11_5og6n"]
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
+[ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
 texture = ExtResource("1_0uvb2")
@@ -126,6 +124,34 @@ region = Rect2(320, 0, 64, 64)
 atlas = ExtResource("4_efva3")
 region = Rect2(384, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju1eq"]
+atlas = ExtResource("5_uyina")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ktud"]
+atlas = ExtResource("5_uyina")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t60pq"]
+atlas = ExtResource("5_uyina")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvr2w"]
+atlas = ExtResource("5_uyina")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gg7s"]
+atlas = ExtResource("5_uyina")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qisfe"]
+atlas = ExtResource("5_uyina")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imo8i"]
+atlas = ExtResource("5_uyina")
+region = Rect2(384, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_dwecv"]
 animations = [{
 "frames": [{
@@ -182,7 +208,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_uyina")
+"texture": SubResource("AtlasTexture_ju1eq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ktud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t60pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvr2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gg7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qisfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imo8i")
 }],
 "loop": true,
 "name": &"up",
@@ -198,35 +242,11 @@ Description = ""
 loop = ExtResource("7_gfuox")
 Key = 6
 Repetitions = 0
-Beats = 16
-
-[sub_resource type="Resource" id="Resource_cpt86"]
-script = ExtResource("6_8sxkw")
-Description = ""
-loop = ExtResource("9_6r0lc")
-Key = 6
-Repetitions = 0
-Beats = 16
-
-[sub_resource type="Resource" id="Resource_l8njh"]
-script = ExtResource("6_8sxkw")
-Description = ""
-loop = ExtResource("10_s8oen")
-Key = 6
-Repetitions = 0
-Beats = 16
-
-[sub_resource type="Resource" id="Resource_2utsq"]
-script = ExtResource("6_8sxkw")
-Description = ""
-loop = ExtResource("11_3pis3")
-Key = 6
-Repetitions = 0
-Beats = 16
+Beats = 64
 
 [sub_resource type="Resource" id="Resource_0pbrk"]
 script = ExtResource("9_gnkye")
-Phrases = Array[Object]([SubResource("Resource_536nl"), SubResource("Resource_cpt86"), SubResource("Resource_l8njh"), SubResource("Resource_2utsq")])
+Phrases = Array[Object]([SubResource("Resource_536nl")])
 
 [node name="Node2D" type="Node2D"]
 
@@ -246,8 +266,7 @@ cooldownTimer = NodePath("CooldownTimer")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
-animation = &"down"
-frame_progress = 0.829952
+animation = &"up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
@@ -276,6 +295,7 @@ tickSound = ExtResource("8_yubpw")
 accentedTickSound = ExtResource("10_hjm76")
 
 [node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+volume_db = -6.005
 
 [node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
 position = Vector2(207, 85)
@@ -292,6 +312,8 @@ position = Vector2(0, -9)
 texture = ExtResource("13_ymsut")
 
 [node name="UI Elements" type="Node" parent="."]
+
+[node name="Menu" parent="UI Elements" instance=ExtResource("19_e7yp7")]
 
 [node name="PlayerHealth" type="ProgressBar" parent="UI Elements"]
 modulate = Color(1, 0.26, 0.432666, 1)

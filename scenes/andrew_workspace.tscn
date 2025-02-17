@@ -1,33 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2pa7q0i3g6l6"]
+[gd_scene load_steps=6 format=3 uid="uid://b2pa7q0i3g6l6"]
 
 [ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="1_gi0u1"]
+[ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="2_l2k68"]
+[ext_resource type="AudioStream" uid="uid://ddx33d3eamosv" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="3_5u226"]
+[ext_resource type="AudioStream" uid="uid://dbleypvwrswa0" path="res://assets/songs/freakbattle/mus_freakbattle_loop-3.ogg" id="4_qmtgf"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_p4p6v"]
+clip_count = 3
+clip_0/name = &"Loop 1"
+clip_0/stream = ExtResource("2_l2k68")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"Loop 2"
+clip_1/stream = ExtResource("3_5u226")
+clip_1/auto_advance = 1
+clip_1/next_clip = 2
+clip_2/name = &"Loop 3"
+clip_2/stream = ExtResource("4_qmtgf")
+clip_2/auto_advance = 1
+clip_2/next_clip = 0
 
 [node name="Root" type="Node"]
 
-<<<<<<< Updated upstream
 [node name="Diamond" parent="." instance=ExtResource("1_gi0u1")]
 Orientation = -1.0
 lockOrientation = false
-=======
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-position = Vector2(64, 0)
-tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAADAAAAAAAIAAEAAAADAAEAAAAIAAIAAAADAAEAAAAIAAMAAAADAAEAAAAIAAQAAAADAAEAAAAIAAUAAAADAAEAAAAIAAYAAAADAAEAAAAIAAcAAAADAAEAAAAIAAgAAAADAAEAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAUAAAAIAAoAAAADAAUAAAAIAAkAAAADAAQAAAD//woAAAACAAUAAAAAAAoAAAACAAUAAAABAAoAAAACAAUAAAACAAoAAAACAAUAAAADAAoAAAACAAUAAAAEAAoAAAACAAUAAAAFAAoAAAACAAUAAAAGAAoAAAACAAUAAAAHAAoAAAACAAUAAAA=")
-tile_set = SubResource("TileSet_54ltr")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(176, 288)
-collision_layer = 3
-script = ExtResource("3_7lfjn")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-1, 1)
-sprite_frames = SubResource("SpriteFrames_2npt3")
-animation = &"down"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 16)
-shape = SubResource("RectangleShape2D_wij28")
-
-[node name="Wave" parent="." instance=ExtResource("1_y8q0v")]
-position = Vector2(176, 32)
->>>>>>> Stashed changes
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamInteractive_p4p6v")
+volume_db = -10.0
+autoplay = true
