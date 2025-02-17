@@ -12,7 +12,7 @@ public partial class Enemy : StaticBody2D
 
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
-	[Export] string shootingGuide;
+	[Export] string shootingGuide = "";
 	[Export] int guidePhrase;
 
 	int guideLength;
@@ -32,14 +32,18 @@ public partial class Enemy : StaticBody2D
 	/// </summary>
 	private void Beat(float beatIndex)
 	{
+		if (string.IsNullOrEmpty(shootingGuide))
+		{
+			SpawnProjectile();
+			return;
+		}
 		if (conductor.PrintToConsoleEnabled) {
 			GD.Print("Current Measure: " + currentMeasure);
-			GD.Print("Current Note: " + (beatIndex * conductor.BeatRate - conductor.BeatRate + (currentMeasure * conductor.BeatsPerMeasure)));
+			GD.Print("Current Note: " + CalculateGuideIndex(beatIndex));
 		}
-		if (shootingGuide[Mathf.FloorToInt(beatIndex * conductor.BeatRate - conductor.BeatRate) + (currentMeasure * conductor.BeatsPerMeasure)] == '1')
+		if (shootingGuide[CalculateGuideIndex(beatIndex)] == '1')
 			SpawnProjectile();
-		if (beatIndex >= 4) currentMeasure++;		
-        if (currentMeasure > guideLength) ResetGuide();
+		if (beatIndex * conductor.BeatRate > guideLength) ResetGuide();
     }
 
 	private void SpawnProjectile()
@@ -53,8 +57,17 @@ public partial class Enemy : StaticBody2D
 
 	public void ResetGuide()
 	{
-        guideLength = Mathf.FloorToInt(shootingGuide.Length / conductor.BeatsPerMeasure - 1);
+        guideLength = shootingGuide.Length;
 		currentMeasure = 0;
+	}
+
+	private int CalculateGuideIndex(float beatIndex)
+	{
+		int index = Mathf.FloorToInt(beatIndex * conductor.BeatRate - conductor.BeatRate);
+		while (index > guideLength - 1){
+			index -= guideLength;
+		}
+		return index;
 	}
 
 	public void Pacify()

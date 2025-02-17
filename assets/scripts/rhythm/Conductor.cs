@@ -55,11 +55,12 @@ public partial class Conductor : Node
 	{
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
+		SetPhysicsProcess(true);
 		OnBeat += PrintBeat;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		// P will toggle the conductor
 		if(Input.IsActionJustPressed("P") && IsPlaying)
@@ -133,7 +134,7 @@ public partial class Conductor : Node
 	/// </summary>
 	private void UpdateBeatRate()
 	{
-		var secondsPerBeatEvent = (60.0 / bpm) * ((double)1/BeatRate);
+		var secondsPerBeatEvent = (60.0 / bpm) * (1.0/BeatRate);
 		if(PrintToConsoleEnabled) GD.Print("seconds per beat event: " + secondsPerBeatEvent);
 		beatTimer.WaitTime = secondsPerBeatEvent;
 		beatTimer.OneShot = true; // do not loop automatically
