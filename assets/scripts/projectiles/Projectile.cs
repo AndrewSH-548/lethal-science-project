@@ -6,6 +6,7 @@ public partial class Projectile : Area2D
     // Projectile's starting orientation in radians. 0 makes the projectile go straight down.
     [Export] public float Orientation { get; set; } = 0;
     [Export] public int Speed { get; set; } = 6;
+    [Export] public int Damage { get; set; }
 
     // If enabled, the projectile will always appear upright, and orientation will only affect its movement direction.
     [Export] bool lockOrientation;
@@ -38,8 +39,10 @@ public partial class Projectile : Area2D
         if (body.IsAbsorbing)
         {
             body.Modulate = Color.FromHtml("00FF00");
+            GetParent<Enemy>().Pacify();
         }
-        //body.Damage();
+        else
+            body.Damage(Damage);
         QueueFree();
     }
 

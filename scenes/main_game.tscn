@@ -1,17 +1,20 @@
-[gd_scene load_steps=36 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=42 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/spritesheets/player_idle_f.png" id="3_bbkiy"]
 [ext_resource type="Texture2D" uid="uid://cmtwxivtnnhqi" path="res://assets/spritesheets/player_idle_s.png" id="4_efva3"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="4_tsv5s"]
-[ext_resource type="AudioStream" uid="uid://bjq3lnp4m5626" path="res://assets/sound-fx/counting-in.mp3" id="5_03muf"]
 [ext_resource type="Texture2D" uid="uid://gre1sdnst3yx" path="res://assets/spritesheets/player_idle_b.png" id="5_uyina"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="6_8sxkw"]
-[ext_resource type="AudioStream" uid="uid://dv5jy3htqohkw" path="res://assets/sound-fx/drum_stems/James Brown - Funky Drummer.mp3" id="7_sjyxo"]
+[ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="7_gfuox"]
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="8_yubpw"]
+[ext_resource type="AudioStream" uid="uid://dss5wdtmkwx0u" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="9_6r0lc"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/Song.cs" id="9_gnkye"]
 [ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="9_tvib1"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="10_hjm76"]
+[ext_resource type="AudioStream" uid="uid://dfq3s1jelmmaa" path="res://assets/songs/freakbattle/mus_freakbattle_loop-3.ogg" id="10_s8oen"]
+[ext_resource type="AudioStream" uid="uid://dl8ylfch44asi" path="res://assets/songs/freakbattle/mus_freakbattle_loop-4.ogg" id="11_3pis3"]
 [ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="11_5og6n"]
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
@@ -189,6 +192,42 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
+[sub_resource type="Resource" id="Resource_536nl"]
+script = ExtResource("6_8sxkw")
+Description = ""
+loop = ExtResource("7_gfuox")
+Key = 6
+Repetitions = 0
+Beats = 16
+
+[sub_resource type="Resource" id="Resource_cpt86"]
+script = ExtResource("6_8sxkw")
+Description = ""
+loop = ExtResource("9_6r0lc")
+Key = 6
+Repetitions = 0
+Beats = 16
+
+[sub_resource type="Resource" id="Resource_l8njh"]
+script = ExtResource("6_8sxkw")
+Description = ""
+loop = ExtResource("10_s8oen")
+Key = 6
+Repetitions = 0
+Beats = 16
+
+[sub_resource type="Resource" id="Resource_2utsq"]
+script = ExtResource("6_8sxkw")
+Description = ""
+loop = ExtResource("11_3pis3")
+Key = 6
+Repetitions = 0
+Beats = 16
+
+[sub_resource type="Resource" id="Resource_0pbrk"]
+script = ExtResource("9_gnkye")
+Phrases = Array[Object]([SubResource("Resource_536nl"), SubResource("Resource_cpt86"), SubResource("Resource_l8njh"), SubResource("Resource_2utsq")])
+
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -196,11 +235,11 @@ position = Vector2(64, 0)
 tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAACAAEAAAAIAAMAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAACAAMAAAAIAAcAAAACAAMAAAAIAAgAAAACAAMAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAMAAAAIAAoAAAACAAMAAAAIAAkAAAACAAMAAAD//woAAAACAAMAAAAAAAoAAAACAAMAAAABAAoAAAACAAMAAAACAAoAAAACAAMAAAADAAoAAAACAAMAAAAEAAoAAAACAAMAAAAFAAoAAAACAAMAAAAGAAoAAAACAAMAAAAHAAoAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAMAAAAJAAoAAAACAAMAAAD//wsAAAACAAMAAAAAAAsAAAACAAMAAAABAAsAAAACAAMAAAACAAsAAAACAAMAAAADAAsAAAACAAMAAAAEAAsAAAACAAMAAAAFAAsAAAACAAMAAAAGAAsAAAACAAMAAAAHAAsAAAACAAMAAAAIAAsAAAACAAMAAAAJAAsAAAACAAMAAAD+/wsAAAAAAAMAAAD+/wwAAAAAAAUAAAD//wwAAAABAAUAAAAAAAwAAAABAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAADAAUAAAAKAAsAAAADAAQAAAAKAAoAAAADAAQAAAAKAAkAAAADAAQAAAAKAAgAAAADAAQAAAAKAAcAAAADAAQAAAAKAAYAAAADAAQAAAAKAAUAAAADAAQAAAAKAAQAAAADAAQAAAAKAAMAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAKAAAAAAADAAAAAAAJAAAAAAACAAAAAAAJAAMAAAACAAEAAAAJAAIAAAACAAEAAAAJAAEAAAACAAEAAAAJAAQAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_aaalo")
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("sprites", "absorptionTimer", "cooldownTimer")]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar", "absorptionTimer", "cooldownTimer")]
 position = Vector2(208, 288)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
-sprites = NodePath("AnimatedSprite2D")
+healthBar = NodePath("../UI Elements/PlayerHealth")
 absorptionTimer = NodePath("AbsorptionTimer")
 cooldownTimer = NodePath("CooldownTimer")
 
@@ -208,7 +247,7 @@ cooldownTimer = NodePath("CooldownTimer")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
 animation = &"down"
-frame_progress = 0.0443497
+frame_progress = 0.829952
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
@@ -226,7 +265,9 @@ one_shot = true
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("4_tsv5s")
 PrintToConsoleEnabled = true
+song = SubResource("Resource_0pbrk")
 rootChannel = NodePath("Channel_1")
+BeatRate = 2
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("8_yubpw")
@@ -236,14 +277,36 @@ accentedTickSound = ExtResource("10_hjm76")
 
 [node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
 
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
 projectileScene = ExtResource("12_4he15")
 conductor = NodePath("../Conductor")
+calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
+shootingGuide = "0111111111111110"
 
 [node name="Sprite2D" type="Sprite2D" parent="Boss"]
 position = Vector2(0, -9)
 texture = ExtResource("13_ymsut")
+
+[node name="UI Elements" type="Node" parent="."]
+
+[node name="PlayerHealth" type="ProgressBar" parent="UI Elements"]
+modulate = Color(1, 0.26, 0.432666, 1)
+offset_left = 31.0
+offset_top = 388.0
+offset_right = 385.0
+offset_bottom = 415.0
+max_value = 10.0
+step = 1.0
+show_percentage = false
+
+[node name="BossCalmness" type="ProgressBar" parent="UI Elements"]
+modulate = Color(0.2, 1, 0.0196078, 1)
+offset_left = 31.0
+offset_top = 3.0
+offset_right = 385.0
+offset_bottom = 30.0
+show_percentage = false

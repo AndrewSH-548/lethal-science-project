@@ -9,6 +9,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_d3elj")
 Speed = 4
+Damage = 5
 lockOrientation = true
 
 [node name="DiamondHitbox" type="CollisionPolygon2D" parent="."]

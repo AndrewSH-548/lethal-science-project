@@ -3,22 +3,20 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 200.0f;
+	int maxHealth = 50;
+	int currentHealth;
+	float speed = 200.0f;
 
-	[Export] AnimatedSprite2D sprites;
+	AnimatedSprite2D sprites;
+	
 
 	//Absorption variables
 	bool isAbsorbing;
-	const float absorptionLength = 0.4f;
-	//float absorptionTimer = absorptionLength;
 	bool isOnCooldown;
-	const float absorptionCooldown = 1f;
-	//float cooldownTimer = absorptionCooldown;
 
-	[Export]
-	Timer absorptionTimer;
-	[Export]
-	Timer cooldownTimer;
+	[Export] ProgressBar healthBar;
+    [Export] Timer absorptionTimer;
+	[Export] Timer cooldownTimer;
 
 	public bool IsAbsorbing
 	{
@@ -27,7 +25,11 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		//sprites = GetChild<AnimatedSprite2D>(0);
+		currentHealth = maxHealth;
+		healthBar.MaxValue = maxHealth;
+		UpdateHealthBar();
+
+		sprites = GetChild<AnimatedSprite2D>(0);
 		absorptionTimer.Timeout += () =>
 		{
 			isAbsorbing = false;
@@ -50,7 +52,7 @@ public partial class Player : CharacterBody2D
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 		if (direction != Vector2.Zero)
 		{
-			Velocity = new Vector2(direction.X * Speed, direction.Y * Speed);
+			Velocity = new Vector2(direction.X * speed, direction.Y * speed);
 			Animate(direction);
 		}
 		else Velocity = Vector2.Zero;
@@ -62,6 +64,12 @@ public partial class Player : CharacterBody2D
             Modulate = Color.FromHtml("FFFF00");
         }
 		MoveAndSlide();
+	}
+
+	public void Damage(int projectileDamage)
+	{
+		currentHealth -= projectileDamage;
+		UpdateHealthBar();
 	}
 
 	private void Animate(Vector2 direction)
@@ -85,6 +93,15 @@ public partial class Player : CharacterBody2D
 		{
 			sprites.Animation = "side";
 			sprites.FlipH = true;
+		}
+	}
+
+	private void UpdateHealthBar()
+	{
+		healthBar.Value = currentHealth;
+		if (healthBar.Value < 0)
+		{
+			healthBar.Value = healthBar.MaxValue;
 		}
 	}
 }
