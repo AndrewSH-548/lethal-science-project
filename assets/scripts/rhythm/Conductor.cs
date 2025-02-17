@@ -55,12 +55,11 @@ public partial class Conductor : Node
 	{
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
-		SetPhysicsProcess(true);
 		OnBeat += PrintBeat;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
 		// P will toggle the conductor
 		if(Input.IsActionJustPressed("P") && IsPlaying)
