@@ -17,10 +17,9 @@ config/icon="res://assets/icon.svg"
 
 [display]
 
-window/size/viewport_width=832
-window/size/viewport_height=832
+window/size/viewport_width=416
+window/size/viewport_height=416
 window/stretch/mode="canvas_items"
-window/stretch/scale=2.0
 
 [dotnet]
 

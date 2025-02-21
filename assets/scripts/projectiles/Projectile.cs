@@ -10,8 +10,11 @@ public partial class Projectile : Area2D
 
     // If enabled, the projectile will always appear upright, and orientation will only affect its movement direction.
     [Export] bool lockOrientation;
+
+    [Export] PackedScene projectileBreak;
     public Color GlowColor { get; set; } = Color.FromHtml("FFFFFF");
     protected Vector2 direction;
+    
 
     // Called when the node enters the scene tree for the first time.
     // Sets the projectile's starting orientation
@@ -41,8 +44,14 @@ public partial class Projectile : Area2D
             body.Modulate = Color.FromHtml("00FF00");
             GetParent<Enemy>().Pacify();
         }
-        else
+        else if (!body.IsDamaged)
             body.Damage(Damage);
+
+        Break breakAnim = projectileBreak.Instantiate() as Break;
+        breakAnim.glowColor = GlowColor;
+        breakAnim.Position = GlobalPosition - GetParent<Enemy>().GlobalPosition;
+        GetParent<Enemy>().AddChild(breakAnim);
+
         QueueFree();
     }
 

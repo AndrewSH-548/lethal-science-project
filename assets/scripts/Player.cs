@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq.Expressions;
 
 public partial class Player : CharacterBody2D
 {
@@ -9,18 +10,24 @@ public partial class Player : CharacterBody2D
 
 	AnimatedSprite2D sprites;
 	
-
-	//Absorption variables
+	//status variables
 	bool isAbsorbing;
 	bool isOnCooldown;
+	bool isDamaged;
 
 	[Export] ProgressBar healthBar;
-    [Export] Timer absorptionTimer;
-	[Export] Timer cooldownTimer;
+    Timer absorptionTimer;
+	Timer cooldownTimer;
+	Timer damageBuffer;
+	double damageTime;
 
 	public bool IsAbsorbing
 	{
 		get { return isAbsorbing; }
+	}
+	public bool IsDamaged
+	{
+		get { return isDamaged; }
 	}
 
 	public override void _Ready()
@@ -30,18 +37,23 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 
 		sprites = GetChild<AnimatedSprite2D>(0);
-		absorptionTimer.Timeout += () =>
+		absorptionTimer = CreateTimer(0.4f, () =>
 		{
 			isAbsorbing = false;
 			Modulate = Color.FromHtml("FF0000");
 			isOnCooldown = true;
 			cooldownTimer.Start();
-		};
-		cooldownTimer.Timeout += () =>
+		});
+		cooldownTimer = CreateTimer(1, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
-		};
+		});
+		damageBuffer = CreateTimer(1.5f, () =>
+		{
+			Modulate = Color.FromHtml("FFFFFF");
+			isDamaged = false;
+		});
 		sprites.Play();
 	}
 	
@@ -64,11 +76,22 @@ public partial class Player : CharacterBody2D
             Modulate = Color.FromHtml("FFFF00");
         }
 		MoveAndSlide();
+		if (isDamaged)
+		{
+			damageTime += delta;
+			if (damageTime > 0.02)
+			{
+                Modulate = Modulate == Color.FromHtml("777777") ? Color.FromHtml("BBBBBB") : Color.FromHtml("777777");
+				damageTime = 0;
+            }
+		}
 	}
 
 	public void Damage(int projectileDamage)
 	{
 		currentHealth -= projectileDamage;
+		isDamaged = true;
+		damageBuffer.Start();
 		UpdateHealthBar();
 	}
 
@@ -103,5 +126,18 @@ public partial class Player : CharacterBody2D
 		{
 			healthBar.Value = healthBar.MaxValue;
 		}
+	}
+
+	private Timer CreateTimer(float waitTime, Action timeoutFunction)
+	{
+		Timer timer = new()
+		{
+			ProcessCallback = Timer.TimerProcessCallback.Physics,
+			WaitTime = waitTime,
+			OneShot = true
+		};
+		timer.Timeout += timeoutFunction;
+		AddChild(timer);
+		return timer;
 	}
 }

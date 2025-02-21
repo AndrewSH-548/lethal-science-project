@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwqibqnticswl"]
+
+[ext_resource type="Script" path="res://assets/scripts/projectiles/Break.cs" id="1_u4hvy"]
+[ext_resource type="Texture2D" uid="uid://0asuf1730sc1" path="res://assets/spritesheets/break.png" id="1_yu8xr"]
+[ext_resource type="Texture2D" uid="uid://dtpfc5hp5hl3m" path="res://assets/spritesheets/break-glow.png" id="2_uyyr6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c06db"]
+atlas = ExtResource("2_uyyr6")
+region = Rect2(0, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjxyg"]
+atlas = ExtResource("2_uyyr6")
+region = Rect2(94, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvkbm"]
+atlas = ExtResource("2_uyyr6")
+region = Rect2(188, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_keijl"]
+atlas = ExtResource("2_uyyr6")
+region = Rect2(282, 0, 94, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xyidq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c06db")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjxyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvkbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_keijl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfv2e"]
+atlas = ExtResource("1_yu8xr")
+region = Rect2(0, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv2pl"]
+atlas = ExtResource("1_yu8xr")
+region = Rect2(94, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q40w"]
+atlas = ExtResource("1_yu8xr")
+region = Rect2(188, 0, 94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x42ww"]
+atlas = ExtResource("1_yu8xr")
+region = Rect2(282, 0, 94, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3u8jt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfv2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv2pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q40w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x42ww")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Break" type="Node2D"]
+script = ExtResource("1_u4hvy")
+
+[node name="BreakGlow" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_xyidq")
+
+[node name="BreakSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_3u8jt")
+
+[connection signal="animation_finished" from="BreakGlow" to="." method="OnSpriteAnimFinished"]
+[connection signal="animation_finished" from="BreakSprite" to="." method="OnSpriteAnimFinished"]
