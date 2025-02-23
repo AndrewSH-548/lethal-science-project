@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtpfc5hp5hl3m"
-path="res://.godot/imported/break-glow.png-cfa1f864207dc6d392a3944de872e225.ctex"
+path="res://.godot/imported/break-glow.png-54127c843d2ee0e9e7c14c8d44681afa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spritesheets/break-glow.png"
-dest_files=["res://.godot/imported/break-glow.png-cfa1f864207dc6d392a3944de872e225.ctex"]
+source_file="res://assets/sprites/spritesheets/break-glow.png"
+dest_files=["res://.godot/imported/break-glow.png-54127c843d2ee0e9e7c14c8d44681afa.ctex"]
 
 [params]
 

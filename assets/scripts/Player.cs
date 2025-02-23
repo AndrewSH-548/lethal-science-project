@@ -7,9 +7,10 @@ public partial class Player : CharacterBody2D
 	int maxHealth = 50;
 	int currentHealth;
 	float speed = 200.0f;
-
-	AnimatedSprite2D sprites;
 	
+	AnimatedSprite2D sprites;
+	string animDirection = "up";
+
 	//status variables
 	bool isAbsorbing;
 	bool isOnCooldown;
@@ -56,20 +57,20 @@ public partial class Player : CharacterBody2D
 		});
 		sprites.Play();
 	}
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 
 		// Get the input direction.
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		if (direction != Vector2.Zero)
-		{
+		if (direction != Vector2.Zero) { 
 			Velocity = new Vector2(direction.X * speed, direction.Y * speed);
-			Animate(direction);
+			SwitchDirection(direction);
 		}
-		else Velocity = Vector2.Zero;
+        else Velocity = Vector2.Zero;
+		Animate(direction);
 
-		if (Input.IsActionJustPressed("absorb") && !isOnCooldown)
+		if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
             absorptionTimer.Start();
@@ -95,28 +96,36 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 	}
 
-	private void Animate(Vector2 direction)
+    #region Visuals and UI
+
+    private void SwitchDirection(Vector2 direction)
 	{
 		if (direction.Y < 0)
 		{
-			sprites.Animation = "up";
+			animDirection = "up";
             sprites.FlipH = false;
         }
 		else if (direction.Y > 0)
 		{
-			sprites.Animation = "down";
+			animDirection = "down";
             sprites.FlipH = false;
         }
 		else if (direction.X > 0)
 		{
-			sprites.Animation = "side";
+			animDirection = "side";
 			sprites.FlipH = false;
 		}
 		else if (direction.X < 0)
 		{
-			sprites.Animation = "side";
+			animDirection = "side";
 			sprites.FlipH = true;
 		}
+	}
+
+	private void Animate(Vector2 direction)
+	{
+		string state = direction.X == 0 && direction.Y == 0 ? "idle" : "walk";
+		sprites.Animation = state + '-' + animDirection;
 	}
 
 	private void UpdateHealthBar()
@@ -128,7 +137,9 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private Timer CreateTimer(float waitTime, Action timeoutFunction)
+    #endregion
+
+    private Timer CreateTimer(float waitTime, Action timeoutFunction)
 	{
 		Timer timer = new()
 		{

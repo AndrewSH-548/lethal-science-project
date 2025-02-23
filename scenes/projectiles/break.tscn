@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://cwqibqnticswl"]
 
 [ext_resource type="Script" path="res://assets/scripts/projectiles/Break.cs" id="1_u4hvy"]
-[ext_resource type="Texture2D" uid="uid://0asuf1730sc1" path="res://assets/spritesheets/break.png" id="1_yu8xr"]
-[ext_resource type="Texture2D" uid="uid://dtpfc5hp5hl3m" path="res://assets/spritesheets/break-glow.png" id="2_uyyr6"]
+[ext_resource type="Texture2D" uid="uid://0asuf1730sc1" path="res://assets/sprites/spritesheets/break.png" id="1_yu8xr"]
+[ext_resource type="Texture2D" uid="uid://dtpfc5hp5hl3m" path="res://assets/sprites/spritesheets/break-glow.png" id="2_uyyr6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c06db"]
 atlas = ExtResource("2_uyyr6")
