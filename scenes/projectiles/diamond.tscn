@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4eqsti8iq7j4"]
+[gd_scene load_steps=5 format=3 uid="uid://c4eqsti8iq7j4"]
 
 [ext_resource type="Script" path="res://assets/scripts/projectiles/Projectile.cs" id="1_d3elj"]
+[ext_resource type="PackedScene" uid="uid://cwqibqnticswl" path="res://scenes/projectiles/break.tscn" id="2_6av7j"]
 [ext_resource type="Texture2D" uid="uid://crhyy68wsuw27" path="res://assets/sprites/projectiles/diamond.png" id="2_ivgf2"]
 [ext_resource type="Texture2D" uid="uid://brp7fbb71tiex" path="res://assets/sprites/projectiles/diamond-glow.png" id="3_8dwtu"]
 
@@ -11,6 +12,7 @@ script = ExtResource("1_d3elj")
 Speed = 4
 Damage = 5
 lockOrientation = true
+projectileBreak = ExtResource("2_6av7j")
 
 [node name="DiamondHitbox" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -14, -7, 0, 0, 14, 7, 0)

@@ -1,26 +1,34 @@
 using Godot;
 using System;
+using System.Linq.Expressions;
 
 public partial class Player : CharacterBody2D
 {
 	int maxHealth = 50;
 	int currentHealth;
 	float speed = 200.0f;
-
-	AnimatedSprite2D sprites;
 	
+	AnimatedSprite2D sprites;
+	string animDirection = "up";
 
-	//Absorption variables
+	//status variables
 	bool isAbsorbing;
 	bool isOnCooldown;
+	bool isDamaged;
 
 	[Export] ProgressBar healthBar;
-    [Export] Timer absorptionTimer;
-	[Export] Timer cooldownTimer;
+    Timer absorptionTimer;
+	Timer cooldownTimer;
+	Timer damageBuffer;
+	double damageTime;
 
 	public bool IsAbsorbing
 	{
 		get { return isAbsorbing; }
+	}
+	public bool IsDamaged
+	{
+		get { return isDamaged; }
 	}
 
 	public override void _Ready()
@@ -30,70 +38,94 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 
 		sprites = GetChild<AnimatedSprite2D>(0);
-		absorptionTimer.Timeout += () =>
+		absorptionTimer = CreateTimer(0.4f, () =>
 		{
 			isAbsorbing = false;
 			Modulate = Color.FromHtml("FF0000");
 			isOnCooldown = true;
 			cooldownTimer.Start();
-		};
-		cooldownTimer.Timeout += () =>
+		});
+		cooldownTimer = CreateTimer(1, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
-		};
+		});
+		damageBuffer = CreateTimer(1.5f, () =>
+		{
+			Modulate = Color.FromHtml("FFFFFF");
+			isDamaged = false;
+		});
 		sprites.Play();
 	}
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 
 		// Get the input direction.
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		if (direction != Vector2.Zero)
-		{
+		if (direction != Vector2.Zero) { 
 			Velocity = new Vector2(direction.X * speed, direction.Y * speed);
-			Animate(direction);
+			SwitchDirection(direction);
 		}
-		else Velocity = Vector2.Zero;
+        else Velocity = Vector2.Zero;
+		Animate(direction);
 
-		if (Input.IsActionJustPressed("absorb") && !isOnCooldown)
+		if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
             absorptionTimer.Start();
             Modulate = Color.FromHtml("FFFF00");
         }
 		MoveAndSlide();
+		if (isDamaged)
+		{
+			damageTime += delta;
+			if (damageTime > 0.02)
+			{
+                Modulate = Modulate == Color.FromHtml("777777") ? Color.FromHtml("BBBBBB") : Color.FromHtml("777777");
+				damageTime = 0;
+            }
+		}
 	}
 
 	public void Damage(int projectileDamage)
 	{
 		currentHealth -= projectileDamage;
+		isDamaged = true;
+		damageBuffer.Start();
 		UpdateHealthBar();
 	}
 
-	private void Animate(Vector2 direction)
+    #region Visuals and UI
+
+    private void SwitchDirection(Vector2 direction)
 	{
 		if (direction.Y < 0)
 		{
-			sprites.Animation = "up";
+			animDirection = "up";
             sprites.FlipH = false;
         }
 		else if (direction.Y > 0)
 		{
-			sprites.Animation = "down";
+			animDirection = "down";
             sprites.FlipH = false;
         }
 		else if (direction.X > 0)
 		{
-			sprites.Animation = "side";
+			animDirection = "side";
 			sprites.FlipH = false;
 		}
 		else if (direction.X < 0)
 		{
-			sprites.Animation = "side";
+			animDirection = "side";
 			sprites.FlipH = true;
 		}
+	}
+
+	private void Animate(Vector2 direction)
+	{
+		string state = direction.X == 0 && direction.Y == 0 ? "idle" : "walk";
+		sprites.Animation = state + '-' + animDirection;
 	}
 
 	private void UpdateHealthBar()
@@ -103,5 +135,20 @@ public partial class Player : CharacterBody2D
 		{
 			healthBar.Value = healthBar.MaxValue;
 		}
+	}
+
+    #endregion
+
+    private Timer CreateTimer(float waitTime, Action timeoutFunction)
+	{
+		Timer timer = new()
+		{
+			ProcessCallback = Timer.TimerProcessCallback.Physics,
+			WaitTime = waitTime,
+			OneShot = true
+		};
+		timer.Timeout += timeoutFunction;
+		AddChild(timer);
+		return timer;
 	}
 }

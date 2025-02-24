@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dfq3s1jelmmaa"
+uid="uid://dbleypvwrswa0"
 path="res://.godot/imported/mus_freakbattle_loop-3.ogg-307e20fa603a7b01c59b2e1f6d52a945.oggvorbisstr"
 
 [deps]
@@ -15,5 +15,5 @@ dest_files=["res://.godot/imported/mus_freakbattle_loop-3.ogg-307e20fa603a7b01c5
 loop=false
 loop_offset=0.0
 bpm=140.0
-beat_count=16
+beat_count=64
 bar_beats=4
