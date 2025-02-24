@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://i5utl0gfbwil"]
+
+[ext_resource type="AudioStream" uid="uid://csymk0wb5lqff" path="res://assets/sound-fx/drum_stems/taiko1.mp3" id="1_ofndm"]
+[ext_resource type="AudioStream" uid="uid://b7xcah37w5wyp" path="res://assets/sound-fx/drum_stems/taiko2.mp3" id="2_3hqcd"]
+[ext_resource type="Script" path="res://assets/scripts/rhythm/InteractiveAudioTester.cs" id="3_i1eok"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_s0yhe"]
+clip_count = 2
+clip_0/name = &"one"
+clip_0/stream = ExtResource("1_ofndm")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"two"
+clip_1/stream = ExtResource("2_3hqcd")
+clip_1/auto_advance = 1
+clip_1/next_clip = 0
+
+[node name="ChrisWorkspace2" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamInteractive_s0yhe")
+autoplay = true
+script = ExtResource("3_i1eok")
