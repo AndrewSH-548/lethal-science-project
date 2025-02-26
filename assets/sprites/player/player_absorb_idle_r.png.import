@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtpfc5hp5hl3m"
-path="res://.godot/imported/break-glow.png-54127c843d2ee0e9e7c14c8d44681afa.ctex"
+uid="uid://c6mbko3udwpq0"
+path="res://.godot/imported/player_absorb_idle_r.png-efe13d43c894a9958bff5dc6dd0cbeb8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/spritesheets/break-glow.png"
-dest_files=["res://.godot/imported/break-glow.png-54127c843d2ee0e9e7c14c8d44681afa.ctex"]
+source_file="res://assets/sprites/player/player_absorb_idle_r.png"
+dest_files=["res://.godot/imported/player_absorb_idle_r.png-efe13d43c894a9958bff5dc6dd0cbeb8.ctex"]
 
 [params]
 

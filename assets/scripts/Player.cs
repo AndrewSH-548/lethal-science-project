@@ -2,6 +2,11 @@ using Godot;
 using System;
 using System.Linq.Expressions;
 
+enum Direction
+{
+	Up, Down, Left, Right
+}
+
 public partial class Player : CharacterBody2D
 {
 	int maxHealth = 50;
@@ -9,7 +14,7 @@ public partial class Player : CharacterBody2D
 	float speed = 200.0f;
 	
 	AnimatedSprite2D sprites;
-	string animDirection = "up";
+	Direction animDirection = Direction.Down;
 
 	//status variables
 	bool isAbsorbing;
@@ -41,7 +46,7 @@ public partial class Player : CharacterBody2D
 		absorptionTimer = CreateTimer(0.4f, () =>
 		{
 			isAbsorbing = false;
-			Modulate = Color.FromHtml("FF0000");
+			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
 		});
@@ -68,16 +73,16 @@ public partial class Player : CharacterBody2D
 			SwitchDirection(direction);
 		}
         else Velocity = Vector2.Zero;
-		Animate(direction);
+        Animate(direction);
 
-		if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
+        if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
             absorptionTimer.Start();
-            Modulate = Color.FromHtml("FFFF00");
         }
 		MoveAndSlide();
-		if (isDamaged)
+        
+        if (isDamaged)
 		{
 			damageTime += delta;
 			if (damageTime > 0.02)
@@ -86,7 +91,8 @@ public partial class Player : CharacterBody2D
 				damageTime = 0;
             }
 		}
-	}
+        
+    }
 
 	public void Damage(int projectileDamage)
 	{
@@ -101,31 +107,47 @@ public partial class Player : CharacterBody2D
     private void SwitchDirection(Vector2 direction)
 	{
 		if (direction.Y < 0)
-		{
-			animDirection = "up";
-            sprites.FlipH = false;
-        }
+			animDirection = Direction.Up;
 		else if (direction.Y > 0)
-		{
-			animDirection = "down";
-            sprites.FlipH = false;
-        }
+			animDirection = Direction.Down;
 		else if (direction.X > 0)
-		{
-			animDirection = "side";
-			sprites.FlipH = false;
-		}
+			animDirection = Direction.Right;
 		else if (direction.X < 0)
-		{
-			animDirection = "side";
-			sprites.FlipH = true;
-		}
-	}
+			animDirection = Direction.Left;
+		Animate(direction);
+    }
 
 	private void Animate(Vector2 direction)
 	{
+		string animDirection;
+        sprites.FlipH = false;	
+        switch (this.animDirection)
+		{
+			case Direction.Up:
+				animDirection = "up";
+				break;
+			case Direction.Down:
+				animDirection = "down";
+				break;
+			case Direction.Left:
+				if (!isAbsorbing)
+				{
+					sprites.FlipH = true;
+					goto default;
+				}
+				animDirection = "left";
+				break;
+			case Direction.Right:
+				if (!isAbsorbing) goto default;
+				animDirection = "right";
+				break;
+			default:
+				animDirection = "side";
+				break;
+		}
+		string absorb = isAbsorbing ? "absorb-" : "";
 		string state = direction.X == 0 && direction.Y == 0 ? "idle" : "walk";
-		sprites.Animation = state + '-' + animDirection;
+		sprites.Animation = absorb + state + '-' + animDirection;
 	}
 
 	private void UpdateHealthBar()
