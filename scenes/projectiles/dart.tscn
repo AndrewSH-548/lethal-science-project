@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://jdvg21k84bli"]
 
-[ext_resource type="Script" path="res://assets/scripts/projectiles/Curve.cs" id="1_sfgvy"]
+[ext_resource type="Script" uid="uid://bndlqbpcbwpca" path="res://assets/scripts/projectiles/Curve.cs" id="1_sfgvy"]
 [ext_resource type="PackedScene" uid="uid://cwqibqnticswl" path="res://scenes/projectiles/break.tscn" id="2_bn74h"]
 [ext_resource type="Texture2D" uid="uid://bi5yug03236ts" path="res://assets/sprites/projectiles/dart-glow.png" id="2_j5fsj"]
 [ext_resource type="Texture2D" uid="uid://dnrlcdvc6dtfp" path="res://assets/sprites/projectiles/dart.png" id="3_rmmqy"]
