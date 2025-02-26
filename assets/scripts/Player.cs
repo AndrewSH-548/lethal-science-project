@@ -148,6 +148,7 @@ public partial class Player : CharacterBody2D
 		string absorb = isAbsorbing ? "absorb-" : "";
 		string state = direction.X == 0 && direction.Y == 0 ? "idle" : "walk";
 		sprites.Animation = absorb + state + '-' + animDirection;
+		sprites.Play();
 	}
 
 	private void UpdateHealthBar()

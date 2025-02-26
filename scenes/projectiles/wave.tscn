@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://csiuj07ubewhu"]
 
-[ext_resource type="Script" path="res://assets/scripts/projectiles/Projectile.cs" id="1_mk3qo"]
+[ext_resource type="Script" uid="uid://6h25ystbpf1m" path="res://assets/scripts/projectiles/Projectile.cs" id="1_mk3qo"]
 [ext_resource type="PackedScene" uid="uid://cwqibqnticswl" path="res://scenes/projectiles/break.tscn" id="2_8xpth"]
 [ext_resource type="Texture2D" uid="uid://ccpfyircn7ghx" path="res://assets/sprites/projectiles/wave-glow.png" id="2_bn75w"]
 [ext_resource type="Texture2D" uid="uid://ciijaheb44fvw" path="res://assets/sprites/projectiles/wave.png" id="2_u0aa4"]
