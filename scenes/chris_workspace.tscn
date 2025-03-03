@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://dt4bipq1pyima"]
 
-[ext_resource type="Script" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
-[ext_resource type="Script" path="res://assets/scripts/rhythm/Song.cs" id="2_ae53i"]
+[ext_resource type="Script" uid="uid://duuljskoljfdc" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
+[ext_resource type="Script" uid="uid://dxgaicuhlouqt" path="res://assets/scripts/rhythm/Song.cs" id="2_ae53i"]
 [ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="2_bxigj"]
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="2_r7u3d"]
-[ext_resource type="Script" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
-[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="3_jwhdj"]
+[ext_resource type="Script" uid="uid://dtmnsqoi88iqw" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
+[ext_resource type="Script" uid="uid://cxnrnx8a4w3mv" path="res://assets/scripts/rhythm/Phrase.cs" id="3_jwhdj"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="4_6lgvk"]
 [ext_resource type="AudioStream" uid="uid://ddx33d3eamosv" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="4_yechq"]
-[ext_resource type="Script" path="res://assets/scripts/rhythm/RhythmDebugUI.cs" id="8_v0ks8"]
+[ext_resource type="Script" uid="uid://4l2algdygoa6" path="res://assets/scripts/rhythm/RhythmDebugUI.cs" id="8_v0ks8"]
 
 [sub_resource type="Resource" id="Resource_cj53w"]
 script = ExtResource("3_jwhdj")

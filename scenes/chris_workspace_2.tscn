@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://hpb4ot3hk2y6"]
 
-[ext_resource type="Script" path="res://assets/scripts/rhythm/InteractiveAudioTester.cs" id="3_i1eok"]
+[ext_resource type="Script" uid="uid://ciimskytra6af" path="res://assets/scripts/rhythm/InteractiveAudioTester.cs" id="3_i1eok"]
 [ext_resource type="AudioStream" uid="uid://ndmjqqngssox" path="res://assets/songs/freakbattle/mus_freakbattle_initial-1.ogg" id="3_y4jve"]
 [ext_resource type="AudioStream" uid="uid://cdo8r56uqime7" path="res://assets/songs/freakbattle/mus_freakbattle_initial-2.ogg" id="4_8woo6"]
 [ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="5_v0a3f"]
