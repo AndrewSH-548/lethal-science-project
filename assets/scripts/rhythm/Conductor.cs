@@ -20,13 +20,6 @@ public partial class Conductor : Node
 
 	// rule of thumb - dont go over 20 channels total
 
-	[Export] public Song song;
-	public Phrase CurrentPhrase => song.Phrases[currentPhraseIndex];
-	private int currentPhraseIndex = 0;
-	private int currentPhraseRepetitions = 0;
-	private bool phraseQueued = false;
-	private Phrase nextPhrase;
-
 	private bool pauseQueued = false;
 	public bool IsPlaying {get; set;} = false;
 	public int BeatsPerMeasure { get { return beatsPerMeasure; } }
@@ -68,7 +61,7 @@ public partial class Conductor : Node
 		}
 		else if(Input.IsActionJustPressed("P") && !IsPlaying)
 		{
-			Play(song.Phrases[currentPhraseIndex]);
+			Play();
 		}
 
 		// up and down will change the beat rate - applied at end of measure
@@ -107,10 +100,8 @@ public partial class Conductor : Node
 		}
 		beatTimer.Stop();
 
-		SetConductorParameters(entryPhrase);
+		//SetConductorParameters(entryPhrase);
 		rootChannel.Stream = entryPhrase.loop;
-
-		currentPhraseRepetitions = entryPhrase.Repetitions;
 
 		UpdateBeatRate();
 		Beat(); // start the first beat - this will play the next ones too
@@ -123,8 +114,7 @@ public partial class Conductor : Node
 	/// </summary>
 	public void Play()
 	{
-		currentPhraseIndex = 0;
-		Play(song.Phrases[currentPhraseIndex]);
+
 	}
 
 	/// <summary>
@@ -201,11 +191,11 @@ public partial class Conductor : Node
 	/// Sets the conductor parameters to sync with the current phrase.
 	/// </summary>
 	/// <param name="phrase"></param>
-	private void SetConductorParameters(Phrase phrase)
+	private void SetConductorParameters(AudioStreamOggVorbis stream)
 	{
-		beatsPerMeasure = phrase.Beats;
-		bpm = phrase.loop.Bpm;
-		key = phrase.Key;
+		beatsPerMeasure = stream.BarBeats;
+		bpm = stream.Bpm;
+		//key = phrase.Key;
 	}
 
 	/// <summary>
@@ -233,14 +223,14 @@ public partial class Conductor : Node
 
 			if(!pauseQueued)
 			{
-				if(phraseQueued)
-				{
-					SetConductorParameters(nextPhrase);
-					UpdateBeatRate();
+				//if(phraseQueued)
+				//{
+					//SetConductorParameters(nextPhrase);
+					//UpdateBeatRate();
 
-					rootChannel.Stream = nextPhrase.loop;
-					phraseQueued = false;
-				}
+					//rootChannel.Stream = nextPhrase.loop;
+					//phraseQueued = false;
+				//}
 
 				rootChannel.Play();
 			}
@@ -255,25 +245,25 @@ public partial class Conductor : Node
 			
 
 			// handle phrase repeating or queueing the next one
-			if(currentPhraseRepetitions > 0)
-			{
-				currentPhraseRepetitions -= 1;
-			}
-			else
-			{
-				// loop back to beginning if all phrases have been played
-				if(currentPhraseIndex >= song.Phrases.Length - 1)
-				{
-					currentPhraseIndex = 0;
-				}
-				else
-				{
-					currentPhraseIndex += 1;
-				}
+			// if(currentPhraseRepetitions > 0)
+			// {
+			// 	currentPhraseRepetitions -= 1;
+			// }
+			// else
+			// {
+			// 	// loop back to beginning if all phrases have been played
+			// 	if(currentPhraseIndex >= song.Phrases.Length - 1)
+			// 	{
+			// 		currentPhraseIndex = 0;
+			// 	}
+			// 	else
+			// 	{
+			// 		currentPhraseIndex += 1;
+			// 	}
 
-				QueuePhrase(song.Phrases[currentPhraseIndex]);
-				currentPhraseRepetitions = nextPhrase.Repetitions;
-			}
+			// 	QueuePhrase(song.Phrases[currentPhraseIndex]);
+			// 	currentPhraseRepetitions = nextPhrase.Repetitions;
+			// }
 		}
 		// end of beat logic
 		else
@@ -294,11 +284,11 @@ public partial class Conductor : Node
 	/// Sets a phrase to be played at the start of the next measure.
 	/// </summary>
 	/// <param name="queuedPhrase"></param>
-	private void QueuePhrase(Phrase queuedPhrase)
-	{
-		phraseQueued = true;
-		nextPhrase = queuedPhrase;
-	}
+	// private void QueuePhrase(Phrase queuedPhrase)
+	// {
+	// 	phraseQueued = true;
+	// 	nextPhrase = queuedPhrase;
+	// }
 
 	/// <summary>
 	/// Debug method tied to the OnBeat event.
