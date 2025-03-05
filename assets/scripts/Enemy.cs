@@ -8,7 +8,7 @@ public partial class Enemy : StaticBody2D
 
 	int calmMax = 50;
 	int calmCurrent = 0;
-	[Export] ProgressBar calmMeter;
+	[Export] TextureProgressBar calmMeter;
 
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
@@ -22,6 +22,7 @@ public partial class Enemy : StaticBody2D
 	public override void _Ready()
 	{
 		calmMeter.MaxValue = calmMax;
+		calmMeter.TintOver = projectileColor;
 
 		conductor.OnBeat += Beat;
 		ResetGuide();

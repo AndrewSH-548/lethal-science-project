@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
 	int maxHealth = 50;
 	int currentHealth;
 	float speed = 200.0f;
+
 	
 	AnimatedSprite2D sprites;
 	Direction animDirection = Direction.Down;
@@ -21,7 +22,7 @@ public partial class Player : CharacterBody2D
 	bool isOnCooldown;
 	bool isDamaged;
 
-	[Export] ProgressBar healthBar;
+	[Export] TextureProgressBar healthBar;
     Timer absorptionTimer;
 	Timer cooldownTimer;
 	Timer damageBuffer;
