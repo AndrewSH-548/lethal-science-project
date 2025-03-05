@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=135 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://b1vgmgx18rg2p" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
@@ -27,6 +27,9 @@
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
 [ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
+[ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="28_rr87q"]
+[ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="29_dp0eu"]
+[ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
 texture = ExtResource("1_0uvb2")
@@ -908,29 +911,34 @@ texture = ExtResource("13_ymsut")
 
 [node name="UI Elements" type="Node" parent="."]
 
+[node name="PlayerHealth" type="TextureProgressBar" parent="UI Elements"]
+offset_left = 36.0
+offset_top = 386.0
+offset_right = 380.0
+offset_bottom = 426.0
+max_value = 10.0
+value = 10.0
+texture_under = ExtResource("28_rr87q")
+texture_over = ExtResource("29_dp0eu")
+texture_progress = ExtResource("30_urnot")
+tint_over = Color(0.954457, 1.01797e-05, 2.88785e-06, 1)
+
+[node name="BossCalmness" type="TextureProgressBar" parent="UI Elements"]
+offset_left = 36.0
+offset_top = -1.0
+offset_right = 380.0
+offset_bottom = 29.0
+max_value = 50.0
+texture_under = ExtResource("28_rr87q")
+texture_over = ExtResource("29_dp0eu")
+texture_progress = ExtResource("30_urnot")
+tint_progress = Color(0.488179, 1, 0.456277, 1)
+
 [node name="Menu" parent="UI Elements" instance=ExtResource("19_e7yp7")]
 offset_top = 1.0
 offset_bottom = 1.0
 
 [node name="PauseMenu" parent="UI Elements/Menu/PauseManager" index="0"]
 visible = false
-
-[node name="PlayerHealth" type="ProgressBar" parent="UI Elements"]
-modulate = Color(1, 0.26, 0.432666, 1)
-offset_left = 31.0
-offset_top = 388.0
-offset_right = 385.0
-offset_bottom = 415.0
-max_value = 10.0
-step = 1.0
-show_percentage = false
-
-[node name="BossCalmness" type="ProgressBar" parent="UI Elements"]
-modulate = Color(0.2, 1, 0.0196078, 1)
-offset_left = 31.0
-offset_top = 3.0
-offset_right = 385.0
-offset_bottom = 30.0
-show_percentage = false
 
 [editable path="UI Elements/Menu"]

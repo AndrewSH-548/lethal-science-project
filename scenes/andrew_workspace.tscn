@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2pa7q0i3g6l6"]
+[gd_scene load_steps=12 format=3 uid="uid://b2pa7q0i3g6l6"]
 
 [ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="1_gi0u1"]
 [ext_resource type="PackedScene" uid="uid://cwqibqnticswl" path="res://scenes/projectiles/break.tscn" id="1_ugq0g"]
@@ -7,6 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://ddx33d3eamosv" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="3_5u226"]
 [ext_resource type="AudioStream" uid="uid://cdo8r56uqime7" path="res://assets/songs/freakbattle/mus_freakbattle_initial-2.ogg" id="3_7y020"]
 [ext_resource type="AudioStream" uid="uid://dbleypvwrswa0" path="res://assets/songs/freakbattle/mus_freakbattle_loop-3.ogg" id="4_qmtgf"]
+[ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="8_fwg01"]
+[ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="9_qjn5h"]
+[ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="10_a0e2t"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_p4p6v"]
 clip_count = 5
@@ -44,3 +47,12 @@ lockOrientation = false
 stream = SubResource("AudioStreamInteractive_p4p6v")
 volume_db = -10.0
 autoplay = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 344.0
+offset_bottom = 40.0
+value = 50.0
+texture_under = ExtResource("8_fwg01")
+texture_over = ExtResource("9_qjn5h")
+texture_progress = ExtResource("10_a0e2t")
+tint_over = Color(1, 0, 0, 1)
