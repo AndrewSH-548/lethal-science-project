@@ -1,0 +1,143 @@
+[gd_scene load_steps=11 format=3 uid="uid://chedm8l82h2gg"]
+
+[ext_resource type="Script" path="res://assets/scripts/UI/PauseManager.cs" id="1_5xqgd"]
+[ext_resource type="Script" path="res://assets/scripts/UI/TogglePauseVisiablity.cs" id="2_o8plw"]
+[ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_vsgfy"]
+[ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_1p8cb"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_71k7c"]
+[ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_cmnsq"]
+[ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="7_d2fvc"]
+[ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="8_3x3bp"]
+[ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="9_4b5bw"]
+[ext_resource type="Script" uid="uid://00arj6kp6dc8" path="res://assets/scripts/UI/Options.cs" id="9_ofnjo"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PauseManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("1_5xqgd")
+
+[node name="PauseMenu" type="CanvasLayer" parent="PauseManager"]
+process_mode = 1
+script = ExtResource("2_o8plw")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/PauseMenu"]
+offset_left = 24.0
+offset_top = 40.0
+offset_right = 392.0
+offset_bottom = 392.0
+alignment_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="PauseManager/PauseMenu/AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.684842, 0.19404, 0.556889, 1)
+
+[node name="titlePaused" type="Label" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
+visible = false
+layout_mode = 0
+offset_left = 144.0
+offset_top = 40.0
+offset_right = 336.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 50
+text = "PAUSED
+"
+
+[node name="quit" type="TextureButton" parent="PauseManager/PauseMenu"]
+offset_left = 103.0
+offset_top = 284.0
+offset_right = 307.0
+offset_bottom = 350.0
+texture_normal = ExtResource("3_vsgfy")
+texture_hover = ExtResource("4_1p8cb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="resume" type="TextureButton" parent="PauseManager/PauseMenu"]
+offset_left = 107.0
+offset_top = 89.0
+offset_right = 311.0
+offset_bottom = 155.0
+texture_normal = ExtResource("5_71k7c")
+texture_hover = ExtResource("6_cmnsq")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="options" type="TextureButton" parent="PauseManager/PauseMenu"]
+offset_left = 107.0
+offset_top = 187.0
+offset_right = 311.0
+offset_bottom = 253.0
+texture_normal = ExtResource("7_d2fvc")
+texture_hover = ExtResource("8_3x3bp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Options" type="CanvasLayer" parent="PauseManager"]
+visible = false
+script = ExtResource("9_ofnjo")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/Options"]
+offset_left = -24.0
+offset_top = 40.0
+offset_right = 448.0
+offset_bottom = 400.0
+
+[node name="ColorRect" type="ColorRect" parent="PauseManager/Options/AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.266667, 0, 1, 1)
+
+[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 249.0
+offset_bottom = 121.0
+theme_override_fonts/font = ExtResource("9_4b5bw")
+theme_override_font_sizes/font_size = 50
+text = "Options
+"
+
+[node name="HSlider" type="HSlider" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 88.0
+offset_right = 336.0
+offset_bottom = 264.0
+max_value = 1.0
+step = 0.001
+
+[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.174
+anchor_top = -0.545
+anchor_right = -0.174
+anchor_bottom = -0.545
+offset_left = 124.896
+offset_top = 135.92
+offset_right = 304.896
+offset_bottom = 161.92
+theme_override_fonts/font = ExtResource("9_4b5bw")
+theme_override_font_sizes/font_size = 25
+text = "Master Volume
+"
+
+[node name="backToResume" type="TextureButton" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 288.0
+offset_right = 284.0
+offset_bottom = 354.0
+texture_normal = ExtResource("7_d2fvc")
+texture_hover = ExtResource("8_3x3bp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
+[connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
+[connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
+[connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnValueChanged"]
+[connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]

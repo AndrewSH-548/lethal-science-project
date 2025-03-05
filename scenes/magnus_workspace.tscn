@@ -1,13 +1,27 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=11 format=3 uid="uid://c5ivvq5auorrm"]
 
 [ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_eyjk2"]
 [ext_resource type="Script" uid="uid://dtaj5e65iadse" path="res://assets/scripts/UI/TogglePauseVisiablity.cs" id="2_5l7qw"]
 [ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_7r7ba"]
+=======
+[gd_scene load_steps=13 format=3 uid="uid://c5ivvq5auorrm"]
+
+[ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_eyjk2"]
+[ext_resource type="Script" uid="uid://dtaj5e65iadse" path="res://assets/scripts/UI/TogglePauseVisiablity.cs" id="2_5l7qw"]
+[ext_resource type="Texture2D" uid="uid://dpvtexgxr2rpx" path="res://assets/UI/resume.png" id="4_bxebd"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_7r7ba"]
+[ext_resource type="Texture2D" uid="uid://0yf75shsmpqi" path="res://assets/UI/resume_Hover.png" id="5_76hgk"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_qye0d"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="6_xnre3"]
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="7_e0l7n"]
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="8_xl88y"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://00arj6kp6dc8" path="res://assets/scripts/UI/Options.cs" id="9_7r7ba"]
+=======
+[ext_resource type="Script" uid="uid://d304jpidpf6ng" path="res://assets/scripts/UI/OptionsManager.cs" id="9_f3m88"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="9_i5e0d"]
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="9_u2eci"]
 
@@ -18,15 +32,23 @@ anchors_preset = 0
 [node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("1_eyjk2")
+buttonNormal = ExtResource("4_bxebd")
+buttonHover = ExtResource("5_76hgk")
 
 [node name="PauseMenu" type="CanvasLayer" parent="PauseManager"]
 script = ExtResource("2_5l7qw")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/PauseMenu"]
+<<<<<<< Updated upstream
 offset_left = 24.0
 offset_top = 40.0
 offset_right = 392.0
 offset_bottom = 392.0
+=======
+offset_top = 32.0
+offset_right = 400.0
+offset_bottom = 360.0
+>>>>>>> Stashed changes
 alignment_vertical = 0
 
 [node name="ColorRect" type="ColorRect" parent="PauseManager/PauseMenu/AspectRatioContainer"]
@@ -36,39 +58,60 @@ color = Color(0.684842, 0.19404, 0.556889, 1)
 [node name="titlePaused" type="Label" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
 visible = false
 layout_mode = 0
-offset_left = 144.0
-offset_top = 40.0
-offset_right = 336.0
-offset_bottom = 91.0
+offset_left = 76.0
+offset_top = 16.0
+offset_right = 308.0
+offset_bottom = 157.0
 theme_override_font_sizes/font_size = 50
 text = "PAUSED
 "
 
 [node name="quit" type="TextureButton" parent="PauseManager/PauseMenu"]
+<<<<<<< Updated upstream
 offset_left = 103.0
 offset_top = 284.0
 offset_right = 307.0
 offset_bottom = 350.0
+=======
+offset_left = 101.0
+offset_top = 270.0
+offset_right = 295.0
+offset_bottom = 326.0
+>>>>>>> Stashed changes
 texture_normal = ExtResource("8_xl88y")
 texture_hover = ExtResource("9_i5e0d")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="resume" type="TextureButton" parent="PauseManager/PauseMenu"]
+<<<<<<< Updated upstream
 offset_left = 107.0
 offset_top = 89.0
 offset_right = 311.0
 offset_bottom = 155.0
+=======
+offset_left = 101.0
+offset_top = 94.0
+offset_right = 295.0
+offset_bottom = 150.0
+>>>>>>> Stashed changes
 texture_normal = ExtResource("5_7r7ba")
 texture_hover = ExtResource("6_qye0d")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="options" type="TextureButton" parent="PauseManager/PauseMenu"]
+<<<<<<< Updated upstream
 offset_left = 107.0
 offset_top = 187.0
 offset_right = 311.0
 offset_bottom = 253.0
+=======
+offset_left = 102.0
+offset_top = 182.0
+offset_right = 296.0
+offset_bottom = 238.0
+>>>>>>> Stashed changes
 texture_normal = ExtResource("6_xnre3")
 texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
@@ -76,6 +119,7 @@ stretch_mode = 0
 
 [node name="Options" type="CanvasLayer" parent="PauseManager"]
 visible = false
+<<<<<<< Updated upstream
 script = ExtResource("9_7r7ba")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/Options"]
@@ -83,32 +127,55 @@ offset_left = -24.0
 offset_top = 40.0
 offset_right = 448.0
 offset_bottom = 400.0
+=======
+script = ExtResource("9_f3m88")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/Options"]
+offset_left = -8.0
+offset_right = 424.0
+offset_bottom = 416.0
+>>>>>>> Stashed changes
 
 [node name="ColorRect" type="ColorRect" parent="PauseManager/Options/AspectRatioContainer"]
 layout_mode = 2
 color = Color(0.266667, 0, 1, 1)
 
-[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+[node name="OptionsLabel" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
 layout_mode = 0
+<<<<<<< Updated upstream
 offset_left = 64.0
 offset_top = 16.0
 offset_right = 249.0
 offset_bottom = 121.0
+=======
+offset_left = 105.0
+offset_top = 56.0
+offset_right = 290.0
+offset_bottom = 107.0
+>>>>>>> Stashed changes
 theme_override_fonts/font = ExtResource("9_u2eci")
 theme_override_font_sizes/font_size = 50
-text = "Options
+text = "OPTIONS
 "
 
-[node name="HSlider" type="HSlider" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+[node name="MasterVolumeSlider" type="HSlider" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
 layout_mode = 0
+<<<<<<< Updated upstream
 offset_left = 32.0
 offset_top = 88.0
 offset_right = 336.0
 offset_bottom = 264.0
 max_value = 1.0
+=======
+offset_left = 48.0
+offset_top = 104.0
+offset_right = 352.0
+offset_bottom = 280.0
+max_value = 1.5
+>>>>>>> Stashed changes
 step = 0.001
 
-[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider"]
+[node name="masterVolumeLabel" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect/MasterVolumeSlider"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.174
@@ -126,10 +193,17 @@ text = "Master Volume
 
 [node name="backToResume" type="TextureButton" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
 layout_mode = 0
+<<<<<<< Updated upstream
 offset_left = 80.0
 offset_top = 288.0
 offset_right = 284.0
 offset_bottom = 354.0
+=======
+offset_left = 104.0
+offset_top = 336.0
+offset_right = 308.0
+offset_bottom = 402.0
+>>>>>>> Stashed changes
 texture_normal = ExtResource("6_xnre3")
 texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
@@ -138,5 +212,9 @@ stretch_mode = 0
 [connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
 [connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
 [connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
+<<<<<<< Updated upstream
 [connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnValueChanged"]
+=======
+[connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/MasterVolumeSlider" to="PauseManager/Options" method="MasterVolumeSliderValueChanged"]
+>>>>>>> Stashed changes
 [connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]
