@@ -8,11 +8,15 @@ public partial class TogglePauseVisiablity : CanvasLayer
 	public override void _Ready()
 	{
 		PauseManager.Instance.GamePauseToggle += ToggleVisibility;
-		if (!visableOnPause) return;
-		Hide();
 	}
-	public void ToggleVisibility(bool isPaused)
+	public void ToggleVisibility(bool isPaused,bool playHit)
 	{
+        if (!playHit)
+		{
+			Show();
+			return;
+		}
+
 		if(visableOnPause==isPaused)
 		{
 			Show();
