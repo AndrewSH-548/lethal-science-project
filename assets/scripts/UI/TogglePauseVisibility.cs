@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class TogglePauseVisiablity : CanvasLayer
+public partial class TogglePauseVisibility : CanvasLayer
 {
     [Export]public bool visableOnPause = true;
 	// Called when the node enters the scene tree for the first time.
