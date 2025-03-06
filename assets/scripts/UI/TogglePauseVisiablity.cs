@@ -9,25 +9,14 @@ public partial class TogglePauseVisiablity : CanvasLayer
 	{
 		PauseManager.Instance.GamePauseToggle += ToggleVisibility;
 	}
-<<<<<<< Updated upstream
 	public void ToggleVisibility(bool isPaused,bool playHit)
 	{
         if (!playHit)
-=======
-	public void ToggleVisibility(bool isPaused, bool playHit)
-	{
-		//makes sure that menu is visable when you start 
-		if (!isPaused && !playHit)
->>>>>>> Stashed changes
 		{
 			Show();
 			return;
 		}
-<<<<<<< Updated upstream
 
-=======
-		//will use this otherwise
->>>>>>> Stashed changes
 		if(visableOnPause==isPaused)
 		{
 			Show();
