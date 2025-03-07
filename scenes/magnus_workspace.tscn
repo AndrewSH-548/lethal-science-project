@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5ivvq5auorrm"]
+[gd_scene load_steps=11 format=3 uid="uid://c5ivvq5auorrm"]
 
-[ext_resource type="Script" path="res://assets/scripts/UI/PauseManager.cs" id="1_eyjk2"]
-[ext_resource type="Script" path="res://assets/scripts/UI/TogglePauseVisiablity.cs" id="2_5l7qw"]
-[ext_resource type="Texture2D" uid="uid://dpvtexgxr2rpx" path="res://assets/UI/resume.png" id="4_bxebd"]
-[ext_resource type="Texture2D" uid="uid://0yf75shsmpqi" path="res://assets/UI/resume_Hover.png" id="5_76hgk"]
+[ext_resource type="Script" uid="uid://dgol2ang12sqv" path="res://assets/scripts/UI/PauseManager.cs" id="1_eyjk2"]
+[ext_resource type="Script" uid="uid://cbafxa80hfqme" path="res://assets/scripts/UI/TogglePauseVisiablity.cs" id="2_5l7qw"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_7r7ba"]
+[ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_qye0d"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="6_xnre3"]
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="7_e0l7n"]
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="8_xl88y"]
+[ext_resource type="Script" path="res://assets/scripts/UI/Options.cs" id="9_7r7ba"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="9_i5e0d"]
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="9_u2eci"]
 
@@ -19,12 +20,13 @@ process_mode = 3
 script = ExtResource("1_eyjk2")
 
 [node name="PauseMenu" type="CanvasLayer" parent="PauseManager"]
-process_mode = 2
 script = ExtResource("2_5l7qw")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/PauseMenu"]
-offset_right = 488.0
-offset_bottom = 488.0
+offset_left = 24.0
+offset_top = 40.0
+offset_right = 392.0
+offset_bottom = 392.0
 alignment_vertical = 0
 
 [node name="ColorRect" type="ColorRect" parent="PauseManager/PauseMenu/AspectRatioContainer"]
@@ -32,6 +34,7 @@ layout_mode = 2
 color = Color(0.684842, 0.19404, 0.556889, 1)
 
 [node name="titlePaused" type="Label" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
+visible = false
 layout_mode = 0
 offset_left = 144.0
 offset_top = 40.0
@@ -42,30 +45,30 @@ text = "PAUSED
 "
 
 [node name="quit" type="TextureButton" parent="PauseManager/PauseMenu"]
-offset_left = 125.0
-offset_top = 334.0
-offset_right = 329.0
-offset_bottom = 400.0
+offset_left = 103.0
+offset_top = 284.0
+offset_right = 307.0
+offset_bottom = 350.0
 texture_normal = ExtResource("8_xl88y")
 texture_hover = ExtResource("9_i5e0d")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="resume" type="TextureButton" parent="PauseManager/PauseMenu"]
-offset_left = 130.0
-offset_top = 110.0
-offset_right = 334.0
-offset_bottom = 176.0
-texture_normal = ExtResource("4_bxebd")
-texture_hover = ExtResource("5_76hgk")
+offset_left = 107.0
+offset_top = 89.0
+offset_right = 311.0
+offset_bottom = 155.0
+texture_normal = ExtResource("5_7r7ba")
+texture_hover = ExtResource("6_qye0d")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="options" type="TextureButton" parent="PauseManager/PauseMenu"]
-offset_left = 129.0
-offset_top = 222.0
-offset_right = 333.0
-offset_bottom = 288.0
+offset_left = 107.0
+offset_top = 187.0
+offset_right = 311.0
+offset_bottom = 253.0
 texture_normal = ExtResource("6_xnre3")
 texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
@@ -73,10 +76,13 @@ stretch_mode = 0
 
 [node name="Options" type="CanvasLayer" parent="PauseManager"]
 visible = false
+script = ExtResource("9_7r7ba")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/Options"]
-offset_right = 512.0
-offset_bottom = 512.0
+offset_left = -24.0
+offset_top = 40.0
+offset_right = 448.0
+offset_bottom = 400.0
 
 [node name="ColorRect" type="ColorRect" parent="PauseManager/Options/AspectRatioContainer"]
 layout_mode = 2
@@ -84,10 +90,10 @@ color = Color(0.266667, 0, 1, 1)
 
 [node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
 layout_mode = 0
-offset_left = 138.0
+offset_left = 64.0
 offset_top = 16.0
-offset_right = 323.0
-offset_bottom = 67.0
+offset_right = 249.0
+offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("9_u2eci")
 theme_override_font_sizes/font_size = 50
 text = "Options
@@ -95,10 +101,12 @@ text = "Options
 
 [node name="HSlider" type="HSlider" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
 layout_mode = 0
-offset_left = 76.0
+offset_left = 32.0
 offset_top = 88.0
-offset_right = 380.0
+offset_right = 336.0
 offset_bottom = 264.0
+max_value = 1.0
+step = 0.001
 
 [node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider"]
 layout_mode = 1
@@ -117,10 +125,11 @@ text = "Master Volume
 "
 
 [node name="backToResume" type="TextureButton" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
-offset_left = 129.0
-offset_top = 333.0
-offset_right = 333.0
-offset_bottom = 399.0
+layout_mode = 0
+offset_left = 80.0
+offset_top = 288.0
+offset_right = 284.0
+offset_bottom = 354.0
 texture_normal = ExtResource("6_xnre3")
 texture_hover = ExtResource("7_e0l7n")
 ignore_texture_size = true
@@ -129,4 +138,5 @@ stretch_mode = 0
 [connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
 [connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
 [connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
+[connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnValueChanged"]
 [connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]
