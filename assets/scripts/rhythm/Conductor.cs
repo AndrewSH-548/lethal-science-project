@@ -9,7 +9,6 @@ public partial class Conductor : Node
 	private int beatsPerMeasure = 4; // same as above
 	private Pitch key;
 
-	private Timer beatTimer; // time between each beat
 	private int wholeBeatsThisMeasure = 1;
 	private int beatSubdivisions = 0; // for eighth notes and beyond
 
@@ -21,8 +20,7 @@ public partial class Conductor : Node
 
 	// rule of thumb - dont go over 20 channels total
 
-	private bool pauseQueued = false;
-	public bool IsPlaying {get; set;} = false;
+	public bool IsPlaying {get {return rootChannel.Playing; }}
 	public int BeatsPerMeasure { get { return beatsPerMeasure; } }
 
 	private double time = 0f;
@@ -57,11 +55,13 @@ public partial class Conductor : Node
 	{
 		clickTrack = GetNode<MetronomePlayer>("Metronome");
 
+		// setup variables to correct the sync issues
 		_timeBegin = Time.GetTicksUsec();
 		_timeDelay = AudioServer.GetTimeSinceLastMix() + AudioServer.GetOutputLatency();
 		_lastBeatTime = 0;
 
 		interactiveStream = rootChannel.Stream as AudioStreamInteractive;
+		// get clips out of AudioStreamInteractive
 		if(rootChannel.Playing) playback = rootChannel.GetStreamPlayback() as AudioStreamPlaybackInteractive;
 		if(playback != null) currentClip = interactiveStream.GetClipStream(playback.GetCurrentClipIndex()) as AudioStreamOggVorbis;
 
@@ -73,10 +73,10 @@ public partial class Conductor : Node
 	{
 		if(playback != null) currentClip = interactiveStream.GetClipStream(playback.GetCurrentClipIndex()) as AudioStreamOggVorbis;
 
+		// time desync variables
 		time = (Time.GetTicksUsec() - _timeBegin) / 1000000.0d;
 		time = Math.Max(0.0d, time - _timeDelay);
 		
-		GD.Print(time);
 		ProcessBeats(time);
 
 		// P will toggle the conductor
@@ -99,18 +99,6 @@ public partial class Conductor : Node
 		{
 			DecrementBeatRate();
 		}
-
-		// pause will take effect at end of measure
-		if(pauseQueued && wholeBeatsThisMeasure == 1)
-		{
-			beatTimer.Stop();
-			IsPlaying = false;
-			pauseQueued = false;
-
-			PlayFinalBeat();
-		}
-
-		//time += delta;
 	}
 
 	// Methods
@@ -119,9 +107,16 @@ public partial class Conductor : Node
 	{
 		var secondsPerBeat = 60.0 / bpm;
 
+		// if(PrintToConsoleEnabled)
+		// {
+		// 	GD.Print("Time: " + _time);
+		// 	GD.Print("Seconds per beat: " + secondsPerBeat);
+		// 	GD.Print("Last beat time: " + _lastBeatTime);
+		// }
+
 		if(_time >= secondsPerBeat + _lastBeatTime)
 		{
-			clickTrack.PlayAccentedTick();
+			Beat();
 			_lastBeatTime = _time;
 		}
 	}
@@ -131,14 +126,6 @@ public partial class Conductor : Node
 	/// </summary>
 	public void Play()
 	{
-		if(beatTimer == null)
-		{
-			beatTimer = new Timer();
-			AddChild(beatTimer);
-			beatTimer.Timeout += () => Beat(); // play another beat AFTER the last beat
-		}
-		beatTimer.Stop();
-
 		if(!rootChannel.Playing)
 			rootChannel.Play();
 
@@ -147,7 +134,6 @@ public partial class Conductor : Node
 
 		SetConductorParameters(currentClip);
 		UpdateBeatRate();
-		Beat(); // start the first beat - this will play the next ones too
 	}
 
 	/// <summary>
@@ -159,8 +145,6 @@ public partial class Conductor : Node
 		var secondsPerBeatEvent = (60.0 / currentClip.Bpm) * (1.0/BeatRate);
 		if(PrintToConsoleEnabled) GD.Print("seconds per beat event: " + secondsPerBeatEvent);
 		beatsPerMeasure = currentClip.BarBeats;
-		beatTimer.WaitTime = secondsPerBeatEvent;
-		beatTimer.OneShot = true; // do not loop automatically
 		wholeBeatsThisMeasure = 1; // start on 1st beat
 		beatSubdivisions = 0;
 
@@ -174,7 +158,6 @@ public partial class Conductor : Node
 	{
 		rootChannel.Stop();
 		playback = null;
-		pauseQueued = true;
 	}
 
 	/// <summary>
@@ -231,7 +214,6 @@ public partial class Conductor : Node
 	{
 		beatsPerMeasure = stream.BarBeats;
 		bpm = stream.Bpm;
-		//key = phrase.Key;
 	}
 
 	private void ResetBeatTimer()
@@ -242,10 +224,6 @@ public partial class Conductor : Node
 
 		GD.Print("time: " + time);
 		clickTrack.PlayAccentedTick();
-
-		beatTimer.Stop();
-		beatTimer.WaitTime = (60.0 / currentClip.Bpm) - (time/currentClip.BarBeats);
-		beatTimer.Start();
 	}
 
 	/// <summary>
@@ -264,9 +242,6 @@ public partial class Conductor : Node
 		// start of new measure logic
 		if(beat == 1)
 		{
-			//Play();
-			SetConductorParameters(currentClip);
-			ResetBeatTimer();
 
 			if(queuedBeatRateChange != 0)
 			{
@@ -274,7 +249,6 @@ public partial class Conductor : Node
 				queuedBeatRateChange = 0;
 				UpdateBeatRate();
 			}
-
 		}
 
 		//  end of measure logic
@@ -282,7 +256,6 @@ public partial class Conductor : Node
 		{
 			wholeBeatsThisMeasure = 1;
 			beatSubdivisions = 0;
-
 		}
 		// end of beat logic
 		else
@@ -295,19 +268,7 @@ public partial class Conductor : Node
 				wholeBeatsThisMeasure += 1;
 			}
 		}
-
-		beatTimer.Start();
 	}
-
-	/// <summary>
-	/// Sets a phrase to be played at the start of the next measure.
-	/// </summary>
-	/// <param name="queuedPhrase"></param>
-	// private void QueuePhrase(Phrase queuedPhrase)
-	// {
-	// 	phraseQueued = true;
-	// 	nextPhrase = queuedPhrase;
-	// }
 
 	/// <summary>
 	/// Debug method tied to the OnBeat event.

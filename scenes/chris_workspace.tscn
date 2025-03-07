@@ -38,7 +38,6 @@ clip_4/next_clip = 2
 
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
 script = ExtResource("1_e2iuu")
-ClickTrackEnabled = false
 PrintToConsoleEnabled = true
 rootChannel = NodePath("AudioStreamPlayer2")
 
