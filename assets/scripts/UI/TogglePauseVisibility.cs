@@ -3,7 +3,7 @@ using System;
 
 public partial class TogglePauseVisibility : CanvasLayer
 {
-    [Export]public bool visableOnPause = true;
+    [Export]public bool visibleOnPause = true;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -17,7 +17,7 @@ public partial class TogglePauseVisibility : CanvasLayer
 			return;
 		}
 
-		if(visableOnPause==isPaused)
+		if(visibleOnPause==isPaused)
 		{
 			Show();
 		}
