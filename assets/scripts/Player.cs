@@ -101,6 +101,8 @@ public partial class Player : CharacterBody2D
 		isDamaged = true;
 		damageBuffer.Start();
 		UpdateHealthBar();
+		if (currentHealth <= 0)
+			GetParent<Node2D>().QueueFree();
 	}
 
     #region Visuals and UI

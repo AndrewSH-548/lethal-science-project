@@ -84,6 +84,8 @@ public partial class Enemy : StaticBody2D
 	{
 		calmCurrent += 5;
 		UpdateCalmness();
+		if (calmCurrent >= calmMax) 
+			GetParent<Node2D>().QueueFree();
 	}
 
 	private void UpdateCalmness()

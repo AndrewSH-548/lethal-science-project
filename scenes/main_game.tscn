@@ -1,6 +1,7 @@
-[gd_scene load_steps=144 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=145 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
+[ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
 [ext_resource type="Script" uid="uid://b1vgmgx18rg2p" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
 [ext_resource type="Texture2D" uid="uid://cpdr0q1f24glh" path="res://assets/sprites/player/player_absorb_idle_d.png" id="3_bbhr7"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/sprites/player/player_idle_d.png" id="3_bbkiy"]
@@ -926,6 +927,7 @@ animations = [{
 }]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_dp0eu")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(64, 0)
@@ -1011,5 +1013,7 @@ offset_bottom = 1.0
 
 [node name="PauseMenu" parent="UI Elements/Menu/PauseManager" index="0"]
 visible = false
+
+[connection signal="tree_exited" from="." to="." method="OnDelete"]
 
 [editable path="UI Elements/Menu"]
