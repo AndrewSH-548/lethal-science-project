@@ -7,7 +7,7 @@ public partial class Enemy : StaticBody2D
 {
 	[Export] string enemyName;
 	[Export] PackedScene projectileScene;
-	[Export] Conductor conductor;
+	[Export] Conductor rhythmNotifier;
 
 	int calmMax = 50;
 	int calmCurrent = 0;
@@ -36,8 +36,8 @@ public partial class Enemy : StaticBody2D
 			calmMeter.MaxValue = calmMax;
 			calmMeter.TintOver = projectileColor;
 		}
-		conductor.OnBeat += Beat;
-		conductor.OnBeatRateChanged += ResetGuide;
+		rhythmNotifier.OnBeat += Beat;
+		rhythmNotifier.OnBeatRateChanged += ResetGuide;
 		ResetGuide();
 		sprite.AnimationFinished += () => { sprite.Animation = "idle"; };
 		currentShootingGuide = shootingGuides[0];
@@ -49,8 +49,8 @@ public partial class Enemy : StaticBody2D
 	private void Beat(float beatIndex)
 	{
 		// Contingencies
-		if (!conductor.IsPlaying) return;
-		if (currentClipIndex != conductor.GetCurrentClipIndex())
+		if (!rhythmNotifier.IsPlaying) return;
+		if (currentClipIndex != rhythmNotifier.GetCurrentClipIndex())
 		{
 			ResetGuide();
 		}
@@ -59,7 +59,7 @@ public partial class Enemy : StaticBody2D
 			SpawnProjectile();
 			return;
 		}
-		if (conductor.PrintToConsoleEnabled) {
+		if (rhythmNotifier.PrintToConsoleEnabled) {
 			GD.Print("Current Measure: " + currentMeasure);
 			GD.Print("Current Note: " + CalculateGuideIndex(beatIndex));
 		}
@@ -75,9 +75,9 @@ public partial class Enemy : StaticBody2D
 				SpawnProjectile();
 		}
 
-		if (beatIndex * conductor.BeatRate > guideLength) ResetGuide();
+		if (beatIndex * rhythmNotifier.BeatRate > guideLength) ResetGuide();
         // If we're near the end of a measure
-		if (beatIndex == conductor.BeatsPerMeasure + 1.0f / conductor.BeatRate)
+		if (beatIndex == rhythmNotifier.BeatsPerMeasure + 1.0f / rhythmNotifier.BeatRate)
         {
 			
             if (currentGuideIndex < guideLength - 1) currentMeasure++;
@@ -99,7 +99,7 @@ public partial class Enemy : StaticBody2D
 
 	public void ResetGuide()
 	{
-        currentClipIndex = conductor.GetCurrentClipIndex();
+        currentClipIndex = rhythmNotifier.GetCurrentClipIndex();
         currentShootingGuide = shootingGuides[currentClipIndex];
         guideLength = currentShootingGuide.Length;
 		currentMeasure = 0;
@@ -107,7 +107,7 @@ public partial class Enemy : StaticBody2D
 
 	private int CalculateGuideIndex(float beatIndex)
 	{
-		int index = Mathf.FloorToInt(beatIndex * conductor.BeatRate - conductor.BeatRate + conductor.BeatsPerMeasure * conductor.BeatRate * currentMeasure);
+		int index = Mathf.FloorToInt(beatIndex * rhythmNotifier.BeatRate - rhythmNotifier.BeatRate + rhythmNotifier.BeatsPerMeasure * rhythmNotifier.BeatRate * currentMeasure);
 		while (index > guideLength - 1){
 			index -= guideLength;
 		}
@@ -115,7 +115,7 @@ public partial class Enemy : StaticBody2D
 	}
     private void LoadShootingGuide()
     {
-        string filePath = "res://guides/" + conductor.TrackName + "/" + enemyName + ".csv";
+        string filePath = "res://guides/" + rhythmNotifier.TrackName + "/" + enemyName + ".csv";
 
         using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string fileContent = file.GetAsText();

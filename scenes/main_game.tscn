@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=145 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cpdr0q1f24glh" path="res://assets/sprites/player/player_absorb_idle_d.png" id="3_bbhr7"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/sprites/player/player_idle_d.png" id="3_bbkiy"]
 [ext_resource type="Texture2D" uid="uid://cmtwxivtnnhqi" path="res://assets/sprites/player/player_idle_s.png" id="4_efva3"]
-[ext_resource type="Script" uid="uid://duuljskoljfdc" path="res://assets/scripts/rhythm/Conductor.cs" id="4_tsv5s"]
 [ext_resource type="Texture2D" uid="uid://d1c7uwbkka3l8" path="res://assets/sprites/player/player_absorb_idle_l.png" id="4_vws2k"]
 [ext_resource type="Texture2D" uid="uid://c6mbko3udwpq0" path="res://assets/sprites/player/player_absorb_idle_r.png" id="5_2mge4"]
 [ext_resource type="Texture2D" uid="uid://gre1sdnst3yx" path="res://assets/sprites/player/player_idle_u.png" id="5_uyina"]
@@ -963,29 +962,24 @@ animation = &"absorb-walk-up"
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_sehyx")
 
-[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
-script = ExtResource("4_tsv5s")
-TrackName = "freakbattle"
-PrintToConsoleEnabled = true
-rootChannel = NodePath("Channel_1")
-BeatRate = 2
+[node name="Conductor" type="Node" parent="."]
 
-[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
+[node name="RhythmNotifier" type="Node" parent="."]
+
+[node name="Metronome" type="AudioStreamPlayer" parent="RhythmNotifier"]
 stream = ExtResource("8_yubpw")
 script = ExtResource("9_tvib1")
 tickSound = ExtResource("8_yubpw")
 accentedTickSound = ExtResource("10_hjm76")
 
-[node name="Channel_1" type="AudioStreamPlayer" parent="Conductor"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RhythmNotifier"]
 stream = SubResource("AudioStreamInteractive_ibep1")
 volume_db = -6.005
 
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("calmMeter")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
-enemyName = "head"
 projectileScene = ExtResource("12_4he15")
-conductor = NodePath("../Conductor")
 calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6

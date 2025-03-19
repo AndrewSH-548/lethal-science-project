@@ -98,8 +98,8 @@ public partial class RhythmDebugUI : Control
 		conductor.Play();
 	}
 
-	public void PressPause()
-	{
-		conductor.Pause();
-	}
+	// public void PressPause()
+	// {
+	// 	conductor.Pause();
+	// }
 }
