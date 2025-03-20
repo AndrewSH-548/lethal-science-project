@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://hpb4ot3hk2y6"]
+[gd_scene load_steps=9 format=3 uid="uid://hpb4ot3hk2y6"]
 
-[ext_resource type="Script" uid="uid://ciimskytra6af" path="res://assets/scripts/rhythm/InteractiveAudioTester.cs" id="3_i1eok"]
+[ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="1_n4ba0"]
 [ext_resource type="AudioStream" uid="uid://ndmjqqngssox" path="res://assets/songs/freakbattle/mus_freakbattle_initial-1.ogg" id="3_y4jve"]
 [ext_resource type="AudioStream" uid="uid://cdo8r56uqime7" path="res://assets/songs/freakbattle/mus_freakbattle_initial-2.ogg" id="4_8woo6"]
 [ext_resource type="AudioStream" uid="uid://cpvh32ogubpmg" path="res://assets/songs/freakbattle/mus_freakbattle_loop-1.ogg" id="5_v0a3f"]
 [ext_resource type="AudioStream" uid="uid://ddx33d3eamosv" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="6_y52rm"]
+[ext_resource type="Script" uid="uid://duuljskoljfdc" path="res://assets/scripts/rhythm/Conductor.cs" id="7_nnh2h"]
 [ext_resource type="AudioStream" uid="uid://dbleypvwrswa0" path="res://assets/songs/freakbattle/mus_freakbattle_loop-3.ogg" id="7_yot23"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_y6hlp"]
@@ -32,13 +33,10 @@ clip_4/next_clip = 2
 
 [node name="ChrisWorkspace2" type="Node"]
 
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("player", "label")]
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamInteractive_y6hlp")
 volume_db = -10.0
 autoplay = true
-script = ExtResource("3_i1eok")
-player = NodePath(".")
-label = NodePath("../Control/Label")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -55,3 +53,10 @@ offset_top = 160.0
 offset_right = 244.0
 offset_bottom = 183.0
 text = "current track: "
+
+[node name="RhythmNotifier" type="Node" parent="." node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("1_n4ba0")
+audio_stream_player = NodePath("../AudioStreamPlayer2")
+
+[node name="Conductor" type="Node" parent="."]
+script = ExtResource("7_nnh2h")

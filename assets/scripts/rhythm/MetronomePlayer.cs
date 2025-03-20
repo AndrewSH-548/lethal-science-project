@@ -17,4 +17,16 @@ public partial class MetronomePlayer : AudioStreamPlayer
         Stream = accentedTickSound;
         Play();
     }
+
+    public void PlayTick(int tick)
+    {
+        if (tick % 4 == 0)
+        {
+            PlayAccentedTick();
+        }
+        else
+        {
+            PlayTick();
+        }
+    }
 }
