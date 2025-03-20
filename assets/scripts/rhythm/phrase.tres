@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Phrase" load_steps=2 format=3 uid="uid://bjhphywn83fb4"]
-
-[ext_resource type="Script" path="res://assets/scripts/rhythm/Phrase.cs" id="1_0lts0"]
-
-[resource]
-script = ExtResource("1_0lts0")
-BPM = 0
-Meter = 10
-Key = 0

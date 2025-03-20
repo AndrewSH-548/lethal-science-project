@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2pa7q0i3g6l6"]
+[gd_scene load_steps=17 format=3 uid="uid://b2pa7q0i3g6l6"]
 
 [ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="1_gi0u1"]
 [ext_resource type="PackedScene" uid="uid://cwqibqnticswl" path="res://scenes/projectiles/break.tscn" id="1_ugq0g"]
@@ -10,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="8_fwg01"]
 [ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="9_qjn5h"]
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="10_a0e2t"]
+[ext_resource type="Script" uid="uid://cd7mbksq3i5q6" path="res://node_2d.gd" id="11_k8t5o"]
+[ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="12_dm72s"]
+[ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="13_k2idp"]
+[ext_resource type="Script" uid="uid://dtmnsqoi88iqw" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="14_5fvg0"]
+[ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="15_j66ay"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_p4p6v"]
 clip_count = 5
@@ -46,7 +51,6 @@ lockOrientation = false
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamInteractive_p4p6v")
 volume_db = -10.0
-autoplay = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 offset_right = 344.0
@@ -56,3 +60,23 @@ texture_under = ExtResource("8_fwg01")
 texture_over = ExtResource("9_qjn5h")
 texture_progress = ExtResource("10_a0e2t")
 tint_over = Color(1, 0, 0, 1)
+
+[node name="Conductor" type="Node2D" parent="."]
+script = ExtResource("11_k8t5o")
+
+[node name="RhythmNotifier" type="Node" parent="Conductor"]
+script = ExtResource("12_dm72s")
+bpm = 140.0
+beat_length = 0.428571
+running = true
+metadata/_custom_type_script = "uid://cn0uglp3akrpe"
+
+[node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
+stream = ExtResource("13_k2idp")
+script = ExtResource("14_5fvg0")
+tickSound = ExtResource("13_k2idp")
+accentedTickSound = ExtResource("15_j66ay")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
+stream = SubResource("AudioStreamInteractive_p4p6v")
+volume_db = -6.005

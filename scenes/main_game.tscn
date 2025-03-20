@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=147 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -24,7 +24,9 @@
 [ext_resource type="Script" uid="uid://frek6135h3wv" path="res://assets/scripts/Enemy.cs" id="11_5og6n"]
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
+[ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
+[ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
 [ext_resource type="AudioStream" uid="uid://ndmjqqngssox" path="res://assets/songs/freakbattle/mus_freakbattle_initial-1.ogg" id="22_4e2rb"]
 [ext_resource type="AudioStream" uid="uid://cdo8r56uqime7" path="res://assets/songs/freakbattle/mus_freakbattle_initial-2.ogg" id="23_6vdpn"]
 [ext_resource type="AudioStream" uid="uid://ddx33d3eamosv" path="res://assets/songs/freakbattle/mus_freakbattle_loop-2.ogg" id="25_jmxl0"]
@@ -963,23 +965,33 @@ position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_sehyx")
 
 [node name="Conductor" type="Node" parent="."]
+script = ExtResource("18_6vdpn")
+TrackName = "freakbattle"
+ClickTrackEnabled = false
+BeatLength = 0.25
 
-[node name="RhythmNotifier" type="Node" parent="."]
+[node name="RhythmNotifier" type="Node" parent="Conductor"]
+script = ExtResource("19_jmxl0")
+bpm = 140.0
+beat_length = 0.428571
+metadata/_custom_type_script = "uid://cn0uglp3akrpe"
 
-[node name="Metronome" type="AudioStreamPlayer" parent="RhythmNotifier"]
+[node name="Metronome" type="AudioStreamPlayer" parent="Conductor/RhythmNotifier"]
 stream = ExtResource("8_yubpw")
 script = ExtResource("9_tvib1")
 tickSound = ExtResource("8_yubpw")
 accentedTickSound = ExtResource("10_hjm76")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RhythmNotifier"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor/RhythmNotifier"]
 stream = SubResource("AudioStreamInteractive_ibep1")
 volume_db = -6.005
 
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("calmMeter")]
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
+enemyName = "head"
 projectileScene = ExtResource("12_4he15")
+conductor = NodePath("../Conductor")
 calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
@@ -1023,5 +1035,6 @@ offset_bottom = 1.0
 visible = false
 
 [connection signal="tree_exited" from="." to="." method="OnDelete"]
+[connection signal="OnBeat" from="Conductor" to="Boss" method="Beat"]
 
 [editable path="UI Elements/Menu"]

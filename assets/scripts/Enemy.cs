@@ -7,7 +7,7 @@ public partial class Enemy : StaticBody2D
 {
 	[Export] string enemyName;
 	[Export] PackedScene projectileScene;
-	[Export] Conductor rhythmNotifier;
+	[Export] Node conductor;
 
 	int calmMax = 50;
 	int calmCurrent = 0;
@@ -16,13 +16,12 @@ public partial class Enemy : StaticBody2D
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
 
-	List<string> shootingGuides = new List<string>();
-    string currentShootingGuide;
-	int currentClipIndex = 0;
+	string initialShootingGuide;
+	string loopShootingGuide;
+	string currentShootingGuide;
 	int currentGuideIndex = 0;
 
     int guideLength;
-	int currentMeasure = 0;
 
 	AnimatedSprite2D sprite;
 
@@ -36,37 +35,30 @@ public partial class Enemy : StaticBody2D
 			calmMeter.MaxValue = calmMax;
 			calmMeter.TintOver = projectileColor;
 		}
-		rhythmNotifier.OnBeat += Beat;
-		rhythmNotifier.OnBeatRateChanged += ResetGuide;
-		ResetGuide();
 		sprite.AnimationFinished += () => { sprite.Animation = "idle"; };
-		currentShootingGuide = shootingGuides[0];
+		currentShootingGuide = initialShootingGuide;
+		guideLength = currentShootingGuide.Length;
 	}
 
 	/// <summary>
 	/// Instead of _Process() let's use Beat() to run logic every beat.
 	/// </summary>
-	private void Beat(float beatIndex)
+	public void Beat(int beatIndex)
 	{
+		if (currentGuideIndex >= guideLength) ResetGuide(beatIndex);
 		// Contingencies
-		if (!rhythmNotifier.IsPlaying) return;
-		if (currentClipIndex != rhythmNotifier.GetCurrentClipIndex())
-		{
-			ResetGuide();
-		}
+		if (!(bool)conductor.Get("IsPlaying")) return;
 		if (string.IsNullOrEmpty(currentShootingGuide))
 		{
 			SpawnProjectile();
 			return;
 		}
-		if (rhythmNotifier.PrintToConsoleEnabled) {
-			GD.Print("Current Measure: " + currentMeasure);
-			GD.Print("Current Note: " + CalculateGuideIndex(beatIndex));
+		if ((bool)conductor.Get("PrintToConsoleEnabled")) {
+			GD.Print("Current Note: " + beatIndex);
 		}
 
-
-
-		int guideNumber = currentShootingGuide[CalculateGuideIndex(beatIndex)] - '0';
+		//Convert the guide number to an int
+		int guideNumber = currentShootingGuide[currentGuideIndex] - '0';
 		if (guideNumber == 1)
 			SpawnProjectile();
 		else if (guideNumber > 0)
@@ -74,15 +66,7 @@ public partial class Enemy : StaticBody2D
 			for (int i = 0; i < guideNumber; i++)
 				SpawnProjectile();
 		}
-
-		if (beatIndex * rhythmNotifier.BeatRate > guideLength) ResetGuide();
-        // If we're near the end of a measure
-		if (beatIndex == rhythmNotifier.BeatsPerMeasure + 1.0f / rhythmNotifier.BeatRate)
-        {
-			
-            if (currentGuideIndex < guideLength - 1) currentMeasure++;
-            else currentMeasure = 0;
-        }
+        currentGuideIndex++;
     }
 
     #region Shooting Guide Functions
@@ -97,33 +81,36 @@ public partial class Enemy : StaticBody2D
 		sprite.Play();
 	}
 
-	public void ResetGuide()
+	public void ResetGuide(int beatIndex)
 	{
-        currentClipIndex = rhythmNotifier.GetCurrentClipIndex();
-        currentShootingGuide = shootingGuides[currentClipIndex];
+		if (currentShootingGuide != loopShootingGuide) currentShootingGuide = loopShootingGuide;
+		currentGuideIndex = 0;
         guideLength = currentShootingGuide.Length;
-		currentMeasure = 0;
-	}
-
-	private int CalculateGuideIndex(float beatIndex)
-	{
-		int index = Mathf.FloorToInt(beatIndex * rhythmNotifier.BeatRate - rhythmNotifier.BeatRate + rhythmNotifier.BeatsPerMeasure * rhythmNotifier.BeatRate * currentMeasure);
-		while (index > guideLength - 1){
-			index -= guideLength;
-		}
-		return index;
 	}
     private void LoadShootingGuide()
     {
-        string filePath = "res://guides/" + rhythmNotifier.TrackName + "/" + enemyName + ".csv";
+        string filePath = "res://guides/" + (string)conductor.Get("TrackName") + "/" + enemyName + ".csv";
 
         using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string fileContent = file.GetAsText();
         string[] fileContentArray = fileContent.Split(',');
-        for (int i = 0; i < fileContentArray.Length; i += 2)
-        {
-            shootingGuides.Add(fileContentArray[i + 1]);
-        }
+
+		//File content is read in groups of 3:
+		//1 - whether initial or loop, represented as i
+		//2 - repetition count, represented as i + 1
+		//3 - guide numbers, represented as i + 2
+		for (int i = 0; i < fileContentArray.Length; i += 3)
+		{
+			int repetitionCount = int.Parse(fileContentArray[i + 1]);
+			for (int j = 0; j < repetitionCount; j++)
+			{
+				if (fileContentArray[i] == "initial")
+					initialShootingGuide += fileContentArray[i + 2];
+				else
+					loopShootingGuide += fileContentArray[i + 2];
+
+            }
+		}
     }
     #endregion
 
