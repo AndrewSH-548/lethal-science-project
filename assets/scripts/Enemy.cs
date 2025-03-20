@@ -131,14 +131,18 @@ public partial class Enemy : StaticBody2D
 	{
 		calmCurrent += 5;
 		UpdateCalmness();
-		if (calmCurrent >= calmMax) 
-			GetParent<Node2D>().QueueFree();
+		if (calmCurrent >= calmMax) End();
 	}
 
 	private void UpdateCalmness()
 	{
-        calmMeter.Value = calmCurrent;
-    }
+		Tween calmMeterTween = CreateTween();
+        calmMeterTween.TweenProperty(calmMeter, "value", calmCurrent, 0.5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+		
+    }	
 
-	
+	private void End()
+	{
+        GetParent<Node2D>().QueueFree();
+    }
 }

@@ -45,7 +45,7 @@ public partial class Projectile : Area2D
             GetParent<Enemy>().Pacify();
         }
         else if (!body.IsDamaged)
-            body.Damage(0);
+            body.Damage(Damage);
 
         Break breakAnim = projectileBreak.Instantiate() as Break;
         breakAnim.glowColor = GlowColor;

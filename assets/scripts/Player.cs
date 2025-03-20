@@ -156,8 +156,9 @@ public partial class Player : CharacterBody2D
 
 	private void UpdateHealthBar()
 	{
-		healthBar.Value = currentHealth;
-		if (healthBar.Value < 0)
+        Tween healthBarTween = CreateTween();
+        healthBarTween.TweenProperty(healthBar, "value", currentHealth, 0.2).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
+        if (healthBar.Value < 0)
 		{
 			healthBar.Value = healthBar.MaxValue;
 		}
