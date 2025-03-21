@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=11 format=3 uid="uid://jwjuws2k0hhl"]
 
 [ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]

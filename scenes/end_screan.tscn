@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://doq1dtdtpfo4o"]
+
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="1_vmv1i"]
+[ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="2_ibkum"]
+[ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="3_vmc8o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ane5"]
+bg_color = Color(0.196078, 0.196078, 0.129412, 0.407843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.117647, 0.101961, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="EndScrean" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 19.0
+offset_right = 392.0
+offset_bottom = 388.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ane5")
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 268.0
+offset_right = 284.0
+offset_bottom = 329.0
+texture_normal = ExtResource("1_vmv1i")
+texture_hover = ExtResource("2_ibkum")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 27.0
+offset_right = 315.0
+offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("3_vmc8o")
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
