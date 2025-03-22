@@ -1,7 +1,7 @@
-[gd_scene load_steps=147 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=148 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
-[ext_resource type="Script" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
+[ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
 [ext_resource type="Script" uid="uid://b1vgmgx18rg2p" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
 [ext_resource type="Texture2D" uid="uid://cpdr0q1f24glh" path="res://assets/sprites/player/player_absorb_idle_d.png" id="3_bbhr7"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/sprites/player/player_idle_d.png" id="3_bbkiy"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="28_rr87q"]
 [ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="29_dp0eu"]
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
+[ext_resource type="PackedScene" uid="uid://doq1dtdtpfo4o" path="res://scenes/end_screen.tscn" id="35_jmxl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
 texture = ExtResource("1_0uvb2")
@@ -971,8 +972,6 @@ BeatLength = 0.25
 
 [node name="RhythmNotifier" type="Node" parent="Conductor"]
 script = ExtResource("19_jmxl0")
-bpm = 140.0
-beat_length = 0.428571
 metadata/_custom_type_script = "uid://cn0uglp3akrpe"
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor/RhythmNotifier"]
@@ -1032,6 +1031,10 @@ offset_bottom = 1.0
 
 [node name="PauseMenu" parent="UI Elements/Menu/PauseManager" index="0"]
 visible = false
+
+[node name="End Screen" parent="UI Elements" node_paths=PackedStringArray("gameManager") instance=ExtResource("35_jmxl0")]
+visible = false
+gameManager = NodePath("../..")
 
 [connection signal="tree_exited" from="." to="." method="OnDelete"]
 [connection signal="OnBeat" from="Conductor" to="Boss" method="Beat"]

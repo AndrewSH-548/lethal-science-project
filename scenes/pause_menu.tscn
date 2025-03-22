@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://posucnb2q2gr"]
 
 [ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_5xqgd"]
-[ext_resource type="Script" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_knqa7"]
+[ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_knqa7"]
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_vsgfy"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_1p8cb"]
 [ext_resource type="Texture2D" uid="uid://dpvtexgxr2rpx" path="res://assets/UI/resume.png" id="5_3v6ro"]

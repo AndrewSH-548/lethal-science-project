@@ -37,7 +37,23 @@ public partial class Player : CharacterBody2D
 		get { return isDamaged; }
 	}
 
-	public override void _Ready()
+	public int CurrentHealth
+	{
+		get { return currentHealth; }
+	}
+
+	[Signal]
+	public delegate void GameOverEventHandler();
+
+	//added a static instance to access signals wherever -Magnus
+    public static Player Instance { get; private set; }
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+
+    }
+    public override void _Ready()
 	{
 		currentHealth = maxHealth;
 		healthBar.MaxValue = maxHealth;
@@ -101,9 +117,9 @@ public partial class Player : CharacterBody2D
 		isDamaged = true;
 		damageBuffer.Start();
 		UpdateHealthBar();
-		if (currentHealth <= 0)
-			GetParent<Node2D>().QueueFree();
-	}
+		if (currentHealth <= 0);
+            //GetParent<Node2D>().QueueFree();
+    }
 
     #region Visuals and UI
 
@@ -178,4 +194,6 @@ public partial class Player : CharacterBody2D
 		AddChild(timer);
 		return timer;
 	}
+
+	
 }

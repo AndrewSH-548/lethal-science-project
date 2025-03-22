@@ -17,11 +17,8 @@ public partial class PauseManager : Node
     public override void _EnterTree()
     {
         Instance = this;
+       
 
-    }
-    public override void _Process(double delta)
-    {
-        GD.Print(isPaused);
     }
     public override void _Input(InputEvent @event)
     {
@@ -38,7 +35,9 @@ public partial class PauseManager : Node
 
         }
     }
-    public void OnResumePressed()
+
+
+public void OnResumePressed()
     {
        
         if(!playHit)
@@ -77,4 +76,5 @@ public partial class PauseManager : Node
         inOptions = false;
         options.Hide();
     }
+  
 }
