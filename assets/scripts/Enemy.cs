@@ -25,6 +25,15 @@ public partial class Enemy : StaticBody2D
 
 	AnimatedSprite2D sprite;
 
+	public int CalmCurrent
+	{
+		get { return calmCurrent; }
+	}
+	public int CalmMax
+	{
+		get { return calmMax; }
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -130,6 +139,8 @@ public partial class Enemy : StaticBody2D
 
 	private void End()
 	{
-        GetParent<Node2D>().QueueFree();
+
+		
+        //GetParent<Node2D>().QueueFree();
     }
 }
