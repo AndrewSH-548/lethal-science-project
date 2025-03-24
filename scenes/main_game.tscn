@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/player/player_death.png" id="13_jmxl0"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
-[ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
+[ext_resource type="Script" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
@@ -34,6 +34,7 @@
 [ext_resource type="AudioStream" uid="uid://xf55kq5jq0l4" path="res://assets/sounds/absorb.wav" id="28_sgdes"]
 [ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="29_dp0eu"]
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
+[ext_resource type="PackedScene" uid="uid://doq1dtdtpfo4o" path="res://scenes/end_screen.tscn" id="35_jmxl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
 texture = ExtResource("1_0uvb2")
@@ -988,7 +989,7 @@ position = Vector2(64, 0)
 tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAACAAEAAAAIAAMAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAACAAMAAAAIAAcAAAACAAMAAAAIAAgAAAACAAMAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAMAAAAIAAoAAAACAAMAAAAIAAkAAAACAAMAAAD//woAAAACAAMAAAAAAAoAAAACAAMAAAABAAoAAAACAAMAAAACAAoAAAACAAMAAAADAAoAAAACAAMAAAAEAAoAAAACAAMAAAAFAAoAAAACAAMAAAAGAAoAAAACAAMAAAAHAAoAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAMAAAAJAAoAAAACAAMAAAD//wsAAAACAAMAAAAAAAsAAAACAAMAAAABAAsAAAACAAMAAAACAAsAAAACAAMAAAADAAsAAAACAAMAAAAEAAsAAAACAAMAAAAFAAsAAAACAAMAAAAGAAsAAAACAAMAAAAHAAsAAAACAAMAAAAIAAsAAAACAAMAAAAJAAsAAAACAAMAAAD+/wsAAAAAAAMAAAD+/wwAAAAAAAUAAAD//wwAAAABAAUAAAAAAAwAAAABAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAADAAUAAAAKAAsAAAADAAQAAAAKAAoAAAADAAQAAAAKAAkAAAADAAQAAAAKAAgAAAADAAQAAAAKAAcAAAADAAQAAAAKAAYAAAADAAQAAAAKAAUAAAADAAQAAAAKAAQAAAADAAQAAAAKAAMAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAKAAAAAAADAAAAAAAJAAAAAAACAAAAAAAJAAMAAAACAAEAAAAJAAIAAAACAAEAAAAJAAEAAAACAAEAAAAJAAQAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_aaalo")
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar")]
+[node name="Player" type="CharacterBody2D" parent="."]
 physics_interpolation_mode = 1
 position = Vector2(208, 288)
 collision_layer = 3
@@ -1013,8 +1014,6 @@ BeatLength = 0.25
 
 [node name="RhythmNotifier" type="Node" parent="Conductor"]
 script = ExtResource("19_jmxl0")
-bpm = 140.0
-beat_length = 0.428571
 metadata/_custom_type_script = "uid://cn0uglp3akrpe"
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor/RhythmNotifier"]
@@ -1027,7 +1026,7 @@ accentedTickSound = ExtResource("10_hjm76")
 stream = SubResource("AudioStreamInteractive_ibep1")
 volume_db = -6.005
 
-[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
+[node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor")]
 position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
 enemyName = "head"
@@ -1077,6 +1076,10 @@ offset_bottom = 1.0
 
 [node name="PauseMenu" parent="UI Elements/Menu/PauseManager" index="0"]
 visible = false
+
+[node name="End Screen" parent="UI Elements" node_paths=PackedStringArray("gameManager") instance=ExtResource("35_jmxl0")]
+visible = false
+gameManager = NodePath("../..")
 
 [connection signal="tree_exited" from="." to="." method="OnDelete"]
 [connection signal="OnBeat" from="Conductor" to="Boss" method="Beat"]

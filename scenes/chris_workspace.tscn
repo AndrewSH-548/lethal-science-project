@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://dt4bipq1pyima"]
+[gd_scene load_steps=11 format=3 uid="uid://dt4bipq1pyima"]
 
-[ext_resource type="Script" uid="uid://duuljskoljfdc" path="res://assets/scripts/rhythm/Conductor.cs" id="1_e2iuu"]
 [ext_resource type="AudioStream" uid="uid://cw3tqd4c3jixc" path="res://assets/sound-fx/metronomeTick.mp3" id="2_r7u3d"]
 [ext_resource type="Script" uid="uid://dtmnsqoi88iqw" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="3_ixf7h"]
 [ext_resource type="AudioStream" uid="uid://cyc67punw2gxy" path="res://assets/sound-fx/metronomeTick1.mp3" id="4_6lgvk"]
@@ -36,10 +35,7 @@ clip_4/next_clip = 2
 
 [node name="Root" type="Node"]
 
-[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("rootChannel")]
-script = ExtResource("1_e2iuu")
-PrintToConsoleEnabled = true
-rootChannel = NodePath("AudioStreamPlayer2")
+[node name="Conductor" type="Node" parent="."]
 
 [node name="Metronome" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("2_r7u3d")
