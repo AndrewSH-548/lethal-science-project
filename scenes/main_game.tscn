@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=151 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/player/player_death.png" id="13_jmxl0"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
-[ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
 [ext_resource type="AudioStream" uid="uid://1cco2lfcdfoq" path="res://assets/songs/freakbattle/loop.ogg" id="24_urnot"]
@@ -979,7 +978,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player", "enemy")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("player", "enemy")]
 script = ExtResource("1_dp0eu")
 player = NodePath("Player")
 enemy = NodePath("Boss")
@@ -1069,18 +1068,9 @@ texture_over = ExtResource("29_dp0eu")
 texture_progress = ExtResource("30_urnot")
 tint_progress = Color(0.488179, 1, 0.456277, 1)
 
-[node name="Menu" parent="UI Elements" instance=ExtResource("19_e7yp7")]
-offset_top = 1.0
-offset_bottom = 1.0
-
-[node name="PauseMenu" parent="UI Elements/Menu/PauseManager" index="0"]
-visible = false
-
 [node name="End Screen" parent="UI Elements" node_paths=PackedStringArray("gameManager") instance=ExtResource("35_jmxl0")]
 visible = false
 gameManager = NodePath("../..")
 
 [connection signal="tree_exited" from="." to="." method="OnDelete"]
 [connection signal="OnBeat" from="Conductor" to="Boss" method="Beat"]
-
-[editable path="UI Elements/Menu"]
