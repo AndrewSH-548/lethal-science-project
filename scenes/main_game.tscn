@@ -1,11 +1,10 @@
-[gd_scene load_steps=154 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=152 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
 [ext_resource type="Script" uid="uid://b1vgmgx18rg2p" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
 [ext_resource type="Texture2D" uid="uid://cpdr0q1f24glh" path="res://assets/sprites/player/player_absorb_idle_d.png" id="3_bbhr7"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/sprites/player/player_idle_d.png" id="3_bbkiy"]
-[ext_resource type="AudioStream" uid="uid://cvt25lakwas05" path="res://assets/sounds/damage.wav" id="4_6vdpn"]
 [ext_resource type="Texture2D" uid="uid://cmtwxivtnnhqi" path="res://assets/sprites/player/player_idle_s.png" id="4_efva3"]
 [ext_resource type="Texture2D" uid="uid://d1c7uwbkka3l8" path="res://assets/sprites/player/player_absorb_idle_l.png" id="4_vws2k"]
 [ext_resource type="Texture2D" uid="uid://c6mbko3udwpq0" path="res://assets/sprites/player/player_absorb_idle_r.png" id="5_2mge4"]
@@ -31,7 +30,6 @@
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
 [ext_resource type="AudioStream" uid="uid://1cco2lfcdfoq" path="res://assets/songs/freakbattle/loop.ogg" id="24_urnot"]
 [ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="28_rr87q"]
-[ext_resource type="AudioStream" uid="uid://xf55kq5jq0l4" path="res://assets/sounds/absorb.wav" id="28_sgdes"]
 [ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="29_dp0eu"]
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
 [ext_resource type="PackedScene" uid="uid://b2c30dpjr0ivu" path="res://scenes/end_screen.tscn" id="35_jmxl0"]
@@ -997,7 +995,6 @@ position = Vector2(208, 288)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
 healthBar = NodePath("../UI Elements/PlayerHealth")
-damageSound = ExtResource("4_6vdpn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -8)
@@ -1034,7 +1031,6 @@ position = Vector2(207, 85)
 script = ExtResource("11_5og6n")
 enemyName = "head"
 conductor = NodePath("../Conductor")
-pacifySound = ExtResource("28_sgdes")
 calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileScene = ExtResource("12_4he15")
 projectileColor = Color(1, 1, 0, 1)
