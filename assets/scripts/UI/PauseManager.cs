@@ -53,6 +53,7 @@ public partial class PauseManager : Node
             // instantiate the game scene
             PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
             Node gameNode = gameScene.Instantiate();
+            
             GetParent().AddChild(gameNode);
 
             GetNode<CanvasLayer>("PauseMenu").Hide();

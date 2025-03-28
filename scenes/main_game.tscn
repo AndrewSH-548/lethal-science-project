@@ -1006,6 +1006,7 @@ shape = SubResource("RectangleShape2D_sehyx")
 [node name="Conductor" type="Node" parent="."]
 script = ExtResource("18_6vdpn")
 TrackName = "freakbattle"
+ClickTrackEnabled = false
 BeatLength = 0.25
 
 [node name="RhythmNotifier" type="Node" parent="Conductor"]
@@ -1022,7 +1023,6 @@ accentedTickSound = ExtResource("10_hjm76")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor/RhythmNotifier"]
 stream = SubResource("AudioStreamInteractive_ibep1")
-volume_db = -6.005
 
 [node name="Boss" type="StaticBody2D" parent="." node_paths=PackedStringArray("conductor", "calmMeter")]
 position = Vector2(207, 85)
