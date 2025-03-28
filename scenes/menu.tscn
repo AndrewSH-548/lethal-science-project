@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=15 format=3 uid="uid://cu5jmhnrb7gqh"]
 
-[ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_70i5f"]
+[ext_resource type="Script" uid="uid://cb6vuwkax5sr7" path="res://assets/scripts/UI/MenuManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_6cdou"]
@@ -10,30 +10,42 @@
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="8_g6gyw"]
 [ext_resource type="Script" uid="uid://00arj6kp6dc8" path="res://assets/scripts/UI/Options.cs" id="9_3dmrc"]
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="10_81l6r"]
+[ext_resource type="Script" uid="uid://88ehevy6ucqj" path="res://assets/scripts/UI/EndScreen.cs" id="11_ufwb2"]
+[ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="12_6cdou"]
+[ext_resource type="Script" uid="uid://vx0mnq6voxrf" path="res://assets/scripts/TutorialMenu.cs" id="13_6cdou"]
 
-[node name="Menu" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ane5"]
+bg_color = Color(0.196078, 0.196078, 0.129412, 0.407843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.117647, 0.101961, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MenuManager" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-
-[node name="PauseManager" type="Node" parent="."]
-process_mode = 3
 script = ExtResource("1_70i5f")
 
-[node name="PauseMenu" type="CanvasLayer" parent="PauseManager"]
+[node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("2_mj5lg")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/PauseMenu"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseMenu"]
 offset_left = 24.0
 offset_top = 40.0
 offset_right = 392.0
 offset_bottom = 392.0
 alignment_vertical = 0
 
-[node name="ColorRect" type="ColorRect" parent="PauseManager/PauseMenu/AspectRatioContainer"]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/AspectRatioContainer"]
 layout_mode = 2
 color = Color(0.684842, 0.19404, 0.556889, 1)
 
-[node name="titlePaused" type="Label" parent="PauseManager/PauseMenu/AspectRatioContainer/ColorRect"]
+[node name="titlePaused" type="Label" parent="PauseMenu/AspectRatioContainer/ColorRect"]
 visible = false
 layout_mode = 0
 offset_left = 144.0
@@ -44,51 +56,58 @@ theme_override_font_sizes/font_size = 50
 text = "PAUSED
 "
 
-[node name="quit" type="TextureButton" parent="PauseManager/PauseMenu"]
-offset_left = 103.0
-offset_top = 284.0
-offset_right = 307.0
-offset_bottom = 350.0
-texture_normal = ExtResource("3_ufwb2")
-texture_hover = ExtResource("4_6cdou")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="resume" type="TextureButton" parent="PauseManager/PauseMenu"]
+[node name="resume" type="TextureButton" parent="PauseMenu"]
 offset_left = 107.0
-offset_top = 89.0
+offset_top = 76.0
 offset_right = 311.0
-offset_bottom = 155.0
+offset_bottom = 142.0
 texture_normal = ExtResource("5_i42df")
 texture_hover = ExtResource("6_7jp70")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="options" type="TextureButton" parent="PauseManager/PauseMenu"]
+[node name="tutorial" type="Button" parent="PauseMenu"]
 offset_left = 107.0
-offset_top = 187.0
+offset_top = 152.0
 offset_right = 311.0
-offset_bottom = 253.0
+offset_bottom = 218.0
+text = "TUTORIAL"
+
+[node name="options" type="TextureButton" parent="PauseMenu"]
+offset_left = 107.0
+offset_top = 226.0
+offset_right = 311.0
+offset_bottom = 292.0
 texture_normal = ExtResource("7_mxgkd")
 texture_hover = ExtResource("8_g6gyw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Options" type="CanvasLayer" parent="PauseManager"]
+[node name="quit" type="TextureButton" parent="PauseMenu"]
+offset_left = 106.0
+offset_top = 304.0
+offset_right = 310.0
+offset_bottom = 370.0
+texture_normal = ExtResource("3_ufwb2")
+texture_hover = ExtResource("4_6cdou")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SettingsMenu" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("9_3dmrc")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseManager/Options"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="SettingsMenu"]
 offset_left = -24.0
 offset_top = 40.0
 offset_right = 448.0
 offset_bottom = 400.0
 
-[node name="ColorRect" type="ColorRect" parent="PauseManager/Options/AspectRatioContainer"]
+[node name="ColorRect" type="ColorRect" parent="SettingsMenu/AspectRatioContainer"]
 layout_mode = 2
 color = Color(0.266667, 0, 1, 1)
 
-[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+[node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 16.0
@@ -99,7 +118,7 @@ theme_override_font_sizes/font_size = 50
 text = "Options
 "
 
-[node name="HSlider" type="HSlider" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+[node name="HSlider" type="HSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 88.0
@@ -109,7 +128,7 @@ min_value = -30.0
 max_value = 0.0
 step = 0.01
 
-[node name="Label" type="Label" parent="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider"]
+[node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/HSlider"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.174
@@ -125,7 +144,7 @@ theme_override_font_sizes/font_size = 25
 text = "Master Volume
 "
 
-[node name="backToResume" type="TextureButton" parent="PauseManager/Options/AspectRatioContainer/ColorRect"]
+[node name="backToResume" type="TextureButton" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 288.0
@@ -141,3 +160,71 @@ stretch_mode = 0
 [connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
 [connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnVolumeSliderChanged"]
 [connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]
+[node name="EndMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("11_ufwb2")
+
+[node name="Background" type="Panel" parent="EndMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ane5")
+
+[node name="reset button" type="TextureButton" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 264.0
+offset_right = 284.0
+offset_bottom = 329.0
+texture_normal = ExtResource("5_i42df")
+texture_hover = ExtResource("6_7jp70")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Title" type="Label" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 26.0
+offset_right = 301.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("12_6cdou")
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Outcome" type="Label" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 101.0
+offset_right = 235.0
+offset_bottom = 212.0
+theme_override_fonts/font = ExtResource("12_6cdou")
+theme_override_font_sizes/font_size = 24
+text = "This is a Tes t"
+
+[node name="TutorialMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("13_6cdou")
+
+[node name="TUTORIAL" type="Panel" parent="TutorialMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="TutorialMenu"]
+offset_left = 340.0
+offset_top = 17.0
+offset_right = 390.0
+offset_bottom = 48.0
+text = "Close"
+
+[connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]
+[connection signal="pressed" from="PauseMenu/tutorial" to="TutorialMenu" method="Open"]
+[connection signal="pressed" from="PauseMenu/quit" to="." method="OnQuitPressed"]
+[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/HSlider" to="SettingsMenu" method="OnValueChanged"]
+[connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
+[connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]
