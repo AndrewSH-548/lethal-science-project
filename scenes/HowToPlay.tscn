@@ -15,23 +15,14 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="HowToPlay" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
+[node name="Panel" type="Panel"]
 offset_left = 16.0
 offset_top = 8.0
 offset_right = 402.0
 offset_bottom = 408.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_j20v8")
 
-[node name="Title" type="Label" parent="Panel"]
+[node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 17.0
@@ -43,7 +34,7 @@ text = "HOW TO PLAY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="controls" type="Label" parent="Panel"]
+[node name="controls" type="Label" parent="."]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 67.0
@@ -56,7 +47,7 @@ When a projectile is coming at you use Space to absorb it. Absorbing projectiles
 Getting the meter full means you defeated the boss."
 autowrap_mode = 3
 
-[node name="play_return" type="TextureButton" parent="Panel"]
+[node name="play_return" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 328.0
