@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=15 format=3 uid="uid://cu5jmhnrb7gqh"]
 
 [ext_resource type="Script" uid="uid://cb6vuwkax5sr7" path="res://assets/scripts/UI/MenuManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]
@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="10_81l6r"]
 [ext_resource type="Script" uid="uid://88ehevy6ucqj" path="res://assets/scripts/UI/EndScreen.cs" id="11_ufwb2"]
 [ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="12_6cdou"]
+[ext_resource type="Script" uid="uid://vx0mnq6voxrf" path="res://assets/scripts/TutorialMenu.cs" id="13_6cdou"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ane5"]
 bg_color = Color(0.196078, 0.196078, 0.129412, 0.407843)
@@ -197,7 +198,27 @@ theme_override_fonts/font = ExtResource("12_6cdou")
 theme_override_font_sizes/font_size = 24
 text = "This is a Tes t"
 
+[node name="TutorialMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("13_6cdou")
+
+[node name="TUTORIAL" type="Panel" parent="TutorialMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="TutorialMenu"]
+offset_left = 340.0
+offset_top = 17.0
+offset_right = 390.0
+offset_bottom = 48.0
+text = "Close"
+
 [connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]
+[connection signal="pressed" from="PauseMenu/tutorial" to="TutorialMenu" method="Open"]
 [connection signal="pressed" from="PauseMenu/quit" to="." method="OnQuitPressed"]
 [connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/HSlider" to="SettingsMenu" method="OnValueChanged"]
 [connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
+[connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]

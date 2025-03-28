@@ -34,7 +34,12 @@ public partial class GameManager : Node2D
     public void ResetGame()
     {
         GD.Print("reset");
-        
+
+        PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
+        Node gameNode = gameScene.Instantiate();
+        GetParent().AddChild(gameNode);
+
+        QueueFree();
     }
     
 }
