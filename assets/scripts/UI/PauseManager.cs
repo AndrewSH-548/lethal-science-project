@@ -47,6 +47,7 @@ public void OnResumePressed()
             resumeButton.TextureHover = resumeHover;
             PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
             Node gameNode = gameScene.Instantiate();
+            
             GetParent().AddChild(gameNode);
             playHit = true;  
         }
@@ -76,5 +77,4 @@ public void OnResumePressed()
         inOptions = false;
         options.Hide();
     }
-  
 }
