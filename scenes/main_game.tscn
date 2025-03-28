@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/player/player_death.png" id="13_jmxl0"]
 [ext_resource type="Texture2D" uid="uid://bhd7q7bcx0i6y" path="res://assets/sprites/demo-boss.png" id="13_ymsut"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
+[ext_resource type="PackedScene" uid="uid://posucnb2q2gr" path="res://scenes/pause_menu.tscn" id="19_e7yp7"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
 [ext_resource type="AudioStream" uid="uid://1cco2lfcdfoq" path="res://assets/songs/freakbattle/loop.ogg" id="24_urnot"]
@@ -1030,6 +1031,7 @@ script = ExtResource("11_5og6n")
 enemyName = "head"
 conductor = NodePath("../Conductor")
 calmMeter = NodePath("../UI Elements/BossCalmness")
+
 projectileScene = ExtResource("12_4he15")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 6
