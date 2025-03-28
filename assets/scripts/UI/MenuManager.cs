@@ -1,20 +1,23 @@
 using Godot;
 using System;
 
-public partial class PauseManager : Node
+public partial class MenuManager : Control
 {
-    public static PauseManager Instance { get; private set; }
+    public static MenuManager Instance { get; private set; }
 
     [Signal]
     public delegate void GamePauseToggleEventHandler();
+
+    public delegate void GameInitializedEventHandler();
+    public event GameInitializedEventHandler OnGameInitialized;
 
     private bool isPaused = false;
     private bool gamePlayedForFirstTime = true;
     private bool inOptions = false;
     private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/UI/resume.png");
-    private Texture2D resumeHover= GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+    private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+    
     // Called when the node enters the scene tree for the first time.
-
     public override void _EnterTree()
     {
         Instance = this;
@@ -32,13 +35,23 @@ public partial class PauseManager : Node
     }
 
     /// <summary>
+    /// Called by GameManager when the game enters the scene tree. It will set up the data
+    /// for any downstream menus that need data from the game (ex. EndScreen needs game data
+    /// to know if the player won or lost).
+    /// </summary>
+    public void InitalizeGameMenus()
+    {
+        OnGameInitialized?.Invoke();
+    }
+    
+    /// <summary>
     /// Opens/closes the pause screen and tells the SceneTree that the game is paused/unpaused.
     /// </summary>
     private void TogglePause()
     {
         isPaused = !isPaused;
         EmitSignal(SignalName.GamePauseToggle);
-        GetTree().Paused = isPaused;
+        //GetTree().Paused = isPaused;
     }
 
     public void OnResumePressed()
@@ -53,7 +66,6 @@ public partial class PauseManager : Node
             // instantiate the game scene
             PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
             Node gameNode = gameScene.Instantiate();
-            
             GetParent().AddChild(gameNode);
 
             GetNode<CanvasLayer>("PauseMenu").Hide();

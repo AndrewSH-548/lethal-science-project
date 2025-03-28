@@ -19,5 +19,6 @@ mono_crash.*.json
 # Ignore temporary files that spawn when you run the game
 .tmp
 
-# Ignore the vscode folder
-.vscode/
+# Ignore the exported build
+export/
+rcedit-x64.exe

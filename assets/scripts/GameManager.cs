@@ -1,8 +1,9 @@
 using Godot;
-using System;
 
 public partial class GameManager : Node2D
 {
+    public static GameManager Instance { get; private set; }
+
     [Export] public Player player;
     [Export] public Enemy enemy;
 
@@ -11,6 +12,12 @@ public partial class GameManager : Node2D
 
     [Signal]
     public delegate void GameLoseEventHandler();
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+        MenuManager.Instance.InitalizeGameMenus();
+    }
 
     public override void _Process(double delta)
     {
@@ -23,4 +30,14 @@ public partial class GameManager : Node2D
             EmitSignal(SignalName.GameWin);
         }
     }
+
+    public void ResetGame()
+    {
+        PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
+        Node gameNode = gameScene.Instantiate();
+        GetParent().AddChild(gameNode);
+
+        QueueFree(); // remove current instance
+    }
+    
 }

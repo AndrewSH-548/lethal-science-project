@@ -3,9 +3,12 @@ using System;
 
 public partial class Options : CanvasLayer
 {
-    void OnValueChanged(float value)
+    void OnVolumeSliderChanged(float value)
     {
-        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"),value);
-        GD.Print(AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master")));
+        int masterBusIndex = AudioServer.GetBusIndex("Master");
+        if (value <= -30) AudioServer.SetBusMute(masterBusIndex, true);
+        if (value > -30 && AudioServer.IsBusMute(masterBusIndex)) AudioServer.SetBusMute(masterBusIndex, false);
+        AudioServer.SetBusVolumeDb(masterBusIndex, value);
+        GD.Print(AudioServer.GetBusVolumeDb(masterBusIndex));
     }
 }

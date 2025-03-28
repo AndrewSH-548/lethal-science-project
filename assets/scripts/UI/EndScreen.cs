@@ -1,31 +1,45 @@
 using Godot;
-using System;
 
-public partial class EndScreen : Control
+public partial class EndScreen : CanvasLayer
 {
+    private Label title;
     private Label outcome;
-    [Export] GameManager gameManager;
+    private GameManager gameManager;
+
     public override void _Ready()
     {
+        MenuManager.Instance.OnGameInitialized += SetupGameEvents;
+        Visible = false;
+        title = GetNode<Label>("Background/Title");
+        outcome = GetNode<Label>("Background/Outcome");
+    }
+
+    private void SetupGameEvents()
+    {
+        gameManager = GameManager.Instance;
         gameManager.GameWin += Win;
         gameManager.GameLose += Lose;
-        Visible = false;
-
     }
+
     private void Lose()
     {
         Visible = true;
-        outcome.Text = " You Got Obliterated Good Luck Next Time!";
+        outcome.Text = " You Got Obliterated\nGood Luck Next Time!";
     }
+
     private void Win()
     {
-       Visible = true;
-        outcome.Text = "Congratulations you beat our First Boss!";
+        Visible = true;
+        title.Text = "You Win!";
+        outcome.Text = "You beat our First Boss!";
     }
     
     public void OnResetPressed()
     {
-        GetTree().ReloadCurrentScene();
+        if(gameManager != null)
+        {
+            gameManager.ResetGame();
+            Visible = false;
+        }
     }
-
 }
