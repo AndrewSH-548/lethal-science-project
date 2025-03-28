@@ -1,25 +1,32 @@
 using Godot;
-using System;
 
-public partial class EndScreen : Control
+public partial class EndScreen : CanvasLayer
 {
     private Label title;
     private Label outcome;
-    [Export] GameManager gameManager;
+    private GameManager gameManager;
+
     public override void _Ready()
     {
+        MenuManager.Instance.OnGameInitialized += SetupGameEvents;
+        Visible = false;
+        title = GetNode<Label>("Background/Title");
+        outcome = GetNode<Label>("Background/Outcome");
+    }
+
+    private void SetupGameEvents()
+    {
+        gameManager = GameManager.Instance;
         gameManager.GameWin += Win;
         gameManager.GameLose += Lose;
-        Visible = false;
-        title = GetChild<Panel>(0).GetChild<Label>(1);
-        outcome = GetChild<Panel>(0).GetChild<Label>(2);
-
     }
+
     private void Lose()
     {
         Visible = true;
         outcome.Text = " You Got Obliterated\nGood Luck Next Time!";
     }
+
     private void Win()
     {
         Visible = true;
@@ -29,7 +36,10 @@ public partial class EndScreen : Control
     
     public void OnResetPressed()
     {
-        GetTree().ReloadCurrentScene();
+        if(gameManager != null)
+        {
+            gameManager.ResetGame();
+            Visible = false;
+        }
     }
-
 }

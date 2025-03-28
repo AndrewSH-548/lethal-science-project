@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=150 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -31,7 +31,6 @@
 [ext_resource type="Texture2D" uid="uid://bxt72i78wnrcx" path="res://assets/sprites/bar-under.png" id="28_rr87q"]
 [ext_resource type="Texture2D" uid="uid://dcymcadtei7iw" path="res://assets/sprites/bar-over.png" id="29_dp0eu"]
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
-[ext_resource type="PackedScene" uid="uid://b2c30dpjr0ivu" path="res://scenes/end_screen.tscn" id="35_jmxl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2epv"]
 texture = ExtResource("1_0uvb2")
@@ -1067,10 +1066,6 @@ texture_under = ExtResource("28_rr87q")
 texture_over = ExtResource("29_dp0eu")
 texture_progress = ExtResource("30_urnot")
 tint_progress = Color(0.488179, 1, 0.456277, 1)
-
-[node name="End Screen" parent="UI Elements" node_paths=PackedStringArray("gameManager") instance=ExtResource("35_jmxl0")]
-visible = false
-gameManager = NodePath("../..")
 
 [connection signal="tree_exited" from="." to="." method="OnDelete"]
 [connection signal="OnBeat" from="Conductor" to="Boss" method="Beat"]

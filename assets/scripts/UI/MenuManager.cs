@@ -8,13 +8,16 @@ public partial class MenuManager : Control
     [Signal]
     public delegate void GamePauseToggleEventHandler();
 
+    public delegate void GameInitializedEventHandler();
+    public event GameInitializedEventHandler OnGameInitialized;
+
     private bool isPaused = false;
     private bool gamePlayedForFirstTime = true;
     private bool inOptions = false;
     private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/UI/resume.png");
-    private Texture2D resumeHover= GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+    private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+    
     // Called when the node enters the scene tree for the first time.
-
     public override void _EnterTree()
     {
         Instance = this;
@@ -32,6 +35,16 @@ public partial class MenuManager : Control
     }
 
     /// <summary>
+    /// Called by GameManager when the game enters the scene tree. It will set up the data
+    /// for any downstream menus that need data from the game (ex. EndScreen needs game data
+    /// to know if the player won or lost).
+    /// </summary>
+    public void InitalizeGameMenus()
+    {
+        OnGameInitialized?.Invoke();
+    }
+    
+    /// <summary>
     /// Opens/closes the pause screen and tells the SceneTree that the game is paused/unpaused.
     /// </summary>
     private void TogglePause()
@@ -43,7 +56,6 @@ public partial class MenuManager : Control
 
     public void OnResumePressed()
     {
-        GD.Print("Resume button pressed");
         if(gamePlayedForFirstTime)
         {
             // change "Play" button to "Resume"

@@ -9,7 +9,7 @@ public partial class TogglePauseVisibility : CanvasLayer
 		MenuManager.Instance.GamePauseToggle += ToggleVisibility;
 	}
 
-	public void ToggleVisibility()
+	private void ToggleVisibility()
 	{
         Visible = !Visible;
 	}

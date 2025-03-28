@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=14 format=3 uid="uid://cu5jmhnrb7gqh"]
 
 [ext_resource type="Script" uid="uid://cb6vuwkax5sr7" path="res://assets/scripts/UI/MenuManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]
@@ -10,6 +10,20 @@
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="8_g6gyw"]
 [ext_resource type="Script" uid="uid://00arj6kp6dc8" path="res://assets/scripts/UI/Options.cs" id="9_3dmrc"]
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="10_81l6r"]
+[ext_resource type="Script" uid="uid://88ehevy6ucqj" path="res://assets/scripts/UI/EndScreen.cs" id="11_ufwb2"]
+[ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="12_6cdou"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ane5"]
+bg_color = Color(0.196078, 0.196078, 0.129412, 0.407843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.117647, 0.101961, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MenuManager" type="Control"]
 layout_mode = 3
@@ -139,7 +153,51 @@ texture_hover = ExtResource("8_g6gyw")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="EndMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("11_ufwb2")
+
+[node name="Background" type="Panel" parent="EndMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ane5")
+
+[node name="reset button" type="TextureButton" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 264.0
+offset_right = 284.0
+offset_bottom = 329.0
+texture_normal = ExtResource("5_i42df")
+texture_hover = ExtResource("6_7jp70")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Title" type="Label" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 26.0
+offset_right = 301.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("12_6cdou")
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Outcome" type="Label" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 101.0
+offset_right = 235.0
+offset_bottom = 212.0
+theme_override_fonts/font = ExtResource("12_6cdou")
+theme_override_font_sizes/font_size = 24
+text = "This is a Tes t"
+
 [connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]
-[connection signal="pressed" from="PauseMenu/options" to="." method="OnOptionsPressed"]
 [connection signal="pressed" from="PauseMenu/quit" to="." method="OnQuitPressed"]
 [connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/HSlider" to="SettingsMenu" method="OnValueChanged"]
+[connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
