@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Options : CanvasLayer
+public partial class Settings : CanvasLayer
 {
     void OnVolumeSliderChanged(float value)
     {
