@@ -155,11 +155,6 @@ texture_hover = ExtResource("8_g6gyw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
-[connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
-[connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
-[connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnVolumeSliderChanged"]
-[connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]
 [node name="EndMenu" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("11_ufwb2")

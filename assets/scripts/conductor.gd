@@ -38,3 +38,7 @@ func Beat(beat: float):
 		if (ClickTrackEnabled): clickTrack.PlayTick();
 	if (PrintToConsoleEnabled): print("beat: ", beat);
 	OnBeat.emit(beat);
+
+func stop():
+	root_channel.stop();
+	rhythmNotifier.running = false;

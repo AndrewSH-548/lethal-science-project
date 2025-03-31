@@ -29,6 +29,7 @@ public partial class Player : CharacterBody2D
 	double damageTime;
 
 	[Export] AudioStreamWav damageSound;
+	[Export] AudioStreamWav deathSound;
     AudioStreamPlayer soundPlayer;
 
     public bool IsAbsorbing
@@ -67,7 +68,7 @@ public partial class Player : CharacterBody2D
 		
 		soundPlayer = new AudioStreamPlayer();
 		soundPlayer.Stream = damageSound;
-        soundPlayer.VolumeDb -= 8;
+        soundPlayer.VolumeDb -= 4;
         AddChild(soundPlayer);
 
 		absorptionTimer = CreateTimer(0.4f, () =>
@@ -92,7 +93,7 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-
+		if (currentHealth <= 0) return;
 		// Get the input direction.
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 		if (direction != Vector2.Zero) { 
@@ -128,9 +129,18 @@ public partial class Player : CharacterBody2D
 		isDamaged = true;
 		damageBuffer.Start();
 		UpdateHealthBar();
-		if (currentHealth <= 0);
-            //GetParent<Node2D>().QueueFree();
     }
+
+	public void Death(Action timeoutFunction)
+	{
+		//GetParent().GetTree().Paused = true;
+		Timer deathTimer = CreateTimer((float)deathSound.GetLength() - 2, timeoutFunction);
+		soundPlayer.Stream = deathSound;
+		soundPlayer.VolumeDb = 0;
+		soundPlayer.Play();
+		deathTimer.Start();
+		sprites.Play("death");
+	}
 
     #region Visuals and UI
 

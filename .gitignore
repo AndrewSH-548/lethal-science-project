@@ -16,6 +16,9 @@ mono_crash.*.json
 
 .vs/
 
+# Ignore the vscode settings
+.vscode/
+
 # Ignore temporary files that spawn when you run the game
 .tmp
 
