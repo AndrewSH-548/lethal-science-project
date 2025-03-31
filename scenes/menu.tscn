@@ -219,6 +219,7 @@ theme_override_font_sizes/font_size = 24
 text = "This is a Test"
 
 [node name="TutorialMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("13_6cdou")
 
 [node name="TUTORIAL" type="Panel" parent="TutorialMenu"]
