@@ -51,7 +51,7 @@ public partial class MenuManager : Control
     {
         isPaused = !isPaused;
         EmitSignal(SignalName.GamePauseToggle);
-        //GetTree().Paused = isPaused;
+        GetTree().Paused = isPaused;
     }
 
     public void OnResumePressed()
@@ -83,17 +83,17 @@ public partial class MenuManager : Control
         GetTree().Quit();
     }
    
-    public void OnOptionsPressed()
+    public void OnSettingsPressed()
     {
-        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        CanvasLayer settings = GetNode<CanvasLayer>("SettingsMenu");
         inOptions = true;
-        options.Show();
+        settings.Show();
     }
 
     public void OnBackPressed()
     {
-        CanvasLayer options = GetNode<CanvasLayer>("Options");
+        CanvasLayer settings = GetNode<CanvasLayer>("SettingsMenu");
         inOptions = false;
-        options.Hide();
+        settings.Hide();
     }
 }
