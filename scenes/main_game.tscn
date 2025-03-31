@@ -1045,7 +1045,7 @@ pacifySound = ExtResource("28_4e2rb")
 calmMeter = NodePath("../UI Elements/BossCalmness")
 projectileScene = ExtResource("12_4he15")
 projectileColor = Color(1, 1, 0, 1)
-projectileSpeed = 6
+projectileSpeed = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss"]
 sprite_frames = SubResource("SpriteFrames_pjtuq")

@@ -97,7 +97,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="SettingsMenu" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("9_6cdou")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="SettingsMenu"]
@@ -112,39 +111,68 @@ color = Color(0.266667, 0, 1, 1)
 
 [node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 85.0
 offset_top = 16.0
-offset_right = 249.0
+offset_right = 284.0
 offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("10_81l6r")
 theme_override_font_sizes/font_size = 50
-text = "Options
-"
+text = "Settings"
 
-[node name="HSlider" type="HSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="VolumeSlider" type="HSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 88.0
-offset_right = 336.0
-offset_bottom = 264.0
+offset_left = 27.0
+offset_top = 34.0
+offset_right = 331.0
+offset_bottom = 210.0
 min_value = -30.0
 max_value = 0.0
 step = 0.01
 
-[node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/HSlider"]
+[node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/VolumeSlider"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.174
 anchor_top = -0.545
 anchor_right = -0.174
 anchor_bottom = -0.545
-offset_left = 124.896
-offset_top = 135.92
-offset_right = 304.896
-offset_bottom = 161.92
+offset_left = 118.896
+offset_top = 137.92
+offset_right = 298.896
+offset_bottom = 192.92
 theme_override_fonts/font = ExtResource("10_81l6r")
 theme_override_font_sizes/font_size = 25
 text = "Master Volume
+"
+
+[node name="DifficultySelect" type="OptionButton" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 179.0
+offset_right = 277.0
+offset_bottom = 210.0
+item_count = 3
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/DifficultySelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.174
+anchor_top = -0.545
+anchor_right = -0.174
+anchor_bottom = -0.545
+offset_left = 72.364
+offset_top = -13.105
+offset_right = 252.364
+offset_bottom = 41.895
+theme_override_fonts/font = ExtResource("10_81l6r")
+theme_override_font_sizes/font_size = 25
+text = "Difficulty
 "
 
 [node name="backToMenu" type="TextureButton" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
@@ -224,7 +252,8 @@ text = "Close"
 [connection signal="pressed" from="PauseMenu/tutorial" to="TutorialMenu" method="Open"]
 [connection signal="pressed" from="PauseMenu/settings" to="." method="OnSettingsPressed"]
 [connection signal="pressed" from="PauseMenu/quit" to="." method="OnQuitPressed"]
-[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/HSlider" to="SettingsMenu" method="OnVolumeSliderChanged"]
+[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/VolumeSlider" to="SettingsMenu" method="OnVolumeSliderChanged"]
+[connection signal="item_selected" from="SettingsMenu/AspectRatioContainer/ColorRect/DifficultySelect" to="SettingsMenu" method="OnDifficultySelected"]
 [connection signal="pressed" from="SettingsMenu/AspectRatioContainer/ColorRect/backToMenu" to="." method="OnBackPressed"]
 [connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
 [connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]

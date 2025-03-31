@@ -1,5 +1,11 @@
 using Godot;
 
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
 public partial class GameManager : Node2D
 {
     public static GameManager Instance { get; private set; }
@@ -15,6 +21,8 @@ public partial class GameManager : Node2D
     public delegate void GameLoseEventHandler();
 
     bool deathCalled = false;
+    
+    public Difficulty Difficulty { get; set; }
 
     public override void _EnterTree()
     {
