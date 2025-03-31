@@ -133,7 +133,6 @@ public partial class Player : CharacterBody2D
 
 	public void Death(Action timeoutFunction)
 	{
-		//GetParent().GetTree().Paused = true;
 		Timer deathTimer = CreateTimer((float)deathSound.GetLength() - 2, timeoutFunction);
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
