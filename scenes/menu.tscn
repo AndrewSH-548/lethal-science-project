@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=20 format=3 uid="uid://cu5jmhnrb7gqh"]
 
 [ext_resource type="Script" uid="uid://cb6vuwkax5sr7" path="res://assets/scripts/UI/MenuManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_6cdou"]
+[ext_resource type="Texture2D" uid="uid://c8xanbif4rfl6" path="res://assets/UI/HowToPlay_normal.png" id="5_7jp70"]
 [ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_i42df"]
 [ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_7jp70"]
+[ext_resource type="Texture2D" uid="uid://cdmxcwhuqbn1n" path="res://assets/UI/HowToPlay_Hovered.png" id="6_mxgkd"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="7_mxgkd"]
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="8_g6gyw"]
 [ext_resource type="Script" uid="uid://00arj6kp6dc8" path="res://assets/scripts/UI/Options.cs" id="9_3dmrc"]
@@ -13,6 +15,8 @@
 [ext_resource type="Script" uid="uid://88ehevy6ucqj" path="res://assets/scripts/UI/EndScreen.cs" id="11_ufwb2"]
 [ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="12_6cdou"]
 [ext_resource type="Script" uid="uid://vx0mnq6voxrf" path="res://assets/scripts/TutorialMenu.cs" id="13_6cdou"]
+[ext_resource type="Texture2D" uid="uid://c5jiltqdbh5wd" path="res://assets/UI/Menu_normal.png" id="16_g6gyw"]
+[ext_resource type="Texture2D" uid="uid://bscxb8jpatgi6" path="res://assets/UI/Menu_hovered.png" id="17_3dmrc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ane5"]
 bg_color = Color(0.196078, 0.196078, 0.129412, 0.407843)
@@ -21,6 +25,18 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.117647, 0.101961, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jp70"]
+bg_color = Color(0.945098, 0.176471, 0.756863, 0.866667)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.164706, 0.176471, 0.8, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -66,12 +82,15 @@ texture_hover = ExtResource("6_7jp70")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="tutorial" type="Button" parent="PauseMenu"]
+[node name="tutorial" type="TextureButton" parent="PauseMenu"]
 offset_left = 107.0
 offset_top = 152.0
 offset_right = 311.0
 offset_bottom = 218.0
-text = "TUTORIAL"
+texture_normal = ExtResource("5_7jp70")
+texture_hover = ExtResource("6_mxgkd")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="options" type="TextureButton" parent="PauseMenu"]
 offset_left = 107.0
@@ -155,11 +174,6 @@ texture_hover = ExtResource("8_g6gyw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="PauseManager/PauseMenu/quit" to="PauseManager" method="OnQuitPressed"]
-[connection signal="pressed" from="PauseManager/PauseMenu/resume" to="PauseManager" method="OnResumePressed"]
-[connection signal="pressed" from="PauseManager/PauseMenu/options" to="PauseManager" method="OnOptionsPressed"]
-[connection signal="value_changed" from="PauseManager/Options/AspectRatioContainer/ColorRect/HSlider" to="PauseManager/Options" method="OnVolumeSliderChanged"]
-[connection signal="pressed" from="PauseManager/Options/AspectRatioContainer/ColorRect/backToResume" to="PauseManager" method="OnBackPressed"]
 [node name="EndMenu" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("11_ufwb2")
@@ -202,10 +216,9 @@ offset_right = 235.0
 offset_bottom = 212.0
 theme_override_fonts/font = ExtResource("12_6cdou")
 theme_override_font_sizes/font_size = 24
-text = "This is a Tes t"
+text = "This is a Test"
 
 [node name="TutorialMenu" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("13_6cdou")
 
 [node name="TUTORIAL" type="Panel" parent="TutorialMenu"]
@@ -214,13 +227,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jp70")
 
-[node name="CloseButton" type="Button" parent="TutorialMenu"]
-offset_left = 340.0
+[node name="CloseButton" type="TextureButton" parent="TutorialMenu"]
+offset_left = 126.0
+offset_top = 332.0
+offset_right = 269.0
+offset_bottom = 382.0
+texture_normal = ExtResource("16_g6gyw")
+texture_hover = ExtResource("17_3dmrc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Title" type="Label" parent="TutorialMenu"]
+offset_left = 64.0
 offset_top = 17.0
-offset_right = 390.0
-offset_bottom = 48.0
-text = "Close"
+offset_right = 315.0
+offset_bottom = 52.0
+theme_override_fonts/font = ExtResource("10_81l6r")
+theme_override_font_sizes/font_size = 34
+text = "HOW TO PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="controls" type="Label" parent="TutorialMenu"]
+offset_left = 21.0
+offset_top = 67.0
+offset_right = 361.0
+offset_bottom = 272.0
+text = "use WASD to move around 
+
+When a projectile is coming at you use Space to absorb it. Absorbing projectiles fills the boss calm meter. Be careful there is a short cooldown on asborbing projectiles after you use it.
+
+Getting the meter full means you defeated the boss."
+autowrap_mode = 3
 
 [connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]
 [connection signal="pressed" from="PauseMenu/tutorial" to="TutorialMenu" method="Open"]
