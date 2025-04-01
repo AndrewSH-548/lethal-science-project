@@ -6,12 +6,15 @@ public partial class GameManager : Node2D
 
     [Export] public Player player;
     [Export] public Enemy enemy;
+    [Export] public Node conductor;
 
     [Signal]
     public delegate void GameWinEventHandler();
 
     [Signal]
     public delegate void GameLoseEventHandler();
+
+    bool deathCalled = false;
 
     public override void _EnterTree()
     {
@@ -21,11 +24,16 @@ public partial class GameManager : Node2D
 
     public override void _Process(double delta)
     {
-        if(player.CurrentHealth<=0 )
+        if(player.CurrentHealth<=0 && !deathCalled)
         {
-            EmitSignal(SignalName.GameLose);
+            conductor.Call("stop");
+            player.Death(() =>
+            {
+                EmitSignal(SignalName.GameLose);
+            });
+            deathCalled = true;
         }
-        if(enemy.CalmCurrent>=enemy.CalmMax)
+        if (enemy.CalmCurrent>=enemy.CalmMax)
         {
             EmitSignal(SignalName.GameWin);
         }
@@ -39,5 +47,4 @@ public partial class GameManager : Node2D
 
         QueueFree(); // remove current instance
     }
-    
 }
