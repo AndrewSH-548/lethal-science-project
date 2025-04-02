@@ -275,6 +275,7 @@ offset_left = 64.0
 offset_top = 17.0
 offset_right = 315.0
 offset_bottom = 52.0
+scale = Vector2(1.12212, 1)
 theme_override_fonts/font = ExtResource("10_81l6r")
 theme_override_font_sizes/font_size = 34
 text = "HOW TO PLAY"
@@ -286,11 +287,12 @@ offset_left = 21.0
 offset_top = 67.0
 offset_right = 361.0
 offset_bottom = 272.0
-text = "use WASD to move around 
+text = "Move with Arrows or WASD.
 
-When a projectile is coming at you use Space to absorb it. Absorbing projectiles fills the boss calm meter. Be careful there is a short cooldown on asborbing projectiles after you use it.
+Pacify your enemy by absorbing and reading their bullets with the Spacebar. 
+Be careful, as you'll be stuck in a cooldown after attempting to absorb.
 
-Getting the meter full means you defeated the boss."
+Your progress will be shown by a calm meter on the top. Fill it completely to win!"
 autowrap_mode = 3
 
 [connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]

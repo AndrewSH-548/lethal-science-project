@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwwc6hjax650b"
-path="res://.godot/imported/player_walk_u.png-e215f963384df5d036fabd76c6e0220c.ctex"
+uid="uid://cy1x2ht8yffrf"
+path="res://.godot/imported/head.png-94d61f1b8d4d08a17d18bdc07fd68f94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/player_walk_u.png"
-dest_files=["res://.godot/imported/player_walk_u.png-e215f963384df5d036fabd76c6e0220c.ctex"]
+source_file="res://assets/sprites/chelsea/head.png"
+dest_files=["res://.godot/imported/head.png-94d61f1b8d4d08a17d18bdc07fd68f94.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpdr0q1f24glh"
-path="res://.godot/imported/player_absorb_idle_d.png-995ca5d8493f007469c9980d590ccaae.ctex"
+uid="uid://cwwc6hjax650b"
+path="res://.godot/imported/walk-u.png-b540fd122f13fba53491befffa344bbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/player_absorb_idle_d.png"
-dest_files=["res://.godot/imported/player_absorb_idle_d.png-995ca5d8493f007469c9980d590ccaae.ctex"]
+source_file="res://assets/sprites/aria/walk-u.png"
+dest_files=["res://.godot/imported/walk-u.png-b540fd122f13fba53491befffa344bbb.ctex"]
 
 [params]
 

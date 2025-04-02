@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbyvmpq1pfnbd"
-path="res://.godot/imported/player_absorb_walk_l.png-b90fab34197b556f347f527c4ecfa339.ctex"
+uid="uid://dnorgr7xaaqs8"
+path="res://.godot/imported/horn.png-b24952fa4a3363a6924c4f3e49665acc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/player_absorb_walk_l.png"
-dest_files=["res://.godot/imported/player_absorb_walk_l.png-b90fab34197b556f347f527c4ecfa339.ctex"]
+source_file="res://assets/sprites/chelsea/horn.png"
+dest_files=["res://.godot/imported/horn.png-b24952fa4a3363a6924c4f3e49665acc.ctex"]
 
 [params]
 

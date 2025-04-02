@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://suhf6337k676"
-path="res://.godot/imported/player_absorb_walk_d.png-eb763383e93a5137bddba30521e4ba23.ctex"
+uid="uid://cbyvmpq1pfnbd"
+path="res://.godot/imported/absorb-walk-l.png-3d686d1084036777a3d56c5b7ad41b4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/player_absorb_walk_d.png"
-dest_files=["res://.godot/imported/player_absorb_walk_d.png-eb763383e93a5137bddba30521e4ba23.ctex"]
+source_file="res://assets/sprites/aria/absorb-walk-l.png"
+dest_files=["res://.godot/imported/absorb-walk-l.png-3d686d1084036777a3d56c5b7ad41b4d.ctex"]
 
 [params]
 
