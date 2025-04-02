@@ -101,7 +101,7 @@ public partial class Enemy : StaticBody2D
 	{
 		Projectile projectile = projectileScene.Instantiate() as Projectile;
 		projectile.GlowColor = projectileColor;
-		projectile.Speed = projectileSpeed;
+		projectile.Speed = projectileSpeed + (int)GameManager.Instance.Difficulty * 2;
 		projectile.Orientation = GD.Randf() * 1.4f - 0.7f;
 		AddChild(projectile);
 		sprite.Animation = "swing";

@@ -11,4 +11,10 @@ public partial class Settings : CanvasLayer
         AudioServer.SetBusVolumeDb(masterBusIndex, value);
         GD.Print(AudioServer.GetBusVolumeDb(masterBusIndex));
     }
+
+    void OnDifficultySelected(Difficulty index)
+    {
+        MenuManager.Instance.Difficulty = index;
+        GD.Print(MenuManager.Instance.Difficulty);
+    }
 }

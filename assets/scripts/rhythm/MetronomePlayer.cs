@@ -4,17 +4,16 @@ using System;
 public partial class MetronomePlayer : AudioStreamPlayer
 {
     [Export] public AudioStreamMP3 tickSound;
-    [Export] public AudioStreamMP3 accentedTickSound;
 
     public void PlayTick()
     {
-        Stream = tickSound;
+        PitchScale = 1;
         Play();
     }
 
     public void PlayAccentedTick()
     {
-        Stream = accentedTickSound;
+        PitchScale = 1.5f;
         Play();
     }
 

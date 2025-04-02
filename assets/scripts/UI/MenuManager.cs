@@ -16,6 +16,8 @@ public partial class MenuManager : Control
     private bool inOptions = false;
     private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/UI/resume.png");
     private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+
+    public Difficulty Difficulty { get; set; }
     
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
@@ -65,7 +67,8 @@ public partial class MenuManager : Control
 
             // instantiate the game scene
             PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
-            Node gameNode = gameScene.Instantiate();
+            GameManager gameNode = gameScene.Instantiate() as GameManager;
+            gameNode.Difficulty = Difficulty;
             GetParent().AddChild(gameNode);
 
             GetNode<CanvasLayer>("PauseMenu").Hide();
