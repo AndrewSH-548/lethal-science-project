@@ -5,10 +5,6 @@ public partial class MetronomePlayer : AudioStreamPlayer
 {
     [Export] public AudioStreamMP3 tickSound;
 
-    public override void _Ready()
-    {
-    }
-
     public void PlayTick()
     {
         PitchScale = 1;
