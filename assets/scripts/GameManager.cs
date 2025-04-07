@@ -52,7 +52,8 @@ public partial class GameManager : Node2D
     public void ResetGame()
     {
         PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
-        Node gameNode = gameScene.Instantiate();
+        GameManager gameNode = gameScene.Instantiate() as GameManager;
+        gameNode.Difficulty = Difficulty;
         GetParent().AddChild(gameNode);
 
         QueueFree(); // remove current instance
