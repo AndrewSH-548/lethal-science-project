@@ -25,6 +25,8 @@ public partial class Enemy : StaticBody2D
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
 	[Export] float projectileRange;				//In radians
+
+ 	// Dictates the minimum difficulty required for this enemy to attack
 	[Export] Difficulty difficulty;
 
 	// Shooting Guide variables
