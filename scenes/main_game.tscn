@@ -1203,7 +1203,7 @@ deathSound = ExtResource("5_6vdpn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
-animation = &"death"
+animation = &"idle-down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
