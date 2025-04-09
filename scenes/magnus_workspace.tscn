@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwbefnw8yt5lc" path="res://assets/scripts/UI/PauseManager.cs" id="1_eyjk2"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_7r7ba"]
-[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_7r7ba"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/play.png" id="5_7r7ba"]
 [ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_qye0d"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="6_xnre3"]
 [ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="7_e0l7n"]

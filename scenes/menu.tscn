@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_6cdou"]
 [ext_resource type="Texture2D" uid="uid://c8xanbif4rfl6" path="res://assets/UI/HowToPlay_normal.png" id="5_7jp70"]
-[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_i42df"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/play.png" id="5_i42df"]
 [ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_7jp70"]
 [ext_resource type="Texture2D" uid="uid://cdmxcwhuqbn1n" path="res://assets/UI/HowToPlay_Hovered.png" id="6_mxgkd"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="7_mxgkd"]
@@ -220,11 +220,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3ane5")
 [node name="reset button" type="TextureButton" parent="EndMenu/Background"]
 layout_mode = 0
 offset_left = 96.0
-offset_top = 264.0
+offset_top = 256.0
 offset_right = 324.0
-offset_bottom = 329.0
+offset_bottom = 321.0
 texture_normal = ExtResource("5_i42df")
 texture_hover = ExtResource("6_7jp70")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="menu button" type="TextureButton" parent="EndMenu/Background"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 327.0
+offset_right = 324.0
+offset_bottom = 392.0
+texture_normal = ExtResource("16_g6gyw")
+texture_hover = ExtResource("17_3dmrc")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -304,4 +315,5 @@ autowrap_mode = 3
 [connection signal="item_selected" from="SettingsMenu/AspectRatioContainer/ColorRect/DifficultySelect" to="SettingsMenu" method="OnDifficultySelected"]
 [connection signal="pressed" from="SettingsMenu/AspectRatioContainer/ColorRect/backToMenu" to="." method="OnBackPressed"]
 [connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
+[connection signal="pressed" from="EndMenu/Background/menu button" to="EndMenu" method="OnBackToMenu"]
 [connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]

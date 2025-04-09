@@ -11,13 +11,15 @@ public partial class MenuManager : Control
     public delegate void GameInitializedEventHandler();
     public event GameInitializedEventHandler OnGameInitialized;
 
-    private bool isPaused = false;
-    private bool gamePlayedForFirstTime = true;
+    private bool isPaused = true;
+    private bool isGameStarted = false;
     private bool inOptions = false;
     private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/UI/resume.png");
     private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
+    private Texture2D playNormal = GD.Load<Texture2D>("res://assets/UI/play.png");
+    private Texture2D playHover = GD.Load<Texture2D>("res://assets/UI/play_Hover.png");
 
-    public Difficulty Difficulty { get; set; }
+    public Difficulty Difficulty { get; set; } = Difficulty.Normal;
     
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
@@ -27,7 +29,7 @@ public partial class MenuManager : Control
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inOptions)
+        if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && AllMenusClear())
         {
             if(inputEventKey.Keycode == Key.Escape)
             {
@@ -41,7 +43,7 @@ public partial class MenuManager : Control
     /// for any downstream menus that need data from the game (ex. EndScreen needs game data
     /// to know if the player won or lost).
     /// </summary>
-    public void InitalizeGameMenus()
+    public void InitializeGameMenus()
     {
         OnGameInitialized?.Invoke();
     }
@@ -58,7 +60,7 @@ public partial class MenuManager : Control
 
     public void OnResumePressed()
     {
-        if(gamePlayedForFirstTime)
+        if(!isGameStarted)
         {
             // change "Play" button to "Resume"
             TextureButton resumeButton = GetNode<TextureButton>("PauseMenu/resume");
@@ -71,9 +73,11 @@ public partial class MenuManager : Control
             gameNode.Difficulty = Difficulty;
             GetParent().AddChild(gameNode);
 
-            GetNode<CanvasLayer>("PauseMenu").Hide();
+            TogglePause();
 
-            gamePlayedForFirstTime = false;
+            isGameStarted = true;
+
+            
         }
         else
         {
@@ -98,5 +102,22 @@ public partial class MenuManager : Control
         CanvasLayer settings = GetNode<CanvasLayer>("SettingsMenu");
         inOptions = false;
         settings.Hide();
+    }
+
+    public void ResetMenu()
+    {
+        TogglePause();
+        isGameStarted = false;
+        TextureButton playButton = GetNode<TextureButton>("PauseMenu/resume");
+        playButton.TextureNormal = playNormal;
+        playButton.TextureHover = playHover;
+    }
+
+    private bool AllMenusClear()
+    {
+        return !GetNode<CanvasLayer>("SettingsMenu").Visible
+            && !GetNode<CanvasLayer>("PauseMenu").Visible
+            && !GetNode<CanvasLayer>("TutorialMenu").Visible
+            && !GetNode<CanvasLayer>("EndMenu").Visible;
     }
 }
