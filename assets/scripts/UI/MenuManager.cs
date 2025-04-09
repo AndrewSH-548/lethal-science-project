@@ -29,7 +29,7 @@ public partial class MenuManager : Control
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && IsFullMenuClear())
+        if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && AllMenusClear())
         {
             if(inputEventKey.Keycode == Key.Escape)
             {
@@ -113,7 +113,7 @@ public partial class MenuManager : Control
         playButton.TextureHover = playHover;
     }
 
-    private bool IsFullMenuClear()
+    private bool AllMenusClear()
     {
         return !GetNode<CanvasLayer>("SettingsMenu").Visible
             && !GetNode<CanvasLayer>("PauseMenu").Visible
