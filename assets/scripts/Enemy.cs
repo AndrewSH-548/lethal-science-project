@@ -106,7 +106,7 @@ public partial class Enemy : StaticBody2D
 	{
 		Projectile projectile = projectileScene.Instantiate() as Projectile;
 		projectile.GlowColor = projectileColor;
-		projectile.Speed = projectileSpeed + (int)GameManager.Instance.Difficulty * 2 - (int)difficulty * 2;
+		projectile.Speed = projectileSpeed + (int)GameManager.Instance.Difficulty * 150 - (int)difficulty * 150;
 		projectile.Orientation = GD.Randf() * (projectileRange * 2) - projectileRange;
 		projectile.Position += new Vector2(0, 10);
 		AddChild(projectile);

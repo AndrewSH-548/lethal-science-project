@@ -13,6 +13,7 @@ config_version=5
 config/name="lethal-science-project"
 run/main_scene="uid://cu5jmhnrb7gqh"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+run/max_fps=60
 config/icon="res://assets/icon.svg"
 
 [display]

@@ -33,7 +33,7 @@ public partial class Projectile : Area2D
     // Simply moves the projectile in its given direction. May be altered by inherited classes.
     public override void _Process(double delta)
     {
-        Position += direction;
+        Position += direction * (float)delta;
         if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 

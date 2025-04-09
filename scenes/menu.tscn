@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_6cdou"]
 [ext_resource type="Texture2D" uid="uid://c8xanbif4rfl6" path="res://assets/UI/HowToPlay_normal.png" id="5_7jp70"]
-[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_i42df"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/play.png" id="5_i42df"]
 [ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_7jp70"]
 [ext_resource type="Texture2D" uid="uid://cdmxcwhuqbn1n" path="res://assets/UI/HowToPlay_Hovered.png" id="6_mxgkd"]
 [ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="7_mxgkd"]
