@@ -22,7 +22,7 @@ public partial class Enemy : StaticBody2D
 
 	// Projectile-related variables
 	[Export] PackedScene projectileScene;
-	[Export] public Color projectileColor;
+	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
 	[Export] float projectileRange;				//In radians
 
@@ -67,6 +67,8 @@ public partial class Enemy : StaticBody2D
 		soundPlayer.Stream = pacifySound;
 		soundPlayer.VolumeDb -= 8;
 		AddChild(soundPlayer);
+		projectileColor = Settings.Instance.projColor;
+		Settings.Instance.ColorChanged += ChangeColor;
 	}
 
 	/// <summary>
@@ -179,7 +181,10 @@ public partial class Enemy : StaticBody2D
         calmMeterTween.TweenProperty(calmMeter, "value", calmCurrent, 0.5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
 		
     }	
-
+	public void ChangeColor(Color color)
+	{
+		projectileColor = color;
+	}
 	private void End()
 	{
 

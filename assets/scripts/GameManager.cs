@@ -29,8 +29,6 @@ public partial class GameManager : Node2D
     {
         Instance = this;
         MenuManager.Instance.InitializeGameMenus();
-        Settings.Instance.ColorChanged += ChangeProjColor;
-        enemy.projectileColor = Settings.Instance.projColor;
     }
     public override void _Process(double delta)
     {
@@ -73,8 +71,5 @@ public partial class GameManager : Node2D
         return timer;
     }
 
-    public void ChangeProjColor(Color projColor)
-    {
-        enemy.projectileColor = projColor;
-    }
+   
 }
