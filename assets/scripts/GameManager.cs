@@ -29,8 +29,9 @@ public partial class GameManager : Node2D
     {
         Instance = this;
         MenuManager.Instance.InitializeGameMenus();
+        Settings.Instance.ColorChanged += ChangeProjColor;
+        enemy.projectileColor = Settings.Instance.projColor;
     }
-
     public override void _Process(double delta)
     {
         if(player.CurrentHealth<=0 && !deathCalled)
@@ -70,5 +71,10 @@ public partial class GameManager : Node2D
         timer.Timeout += timeoutFunction;
         parent.AddChild(timer);
         return timer;
+    }
+
+    public void ChangeProjColor(Color projColor)
+    {
+        enemy.projectileColor = projColor;
     }
 }

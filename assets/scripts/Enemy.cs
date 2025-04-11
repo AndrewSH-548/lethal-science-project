@@ -22,7 +22,7 @@ public partial class Enemy : StaticBody2D
 
 	// Projectile-related variables
 	[Export] PackedScene projectileScene;
-	[Export] Color projectileColor;
+	[Export] public Color projectileColor;
 	[Export] int projectileSpeed;
 	[Export] float projectileRange;				//In radians
 
