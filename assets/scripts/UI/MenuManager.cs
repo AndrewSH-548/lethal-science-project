@@ -14,10 +14,10 @@ public partial class MenuManager : Control
     private bool isPaused = true;
     private bool isGameStarted = false;
     private bool inOptions = false;
-    private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/UI/resume.png");
-    private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/UI/resume_Hover.png");
-    private Texture2D playNormal = GD.Load<Texture2D>("res://assets/UI/play.png");
-    private Texture2D playHover = GD.Load<Texture2D>("res://assets/UI/play_Hover.png");
+    private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/ui/resume.png");
+    private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/ui/resume_hover.png");
+    private Texture2D playNormal = GD.Load<Texture2D>("res://assets/ui/play.png");
+    private Texture2D playHover = GD.Load<Texture2D>("res://assets/ui/play_hover.png");
 
     public Difficulty Difficulty { get; set; } = Difficulty.Normal;
     

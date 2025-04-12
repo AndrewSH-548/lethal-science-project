@@ -9,6 +9,7 @@ public partial class Enemy : StaticBody2D
 	[Export] string enemyName;
 	[Export] Node conductor;
 	[Export] int baseCalmMax;
+	
 	AnimatedSprite2D sprite;
 
 	// Audio variables
@@ -24,10 +25,11 @@ public partial class Enemy : StaticBody2D
 	[Export] PackedScene projectileScene;
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
-	[Export] float projectileRange;				//In radians
+	[Export] float projectileRange;             //In radians
+	[Export] bool lockProjectileColor;
 
- 	// Dictates the minimum difficulty required for this enemy to attack
-	[Export] Difficulty difficulty;
+    // Dictates the minimum difficulty required for this enemy to attack
+    [Export] Difficulty difficulty;
 
 	// Shooting Guide variables
 	string initialShootingGuide;
@@ -67,8 +69,11 @@ public partial class Enemy : StaticBody2D
 		soundPlayer.Stream = pacifySound;
 		soundPlayer.VolumeDb -= 8;
 		AddChild(soundPlayer);
-		projectileColor = Settings.Instance.projColor;
-		Settings.Instance.ColorChanged += ChangeColor;
+		if (!lockProjectileColor)
+		{
+			projectileColor = Settings.Instance.projectileColor;
+			Settings.Instance.ColorChanged += ChangeColor;
+		}
 	}
 
 	/// <summary>

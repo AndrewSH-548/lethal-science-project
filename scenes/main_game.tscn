@@ -1335,6 +1335,7 @@ projectileScene = ExtResource("33_g2o8j")
 projectileColor = Color(0, 1, 0, 1)
 projectileSpeed = 300
 projectileRange = 0.3
+lockProjectileColor = true
 difficulty = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/Body"]
@@ -1352,6 +1353,7 @@ projectileScene = ExtResource("35_5noht")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 250
 projectileRange = 1.0
+lockProjectileColor = true
 difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/LeftHorn"]
@@ -1370,6 +1372,7 @@ projectileScene = ExtResource("35_5noht")
 projectileColor = Color(1, 1, 0, 1)
 projectileSpeed = 250
 projectileRange = 1.0
+lockProjectileColor = true
 difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/RightHorn"]

@@ -10,15 +10,13 @@ public partial class Settings : CanvasLayer
     public delegate void ColorChangedEventHandler(Color color);
 
     [Export]
-    public Color projColor = new Color(1, 1, 0, 1);
-    [Export] PackedScene prjScene;
-    [Export] Node2D spawn;
+    public Color projectileColor = new Color(1, 1, 0, 1);
     Projectile test;
     public override void _EnterTree()
     {
-       Instance = this;
-       CreateTestProjectile();
-
+        Instance = this;
+        test = GetChild<Projectile>(1);
+        test.ChangeGlowColor(projectileColor);
     }
     void OnVolumeSliderChanged(float value)
     {
@@ -29,10 +27,6 @@ public partial class Settings : CanvasLayer
         GD.Print(AudioServer.GetBusVolumeDb(masterBusIndex));
     }
 
-    public override void _Process(double delta)
-    {
-       test.GlowColor = projColor;
-    }
     void OnDifficultySelected(Difficulty index)
     {
         MenuManager.Instance.Difficulty = index;
@@ -41,39 +35,20 @@ public partial class Settings : CanvasLayer
 
     void RedSliderValueChanged(float value)
     {
-        projColor.R= value;
-        test.GlowColor = projColor;
-        RemoveChild(test);
-        CreateTestProjectile();
-        GD.Print(test.GlowColor);
-        EmitSignal(SignalName.ColorChanged, projColor);
+        projectileColor.R= value;
+        test.ChangeGlowColor(projectileColor);
+        EmitSignal(SignalName.ColorChanged, projectileColor);
     }
     void BlueSliderValueChanged(float value)
     {
-        projColor.B= value;
-        test.GlowColor= projColor;
-        RemoveChild(test);
-        CreateTestProjectile();
-        EmitSignal(SignalName.ColorChanged, projColor);
+        projectileColor.B= value;
+        test.ChangeGlowColor(projectileColor);
+        EmitSignal(SignalName.ColorChanged, projectileColor);
     }
     void GreenSliderValueChanged(float value)
     {
-        projColor.G = value;
-        test.GlowColor = projColor;
-        RemoveChild(test);
-        CreateTestProjectile();
-        EmitSignal(SignalName.ColorChanged, projColor);
-    }
-
-
-    void CreateTestProjectile()
-    {
-        test = prjScene.Instantiate() as Projectile;
-        test.Position = spawn.Position;
-        test.Orientation = (float)(Math.PI / 2);
-        test.Speed = 0;
-        test.GlowColor = projColor;
-        //test.Scale = new Vector2(1.3f, 1.3f);
-        AddChild(test);
+        projectileColor.G = value;
+        test.ChangeGlowColor(projectileColor);
+        EmitSignal(SignalName.ColorChanged, projectileColor);
     }
 }

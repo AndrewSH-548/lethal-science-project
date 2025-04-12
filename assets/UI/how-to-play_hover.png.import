@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdmxcwhuqbn1n"
-path="res://.godot/imported/HowToPlay_Hovered.png-c7f9aa6e28338d3f4706bb8cce23b035.ctex"
+path="res://.godot/imported/how-to-play_hover.png-b42fb0e6304ecaf49a91e39bd9ad3d3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/HowToPlay_Hovered.png"
-dest_files=["res://.godot/imported/HowToPlay_Hovered.png-c7f9aa6e28338d3f4706bb8cce23b035.ctex"]
+source_file="res://assets/ui/how-to-play_hover.png"
+dest_files=["res://.godot/imported/how-to-play_hover.png-b42fb0e6304ecaf49a91e39bd9ad3d3e.ctex"]
 
 [params]
 

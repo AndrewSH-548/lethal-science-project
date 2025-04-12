@@ -70,6 +70,4 @@ public partial class GameManager : Node2D
         parent.AddChild(timer);
         return timer;
     }
-
-   
 }
