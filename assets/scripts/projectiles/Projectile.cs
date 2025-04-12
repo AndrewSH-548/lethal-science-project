@@ -26,7 +26,7 @@ public partial class Projectile : Area2D
         direction = CurveMotion(Orientation);
 
         // Color the glow
-        GetChild<Sprite2D>(1).Modulate = GlowColor;
+        ChangeGlowColor(GlowColor);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,5 +61,11 @@ public partial class Projectile : Area2D
             GetChild<Sprite2D>(2).GlobalRotation = 0;
         }
         return new Vector2(-Mathf.Sin(Rotation) * Speed, Mathf.Cos(Rotation) * Speed);
+    }
+
+    public void ChangeGlowColor(Color color)
+    {
+        GlowColor = color;
+        GetChild<Sprite2D>(1).Modulate = color;
     }
 }

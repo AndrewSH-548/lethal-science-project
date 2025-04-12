@@ -30,7 +30,6 @@ public partial class GameManager : Node2D
         Instance = this;
         MenuManager.Instance.InitializeGameMenus();
     }
-
     public override void _Process(double delta)
     {
         if(player.CurrentHealth<=0 && !deathCalled)
