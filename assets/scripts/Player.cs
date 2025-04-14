@@ -15,6 +15,7 @@ public partial class Player : CharacterBody2D
 
 	
 	AnimatedSprite2D sprites;
+	AnimatedSprite2D absorbShield;
 	Direction animDirection = Direction.Down;
 
 	//status variables
@@ -64,6 +65,11 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 
 		sprites = GetChild<AnimatedSprite2D>(0);
+		absorbShield = GetChild<AnimatedSprite2D>(2);
+		absorbShield.AnimationFinished += () =>
+		{
+			absorbShield.Animation = "default";
+		};
 		sprites.Play();
 		
 		soundPlayer = new AudioStreamPlayer();
@@ -77,11 +83,13 @@ public partial class Player : CharacterBody2D
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
+			absorbShield.Play("default");
 		});
 		cooldownTimer = GameManager.Instance.CreateTimer(this, 1, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
+			absorbShield.Play("ready");
 		});
 		damageBuffer = GameManager.Instance.CreateTimer(this, 1.5f, () =>
 		{
@@ -106,6 +114,7 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
+			absorbShield.Play("active");
             absorptionTimer.Start();
         }
 		MoveAndSlide();
@@ -127,6 +136,7 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Play();
 		currentHealth -= projectileDamage;
 		isDamaged = true;
+		absorbShield.Play("break");
 		damageBuffer.Start();
 		UpdateHealthBar();
     }
