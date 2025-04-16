@@ -12,7 +12,7 @@ uniform float transparency_alpha : hint_range(0.0, 1.0);
 // Function to check if a point is inside the cooldown arc
 bool in_cooldown(vec2 uv, float progress) {
     // Convert UV coordinates to centered coordinates (-0.5 to 0.5)
-    vec2 centered_uv = uv - vec2(0.5);
+    vec2 centered_uv = uv - vec2(0.1666);
 
     // Calculate the angle of the UV coordinate
     float angle = atan(centered_uv.y, centered_uv.x) / (2.0 * 3.14159265359) + 0.5;

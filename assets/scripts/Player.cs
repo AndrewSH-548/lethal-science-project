@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
 
 	
 	AnimatedSprite2D sprites;
-	AnimatedSprite2D absorbShield;
+	AbsorbShield absorbShield;
 	Direction animDirection = Direction.Down;
 
 	//status variables
@@ -26,6 +26,7 @@ public partial class Player : CharacterBody2D
 	[Export] TextureProgressBar healthBar;
     Timer absorptionTimer;
 	Timer cooldownTimer;
+	float cooldownTime = 1;
 	Timer damageBuffer;
 	double damageTime;
 
@@ -46,6 +47,10 @@ public partial class Player : CharacterBody2D
 	{
 		get { return currentHealth; }
 	}
+	public float CooldownLength
+	{
+		get { return cooldownTime; }
+	}
 
 	[Signal]
 	public delegate void GameOverEventHandler();
@@ -65,7 +70,7 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 
 		sprites = GetChild<AnimatedSprite2D>(0);
-		absorbShield = GetChild<AnimatedSprite2D>(2);
+		absorbShield = GetChild<AbsorbShield>(2);
 		absorbShield.AnimationFinished += () =>
 		{
 			absorbShield.Animation = "default";
@@ -84,8 +89,9 @@ public partial class Player : CharacterBody2D
 			isOnCooldown = true;
 			cooldownTimer.Start();
 			absorbShield.Play("default");
+			absorbShield.StartReload();
 		});
-		cooldownTimer = GameManager.Instance.CreateTimer(this, 1, () =>
+		cooldownTimer = GameManager.Instance.CreateTimer(this, cooldownTime, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
@@ -129,6 +135,11 @@ public partial class Player : CharacterBody2D
             }
 		}
         
+		if (isOnCooldown)
+		{
+			absorbShield.CooldownProgress += delta;
+			GD.Print(absorbShield.CooldownProgress);
+		}
     }
 
 	public void Damage(int projectileDamage)
