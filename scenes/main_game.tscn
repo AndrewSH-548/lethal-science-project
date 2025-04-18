@@ -1,4 +1,4 @@
-[gd_scene load_steps=185 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=199 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -27,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/aria/death.png" id="13_jmxl0"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
+[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/scripts/AbsorbShield.gdshader" id="22_5noht"]
+[ext_resource type="Texture2D" uid="uid://beqbh2mu03vys" path="res://assets/sprites/absorb-shield.png" id="23_4v0b0"]
+[ext_resource type="Script" uid="uid://dryia60ndmbdw" path="res://assets/scripts/AbsorbShield.cs" id="23_5noht"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
 [ext_resource type="AudioStream" uid="uid://1cco2lfcdfoq" path="res://assets/songs/freakbattle/loop.ogg" id="24_urnot"]
 [ext_resource type="AudioStream" uid="uid://xf55kq5jq0l4" path="res://assets/sounds/absorb.wav" id="28_4e2rb"]
@@ -961,6 +964,101 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oojmo"]
+shader = ExtResource("22_5noht")
+shader_parameter/cooldown_progress = 0.0
+shader_parameter/use_transparency = false
+shader_parameter/transparency_alpha = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpokl"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrmos"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htswi"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ehsd"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsflj"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72466"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai8cu"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwahn"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_777ow"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c32t2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpokl")
+}],
+"loop": true,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrmos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htswi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ehsd")
+}, {
+"duration": 3.0,
+"texture": null
+}],
+"loop": false,
+"name": &"break",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsflj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72466")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai8cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwahn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_777ow")
+}],
+"loop": false,
+"name": &"ready",
+"speed": 10.0
+}]
+
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_ibep1"]
 clip_count = 2
 clip_0/name = &"Intro"
@@ -1233,6 +1331,8 @@ script = ExtResource("1_dp0eu")
 player = NodePath("Player")
 enemy = NodePath("Boss")
 conductor = NodePath("Conductor")
+Difficulty = 1
+metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 modulate = Color(0.699653, 0.699653, 0.699653, 1)
@@ -1257,6 +1357,12 @@ animation = &"idle-down"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_sehyx")
+
+[node name="AbsorbShield" type="AnimatedSprite2D" parent="Player"]
+material = SubResource("ShaderMaterial_oojmo")
+position = Vector2(1, -5)
+sprite_frames = SubResource("SpriteFrames_c32t2")
+script = ExtResource("23_5noht")
 
 [node name="Conductor" type="Node" parent="."]
 script = ExtResource("18_6vdpn")

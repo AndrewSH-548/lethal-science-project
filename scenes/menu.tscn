@@ -122,6 +122,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="SettingsMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("9_6cdou")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="SettingsMenu"]
@@ -291,6 +292,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3dmrc")
 position = Vector2(296, 270)
 Speed = 0
 
+[node name="WaveHitbox" parent="SettingsMenu/Wave" index="0"]
+position = Vector2(169, 6)
+
 [node name="EndMenu" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("11_ufwb2")
@@ -406,3 +410,5 @@ autowrap_mode = 3
 [connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
 [connection signal="pressed" from="EndMenu/Background/menu button" to="EndMenu" method="OnBackToMenu"]
 [connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]
+
+[editable path="SettingsMenu/Wave"]
