@@ -51,4 +51,9 @@ public partial class Settings : CanvasLayer
         test.ChangeGlowColor(projectileColor);
         EmitSignal(SignalName.ColorChanged, projectileColor);
     }
+
+    public void ToggleDifficultySelect()
+    {
+        GetNode<OptionButton>("Container/Rect/DifficultySelect").Disabled = !GetNode<OptionButton>("Container/Rect/DifficultySelect").Disabled;
+    }
 }

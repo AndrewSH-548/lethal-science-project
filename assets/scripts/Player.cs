@@ -158,6 +158,7 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
 		soundPlayer.Play();
+		absorbShield.QueueFree();
 		deathTimer.Start();
 		sprites.Play("death");
 	}

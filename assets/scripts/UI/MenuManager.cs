@@ -11,13 +11,9 @@ public partial class MenuManager : Control
     public delegate void GameInitializedEventHandler();
     public event GameInitializedEventHandler OnGameInitialized;
 
-    private bool isPaused = true;
+    private bool isPaused = false;
     private bool isGameStarted = false;
     private bool inOptions = false;
-    private Texture2D resumeNormal = GD.Load<Texture2D>("res://assets/ui/resume.png");
-    private Texture2D resumeHover = GD.Load<Texture2D>("res://assets/ui/resume_hover.png");
-    private Texture2D playNormal = GD.Load<Texture2D>("res://assets/ui/play.png");
-    private Texture2D playHover = GD.Load<Texture2D>("res://assets/ui/play_hover.png");
 
     public Difficulty Difficulty { get; set; } = Difficulty.Normal;
     
@@ -58,31 +54,20 @@ public partial class MenuManager : Control
         GetTree().Paused = isPaused;
     }
 
+    public void OnPlayPressed()
+    {
+        // instantiate the game scene
+        PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
+        GameManager gameNode = gameScene.Instantiate() as GameManager;
+        gameNode.Difficulty = Difficulty;
+        GetParent().AddChild(gameNode);
+        MainMenu.Instance.ToggleVisibility();
+        Settings.Instance.ToggleDifficultySelect();
+    }
+
     public void OnResumePressed()
     {
-        if(!isGameStarted)
-        {
-            // change "Play" button to "Resume"
-            TextureButton resumeButton = GetNode<TextureButton>("PauseMenu/resume");
-            resumeButton.TextureNormal = resumeNormal;
-            resumeButton.TextureHover = resumeHover;
-
-            // instantiate the game scene
-            PackedScene gameScene = GD.Load<PackedScene>("res://scenes/main_game.tscn");
-            GameManager gameNode = gameScene.Instantiate() as GameManager;
-            gameNode.Difficulty = Difficulty;
-            GetParent().AddChild(gameNode);
-
-            TogglePause();
-
-            isGameStarted = true;
-
-            
-        }
-        else
-        {
-            TogglePause();
-        }
+        TogglePause();
     }
 
     public void OnQuitPressed()
@@ -106,16 +91,14 @@ public partial class MenuManager : Control
 
     public void ResetMenu()
     {
-        TogglePause();
-        isGameStarted = false;
-        TextureButton playButton = GetNode<TextureButton>("PauseMenu/resume");
-        playButton.TextureNormal = playNormal;
-        playButton.TextureHover = playHover;
+        Settings.Instance.ToggleDifficultySelect();
+        MainMenu.Instance.ToggleVisibility();
     }
 
     private bool AllMenusClear()
     {
         return !GetNode<CanvasLayer>("SettingsMenu").Visible
+            && !GetNode<CanvasLayer>("MainMenu").Visible
             && !GetNode<CanvasLayer>("PauseMenu").Visible
             && !GetNode<CanvasLayer>("TutorialMenu").Visible
             && !GetNode<CanvasLayer>("EndMenu").Visible;
