@@ -1329,7 +1329,7 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wpxwh"]
 shader = ExtResource("41_g2o8j")
-shader_parameter/enabled = true
+shader_parameter/enabled = false
 shader_parameter/radius = 0.5
 shader_parameter/feather = 0.05
 shader_parameter/center = Vector2(0.5, 0.5)
