@@ -24,6 +24,7 @@ public partial class Player : CharacterBody2D
 	bool isDamaged;
 
 	[Export] TextureProgressBar healthBar;
+	[Export] DeathIrisWipe deathIrisWipe;
     Timer absorptionTimer;
 	Timer cooldownTimer;
 	float cooldownTime = 1;
@@ -154,6 +155,7 @@ public partial class Player : CharacterBody2D
 
 	public void Death(Action timeoutFunction)
 	{
+		deathIrisWipe.TriggerIrisWipe();
 		Timer deathTimer = GameManager.Instance.CreateTimer(this, (float)deathSound.GetLength() - 2, timeoutFunction);
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
