@@ -1,4 +1,4 @@
-[gd_scene load_steps=197 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=202 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -23,9 +23,11 @@
 [ext_resource type="Script" uid="uid://dtmnsqoi88iqw" path="res://assets/scripts/rhythm/MetronomePlayer.cs" id="9_tvib1"]
 [ext_resource type="Texture2D" uid="uid://ckdbaxvmk21po" path="res://assets/sprites/aria/absorb-walk-u.png" id="10_rr87q"]
 [ext_resource type="Script" uid="uid://frek6135h3wv" path="res://assets/scripts/Enemy.cs" id="11_5og6n"]
+[ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_4he15"]
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/aria/death.png" id="13_jmxl0"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
+[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/scripts/AbsorbShield.gdshader" id="22_5noht"]
 [ext_resource type="Texture2D" uid="uid://beqbh2mu03vys" path="res://assets/sprites/absorb-shield.png" id="23_4v0b0"]
 [ext_resource type="Script" uid="uid://dryia60ndmbdw" path="res://assets/scripts/AbsorbShield.cs" id="23_5noht"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
@@ -37,7 +39,9 @@
 [ext_resource type="Texture2D" uid="uid://dsl1844u80pb5" path="res://assets/sprites/bar-progress.png" id="30_urnot"]
 [ext_resource type="Script" uid="uid://dvgr5efydusq7" path="res://assets/scripts/Limb.cs" id="31_6vdpn"]
 [ext_resource type="Texture2D" uid="uid://153oyhi617gv" path="res://assets/sprites/chelsea/arm.png" id="32_jmxl0"]
+[ext_resource type="PackedScene" uid="uid://jdvg21k84bli" path="res://scenes/projectiles/dart.tscn" id="33_g2o8j"]
 [ext_resource type="Texture2D" uid="uid://bkw1fudtm4hpg" path="res://assets/sprites/chelsea/body.png" id="34_oojmo"]
+[ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="35_5noht"]
 [ext_resource type="Texture2D" uid="uid://dnorgr7xaaqs8" path="res://assets/sprites/chelsea/horn.png" id="36_4v0b0"]
 [ext_resource type="Texture2D" uid="uid://blxelu0okc7ru" path="res://assets/sprites/chelsea/wing.png" id="37_mkn3m"]
 [ext_resource type="Script" uid="uid://rohgsegcteo4" path="res://assets/scripts/UI/DeathIrisWipe.cs" id="39_oojmo"]
@@ -963,13 +967,10 @@ animations = [{
 size = Vector2(32, 32)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oojmo"]
-shader = ExtResource("41_g2o8j")
-shader_parameter/enabled = false
-shader_parameter/radius = 0.72
-shader_parameter/feather = 0.035
-shader_parameter/center = Vector2(0.52, 0.585)
-shader_parameter/screen_width = 416.0
-shader_parameter/screen_height = 416.0
+shader = ExtResource("22_5noht")
+shader_parameter/cooldown_progress = 0.0
+shader_parameter/use_transparency = false
+shader_parameter/transparency_alpha = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpokl"]
 atlas = ExtResource("23_4v0b0")
@@ -1326,6 +1327,15 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpxwh"]
+shader = ExtResource("41_g2o8j")
+shader_parameter/enabled = true
+shader_parameter/radius = 0.5
+shader_parameter/feather = 0.05
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/screen_width = 1920.0
+shader_parameter/screen_height = 1080.0
+
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("player", "enemy", "conductor")]
 position = Vector2(2, 2)
 script = ExtResource("1_dp0eu")
@@ -1347,7 +1357,7 @@ position = Vector2(208, 289)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
 healthBar = NodePath("../UI Elements/PlayerHealth")
-deathIrisWipe = NodePath("../UI Elements/DeathAnimationOverlay")
+deathIrisWipe = NodePath("../UI Elements/DeathIrisWipe")
 damageSound = ExtResource("4_urnot")
 deathSound = ExtResource("5_6vdpn")
 
@@ -1401,46 +1411,87 @@ z_index = 2
 sprite_frames = SubResource("SpriteFrames_pjtuq")
 animation = &"idle"
 
-[node name="LeftArm" type="StaticBody2D" parent="Boss"]
+[node name="LeftArm" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
 position = Vector2(0, -1)
 script = ExtResource("31_6vdpn")
+enemyName = "arm-left"
+conductor = NodePath("../../Conductor")
+pacifySound = ExtResource("28_4e2rb")
+projectileScene = ExtResource("12_4he15")
+projectileColor = Color(1, 1, 0, 1)
+projectileSpeed = 250
+projectileRange = 0.7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/LeftArm"]
 sprite_frames = SubResource("SpriteFrames_jmxl0")
 animation = &"idle"
 
-[node name="RightArm" type="StaticBody2D" parent="Boss"]
+[node name="RightArm" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 position = Vector2(0, 1)
 script = ExtResource("31_6vdpn")
+enemyName = "arm-right"
+conductor = NodePath("../../Conductor")
+pacifySound = ExtResource("28_4e2rb")
+projectileScene = ExtResource("12_4he15")
+projectileColor = Color(1, 1, 0, 1)
+projectileSpeed = 250
+projectileRange = 0.7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/RightArm"]
 sprite_frames = SubResource("SpriteFrames_jmxl0")
 animation = &"idle"
 flip_h = true
 
-[node name="Body" type="StaticBody2D" parent="Boss"]
+[node name="Body" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
 script = ExtResource("31_6vdpn")
+enemyName = "body"
+conductor = NodePath("../../Conductor")
+pacifySound = ExtResource("28_4e2rb")
+projectileScene = ExtResource("33_g2o8j")
+projectileColor = Color(0, 1, 0, 1)
+projectileSpeed = 300
+projectileRange = 0.3
+lockProjectileColor = true
+difficulty = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/Body"]
 sprite_frames = SubResource("SpriteFrames_htswi")
 animation = &"idle"
 flip_h = true
 
-[node name="LeftHorn" type="StaticBody2D" parent="Boss"]
+[node name="LeftHorn" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
 script = ExtResource("31_6vdpn")
+enemyName = "horn-left"
+conductor = NodePath("../../Conductor")
+pacifySound = ExtResource("28_4e2rb")
+projectileScene = ExtResource("35_5noht")
+projectileColor = Color(1, 1, 0, 1)
+projectileSpeed = 250
+projectileRange = 1.0
+lockProjectileColor = true
+difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/LeftHorn"]
 z_index = 3
 sprite_frames = SubResource("SpriteFrames_5ehsd")
 animation = &"swing"
 
-[node name="RightHorn" type="StaticBody2D" parent="Boss"]
+[node name="RightHorn" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
 position = Vector2(0, 2)
 script = ExtResource("31_6vdpn")
+enemyName = "horn-right"
+conductor = NodePath("../../Conductor")
+pacifySound = ExtResource("28_4e2rb")
+projectileScene = ExtResource("35_5noht")
+projectileColor = Color(1, 1, 0, 1)
+projectileSpeed = 250
+projectileRange = 1.0
+lockProjectileColor = true
+difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/RightHorn"]
 z_index = 3
@@ -1461,9 +1512,9 @@ flip_h = true
 
 [node name="UI Elements" type="Node" parent="."]
 
-[node name="DeathAnimationOverlay" type="ColorRect" parent="UI Elements" node_paths=PackedStringArray("player")]
+[node name="DeathIrisWipe" type="ColorRect" parent="UI Elements" node_paths=PackedStringArray("player")]
 z_index = 10
-material = SubResource("ShaderMaterial_oojmo")
+material = SubResource("ShaderMaterial_wpxwh")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
