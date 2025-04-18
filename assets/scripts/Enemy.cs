@@ -9,6 +9,7 @@ public partial class Enemy : StaticBody2D
 	[Export] string enemyName;
 	[Export] Node conductor;
 	[Export] int baseCalmMax;
+	
 	AnimatedSprite2D sprite;
 
 	// Audio variables
@@ -24,10 +25,11 @@ public partial class Enemy : StaticBody2D
 	[Export] PackedScene projectileScene;
 	[Export] Color projectileColor;
 	[Export] int projectileSpeed;
-	[Export] float projectileRange;				//In radians
+	[Export] float projectileRange;             //In radians
+	[Export] bool lockProjectileColor;
 
- 	// Dictates the minimum difficulty required for this enemy to attack
-	[Export] Difficulty difficulty;
+    // Dictates the minimum difficulty required for this enemy to attack
+    [Export] Difficulty difficulty;
 
 	// Shooting Guide variables
 	string initialShootingGuide;
@@ -67,6 +69,11 @@ public partial class Enemy : StaticBody2D
 		soundPlayer.Stream = pacifySound;
 		soundPlayer.VolumeDb -= 8;
 		AddChild(soundPlayer);
+		if (!lockProjectileColor)
+		{
+			projectileColor = Settings.Instance.projectileColor;
+			Settings.Instance.ColorChanged += ChangeColor;
+		}
 	}
 
 	/// <summary>
@@ -106,7 +113,12 @@ public partial class Enemy : StaticBody2D
 	{
 		Projectile projectile = projectileScene.Instantiate() as Projectile;
 		projectile.GlowColor = projectileColor;
-		projectile.Speed = projectileSpeed + (int)GameManager.Instance.Difficulty * 2 - (int)difficulty * 2;
+  		/*
+    		Sets speed based on required spawn difficulty relative to the GameManager's difficulty.
+      		Adds the GameManager's difficulty and subtracts its own.
+		Easier spawning projectiles are sped up on higher difficulties, while harder ones are offset to match the projectileSpeed value.
+    		*/
+		projectile.Speed = projectileSpeed + (int)GameManager.Instance.Difficulty * 150 - (int)difficulty * 150;
 		projectile.Orientation = GD.Randf() * (projectileRange * 2) - projectileRange;
 		projectile.Position += new Vector2(0, 10);
 		AddChild(projectile);
@@ -174,7 +186,10 @@ public partial class Enemy : StaticBody2D
         calmMeterTween.TweenProperty(calmMeter, "value", calmCurrent, 0.5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
 		
     }	
-
+	public void ChangeColor(Color color)
+	{
+		projectileColor = color;
+	}
 	private void End()
 	{
 

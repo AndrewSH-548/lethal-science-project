@@ -42,4 +42,14 @@ public partial class EndScreen : CanvasLayer
             Visible = false;
         }
     }
+    
+    public void OnBackToMenu()
+    {
+        if(gameManager != null)
+        {
+            gameManager.QueueFree();
+            MenuManager.Instance.ResetMenu();
+            Visible = false;
+        }
+    }
 }

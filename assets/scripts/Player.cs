@@ -15,6 +15,7 @@ public partial class Player : CharacterBody2D
 
 	
 	AnimatedSprite2D sprites;
+	AbsorbShield absorbShield;
 	Direction animDirection = Direction.Down;
 
 	//status variables
@@ -26,6 +27,7 @@ public partial class Player : CharacterBody2D
 	[Export] DeathIrisWipe deathIrisWipe;
     Timer absorptionTimer;
 	Timer cooldownTimer;
+	float cooldownTime = 1;
 	Timer damageBuffer;
 	double damageTime;
 
@@ -46,6 +48,10 @@ public partial class Player : CharacterBody2D
 	{
 		get { return currentHealth; }
 	}
+	public float CooldownLength
+	{
+		get { return cooldownTime; }
+	}
 
 	[Signal]
 	public delegate void GameOverEventHandler();
@@ -65,6 +71,11 @@ public partial class Player : CharacterBody2D
 		UpdateHealthBar();
 
 		sprites = GetChild<AnimatedSprite2D>(0);
+		absorbShield = GetChild<AbsorbShield>(2);
+		absorbShield.AnimationFinished += () =>
+		{
+			absorbShield.Animation = "default";
+		};
 		sprites.Play();
 		
 		soundPlayer = new AudioStreamPlayer();
@@ -78,11 +89,14 @@ public partial class Player : CharacterBody2D
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
+			absorbShield.Play("default");
+			absorbShield.StartReload();
 		});
-		cooldownTimer = GameManager.Instance.CreateTimer(this, 1, () =>
+		cooldownTimer = GameManager.Instance.CreateTimer(this, cooldownTime, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
+			absorbShield.Play("ready");
 		});
 		damageBuffer = GameManager.Instance.CreateTimer(this, 1.5f, () =>
 		{
@@ -107,6 +121,7 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
+			absorbShield.Play("active");
             absorptionTimer.Start();
         }
 		MoveAndSlide();
@@ -121,6 +136,11 @@ public partial class Player : CharacterBody2D
             }
 		}
         
+		if (isOnCooldown)
+		{
+			absorbShield.CooldownProgress += delta;
+			GD.Print(absorbShield.CooldownProgress);
+		}
     }
 
 	public void Damage(int projectileDamage)
@@ -128,6 +148,7 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Play();
 		currentHealth -= projectileDamage;
 		isDamaged = true;
+		absorbShield.Play("break");
 		damageBuffer.Start();
 		UpdateHealthBar();
     }

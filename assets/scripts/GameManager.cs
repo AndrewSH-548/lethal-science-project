@@ -28,9 +28,8 @@ public partial class GameManager : Node2D
     public override void _EnterTree()
     {
         Instance = this;
-        MenuManager.Instance.InitalizeGameMenus();
+        MenuManager.Instance.InitializeGameMenus();
     }
-
     public override void _Process(double delta)
     {
         if(player.CurrentHealth<=0 && !deathCalled)

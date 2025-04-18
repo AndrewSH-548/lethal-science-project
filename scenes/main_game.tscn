@@ -1,10 +1,11 @@
-[gd_scene load_steps=186 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=199 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
 [ext_resource type="Script" uid="uid://b1vgmgx18rg2p" path="res://assets/scripts/Player.cs" id="2_s6vgu"]
 [ext_resource type="Texture2D" uid="uid://cpdr0q1f24glh" path="res://assets/sprites/aria/absorb-idle-d.png" id="3_bbhr7"]
 [ext_resource type="Texture2D" uid="uid://ie7qqkbdepdx" path="res://assets/sprites/aria/idle-d.png" id="3_bbkiy"]
+[ext_resource type="Texture2D" uid="uid://co6y4xbaqx7pp" path="res://assets/sprites/tileset_dark_green.png" id="3_g2o8j"]
 [ext_resource type="Texture2D" uid="uid://cmtwxivtnnhqi" path="res://assets/sprites/aria/idle-s.png" id="4_efva3"]
 [ext_resource type="AudioStream" uid="uid://cvt25lakwas05" path="res://assets/sounds/damage.wav" id="4_urnot"]
 [ext_resource type="Texture2D" uid="uid://d1c7uwbkka3l8" path="res://assets/sprites/aria/absorb-idle-l.png" id="4_vws2k"]
@@ -26,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/aria/death.png" id="13_jmxl0"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
+[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/scripts/AbsorbShield.gdshader" id="22_5noht"]
+[ext_resource type="Texture2D" uid="uid://beqbh2mu03vys" path="res://assets/sprites/absorb-shield.png" id="23_4v0b0"]
+[ext_resource type="Script" uid="uid://dryia60ndmbdw" path="res://assets/scripts/AbsorbShield.cs" id="23_5noht"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
 [ext_resource type="AudioStream" uid="uid://1cco2lfcdfoq" path="res://assets/songs/freakbattle/loop.ogg" id="24_urnot"]
 [ext_resource type="AudioStream" uid="uid://xf55kq5jq0l4" path="res://assets/sounds/absorb.wav" id="28_4e2rb"]
@@ -89,10 +93,57 @@ texture_region_size = Vector2i(32, 32)
 3:5/0 = 0
 3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oojmo"]
+texture = ExtResource("3_g2o8j")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:5/0 = 0
+2:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
 [sub_resource type="TileSet" id="TileSet_aaalo"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_l2epv")
+sources/1 = SubResource("TileSetAtlasSource_oojmo")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmxad"]
 atlas = ExtResource("3_bbhr7")
@@ -915,6 +966,101 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oojmo"]
+shader = ExtResource("22_5noht")
+shader_parameter/cooldown_progress = 0.0
+shader_parameter/use_transparency = false
+shader_parameter/transparency_alpha = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpokl"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrmos"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htswi"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ehsd"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsflj"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72466"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai8cu"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwahn"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_777ow"]
+atlas = ExtResource("23_4v0b0")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c32t2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpokl")
+}],
+"loop": true,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrmos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htswi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ehsd")
+}, {
+"duration": 3.0,
+"texture": null
+}],
+"loop": false,
+"name": &"break",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsflj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72466")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai8cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwahn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_777ow")
+}],
+"loop": false,
+"name": &"ready",
+"speed": 10.0
+}]
+
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_ibep1"]
 clip_count = 2
 clip_0/name = &"Intro"
@@ -1191,21 +1337,23 @@ shader_parameter/screen_width = 416.0
 shader_parameter/screen_height = 416.0
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("player", "enemy", "conductor")]
-position = Vector2(1, 0)
+position = Vector2(2, 2)
 script = ExtResource("1_dp0eu")
 player = NodePath("Player")
 enemy = NodePath("Boss")
 conductor = NodePath("Conductor")
 Difficulty = 1
+metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-position = Vector2(64, 0)
-tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAD+/wAAAAAAAAAAAAAHAAAAAAACAAAAAAD//wEAAAACAAEAAAAAAAEAAAACAAEAAAABAAEAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAEAAAAEAAEAAAACAAEAAAAFAAEAAAACAAEAAAAGAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAIAAAACAAEAAAAFAAIAAAACAAEAAAAEAAIAAAACAAEAAAADAAIAAAACAAEAAAACAAIAAAACAAEAAAABAAIAAAACAAEAAAAAAAIAAAACAAEAAAD//wIAAAACAAEAAAD//wMAAAACAAEAAAAAAAMAAAACAAEAAAABAAMAAAACAAEAAAACAAMAAAACAAEAAAADAAMAAAACAAEAAAAEAAMAAAACAAEAAAAFAAMAAAACAAEAAAAGAAMAAAACAAEAAAAHAAIAAAACAAEAAAAHAAMAAAACAAEAAAAHAAQAAAABAAIAAAAHAAUAAAACAAMAAAAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAACAAEAAAAIAAMAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAACAAMAAAAIAAcAAAACAAMAAAAIAAgAAAACAAMAAAD//wQAAAABAAIAAAAAAAQAAAABAAIAAAABAAQAAAABAAIAAAACAAQAAAABAAIAAAADAAQAAAABAAIAAAAEAAQAAAABAAIAAAAFAAQAAAABAAIAAAAGAAQAAAABAAIAAAD//wUAAAACAAMAAAAAAAUAAAACAAMAAAABAAUAAAACAAMAAAACAAUAAAACAAMAAAADAAUAAAACAAMAAAAEAAUAAAACAAMAAAAFAAUAAAACAAMAAAAGAAUAAAACAAMAAAAHAAYAAAACAAMAAAAGAAYAAAACAAMAAAAFAAYAAAACAAMAAAAEAAYAAAACAAMAAAADAAYAAAACAAMAAAACAAYAAAACAAMAAAABAAYAAAACAAMAAAAAAAYAAAACAAMAAAD//wYAAAACAAMAAAD//wcAAAACAAMAAAAAAAcAAAACAAMAAAABAAgAAAACAAMAAAACAAgAAAACAAMAAAADAAgAAAACAAMAAAAEAAgAAAACAAMAAAAFAAgAAAACAAMAAAAFAAcAAAACAAMAAAAGAAcAAAACAAMAAAAEAAcAAAACAAMAAAADAAcAAAACAAMAAAACAAcAAAACAAMAAAABAAcAAAACAAMAAAAAAAgAAAACAAMAAAD//wgAAAACAAMAAAAGAAgAAAACAAMAAAAHAAgAAAACAAMAAAAHAAcAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAACAAMAAAD//wkAAAACAAMAAAD+/wEAAAAAAAMAAAD+/wIAAAAAAAMAAAD+/wMAAAAAAAMAAAD+/wQAAAAAAAMAAAD+/wUAAAAAAAMAAAD+/wYAAAAAAAMAAAD+/wcAAAAAAAMAAAD+/wgAAAAAAAMAAAD+/wkAAAAAAAMAAAD+/woAAAAAAAMAAAAIAAoAAAACAAMAAAAIAAkAAAACAAMAAAD//woAAAACAAMAAAAAAAoAAAACAAMAAAABAAoAAAACAAMAAAACAAoAAAACAAMAAAADAAoAAAACAAMAAAAEAAoAAAACAAMAAAAFAAoAAAACAAMAAAAGAAoAAAACAAMAAAAHAAoAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAMAAAAJAAoAAAACAAMAAAD//wsAAAACAAMAAAAAAAsAAAACAAMAAAABAAsAAAACAAMAAAACAAsAAAACAAMAAAADAAsAAAACAAMAAAAEAAsAAAACAAMAAAAFAAsAAAACAAMAAAAGAAsAAAACAAMAAAAHAAsAAAACAAMAAAAIAAsAAAACAAMAAAAJAAsAAAACAAMAAAD+/wsAAAAAAAMAAAD+/wwAAAAAAAUAAAD//wwAAAABAAUAAAAAAAwAAAABAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAADAAUAAAAKAAsAAAADAAQAAAAKAAoAAAADAAQAAAAKAAkAAAADAAQAAAAKAAgAAAADAAQAAAAKAAcAAAADAAQAAAAKAAYAAAADAAQAAAAKAAUAAAADAAQAAAAKAAQAAAADAAQAAAAKAAMAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAKAAAAAAADAAAAAAAJAAAAAAACAAAAAAAJAAMAAAACAAEAAAAJAAIAAAACAAEAAAAJAAEAAAACAAEAAAAJAAQAAAACAAIAAAA=")
+modulate = Color(0.699653, 0.699653, 0.699653, 1)
+position = Vector2(62, 0)
+tile_map_data = PackedByteArray("AAD//wAAAQABAAAAAAAAAAAAAQABAAAAAAABAAAAAQABAAAAAAACAAAAAQABAAAAAAADAAAAAQABAAAAAAAEAAAAAQABAAAAAAAFAAAAAQABAAAAAAAGAAAAAQABAAAAAAD+/wAAAQAAAAAAAAAHAAAAAQABAAAAAAD//wEAAQABAAEAAAAAAAEAAQABAAEAAAABAAEAAQABAAEAAAACAAEAAQABAAEAAAADAAEAAQABAAEAAAAEAAEAAQABAAEAAAAFAAEAAQABAAEAAAAGAAEAAQABAAEAAAAHAAEAAQABAAEAAAAGAAIAAQABAAEAAAAFAAIAAQACAAEAAAAEAAIAAQABAAEAAAADAAIAAQABAAEAAAACAAIAAQABAAEAAAABAAIAAQABAAEAAAAAAAIAAQACAAEAAAD//wIAAQABAAEAAAD//wMAAQABAAEAAAAAAAMAAQACAAEAAAABAAMAAQACAAEAAAACAAMAAQACAAEAAAADAAMAAQABAAEAAAAEAAMAAQABAAEAAAAFAAMAAQABAAEAAAAGAAMAAQABAAEAAAAHAAIAAQABAAEAAAAHAAMAAQABAAEAAAAHAAQAAQABAAIAAAAHAAUAAQACAAMAAAAIAAAAAQABAAAAAAAIAAEAAQABAAEAAAAIAAIAAQABAAEAAAAIAAMAAQABAAEAAAAIAAQAAQACAAIAAAAIAAUAAQACAAMAAAAIAAYAAQACAAMAAAAIAAcAAQABAAMAAAAIAAgAAQACAAQAAAD//wQAAQABAAIAAAAAAAQAAQABAAIAAAABAAQAAQACAAIAAAACAAQAAQACAAIAAAADAAQAAQABAAIAAAAEAAQAAQACAAIAAAAFAAQAAQACAAIAAAAGAAQAAQACAAIAAAD//wUAAQABAAMAAAAAAAUAAQABAAMAAAABAAUAAQABAAMAAAACAAUAAQACAAMAAAADAAUAAQABAAMAAAAEAAUAAQACAAMAAAAFAAUAAQABAAMAAAAGAAUAAQABAAMAAAAHAAYAAQABAAMAAAAGAAYAAQACAAQAAAAFAAYAAQACAAQAAAAEAAYAAQACAAQAAAADAAYAAQACAAQAAAACAAYAAQACAAQAAAABAAYAAQABAAMAAAAAAAYAAQABAAMAAAD//wYAAQACAAMAAAD//wcAAQABAAMAAAAAAAcAAQABAAMAAAABAAgAAQACAAQAAAACAAgAAQACAAQAAAADAAgAAQACAAQAAAAEAAgAAQACAAQAAAAFAAgAAQABAAQAAAAFAAcAAQACAAQAAAAGAAcAAQACAAQAAAAEAAcAAQABAAQAAAADAAcAAQABAAQAAAACAAcAAQABAAQAAAABAAcAAQACAAQAAAAAAAgAAQACAAQAAAD//wgAAQABAAMAAAAGAAgAAQABAAQAAAAHAAgAAQACAAQAAAAHAAcAAQACAAQAAAAHAAkAAQACAAQAAAAGAAkAAQABAAQAAAAFAAkAAQABAAQAAAAEAAkAAQACAAQAAAADAAkAAQABAAQAAAACAAkAAQACAAQAAAABAAkAAQACAAQAAAAAAAkAAQACAAQAAAD//wkAAQACAAQAAAD+/wEAAQAAAAQAAAD+/wIAAQAAAAIAAAD+/wMAAQAAAAQAAAD+/wQAAQAAAAIAAAD+/wUAAQAAAAQAAAD+/wYAAQAAAAQAAAD+/wcAAQAAAAQAAAD+/wgAAQAAAAQAAAD+/wkAAQAAAAIAAAD+/woAAQAAAAQAAAAIAAoAAQABAAQAAAAIAAkAAQACAAQAAAD//woAAQACAAQAAAAAAAoAAQABAAQAAAABAAoAAQABAAQAAAACAAoAAQACAAQAAAADAAoAAQACAAQAAAAEAAoAAQACAAQAAAAFAAoAAQABAAQAAAAGAAoAAQABAAQAAAAHAAoAAQACAAQAAAAJAAUAAQACAAMAAAAJAAYAAQACAAMAAAAJAAcAAQACAAMAAAAJAAgAAQABAAMAAAAJAAkAAQACAAQAAAAJAAoAAQACAAQAAAD//wsAAQACAAQAAAAAAAsAAQABAAQAAAABAAsAAQABAAQAAAACAAsAAQABAAQAAAADAAsAAQABAAQAAAAEAAsAAQACAAQAAAAFAAsAAQACAAQAAAAGAAsAAQABAAQAAAAHAAsAAQACAAQAAAAIAAsAAQACAAQAAAAJAAsAAQACAAQAAAD+/wsAAQAAAAIAAAD+/wwAAQAAAAUAAAD//wwAAQABAAUAAAAAAAwAAQABAAUAAAABAAwAAQABAAUAAAACAAwAAQABAAUAAAADAAwAAQABAAUAAAAEAAwAAQABAAUAAAAFAAwAAQABAAUAAAAGAAwAAQABAAUAAAAHAAwAAQABAAUAAAAIAAwAAQABAAUAAAAJAAwAAQABAAUAAAAKAAwAAQADAAUAAAAKAAsAAQADAAQAAAAKAAoAAQADAAIAAAAKAAkAAQADAAQAAAAKAAgAAQADAAQAAAAKAAcAAQADAAIAAAAKAAYAAQADAAQAAAAKAAUAAQADAAQAAAAKAAQAAQADAAQAAAAKAAMAAQADAAIAAAAKAAIAAQADAAIAAAAKAAEAAQADAAQAAAAKAAAAAQADAAAAAAAJAAAAAQABAAAAAAAJAAMAAQABAAEAAAAJAAIAAQABAAEAAAAJAAEAAQABAAEAAAAJAAQAAQACAAIAAAA=")
 tile_set = SubResource("TileSet_aaalo")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar", "deathIrisWipe")]
 physics_interpolation_mode = 1
-position = Vector2(208, 288)
+position = Vector2(208, 289)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
 healthBar = NodePath("../UI Elements/PlayerHealth")
@@ -1216,11 +1364,17 @@ deathSound = ExtResource("5_6vdpn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
-animation = &"death"
+animation = &"idle-down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_sehyx")
+
+[node name="AbsorbShield" type="AnimatedSprite2D" parent="Player"]
+material = SubResource("ShaderMaterial_oojmo")
+position = Vector2(1, -5)
+sprite_frames = SubResource("SpriteFrames_c32t2")
+script = ExtResource("23_5noht")
 
 [node name="Conductor" type="Node" parent="."]
 script = ExtResource("18_6vdpn")
@@ -1259,13 +1413,14 @@ animation = &"idle"
 
 [node name="LeftArm" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
+position = Vector2(0, -1)
 script = ExtResource("31_6vdpn")
 enemyName = "arm-left"
 conductor = NodePath("../../Conductor")
 pacifySound = ExtResource("28_4e2rb")
 projectileScene = ExtResource("12_4he15")
 projectileColor = Color(1, 1, 0, 1)
-projectileSpeed = 4
+projectileSpeed = 250
 projectileRange = 0.7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/LeftArm"]
@@ -1280,7 +1435,7 @@ conductor = NodePath("../../Conductor")
 pacifySound = ExtResource("28_4e2rb")
 projectileScene = ExtResource("12_4he15")
 projectileColor = Color(1, 1, 0, 1)
-projectileSpeed = 4
+projectileSpeed = 250
 projectileRange = 0.7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/RightArm"]
@@ -1296,8 +1451,9 @@ conductor = NodePath("../../Conductor")
 pacifySound = ExtResource("28_4e2rb")
 projectileScene = ExtResource("33_g2o8j")
 projectileColor = Color(0, 1, 0, 1)
-projectileSpeed = 4
+projectileSpeed = 300
 projectileRange = 0.3
+lockProjectileColor = true
 difficulty = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/Body"]
@@ -1313,8 +1469,9 @@ conductor = NodePath("../../Conductor")
 pacifySound = ExtResource("28_4e2rb")
 projectileScene = ExtResource("35_5noht")
 projectileColor = Color(1, 1, 0, 1)
-projectileSpeed = 4
+projectileSpeed = 250
 projectileRange = 1.0
+lockProjectileColor = true
 difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/LeftHorn"]
@@ -1324,15 +1481,16 @@ animation = &"swing"
 
 [node name="RightHorn" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
-position = Vector2(0, 1)
+position = Vector2(0, 2)
 script = ExtResource("31_6vdpn")
 enemyName = "horn-right"
 conductor = NodePath("../../Conductor")
 pacifySound = ExtResource("28_4e2rb")
 projectileScene = ExtResource("35_5noht")
 projectileColor = Color(1, 1, 0, 1)
-projectileSpeed = 4
+projectileSpeed = 250
 projectileRange = 1.0
+lockProjectileColor = true
 difficulty = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss/RightHorn"]

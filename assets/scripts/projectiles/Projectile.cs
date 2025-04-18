@@ -26,14 +26,14 @@ public partial class Projectile : Area2D
         direction = CurveMotion(Orientation);
 
         // Color the glow
-        GetChild<Sprite2D>(1).Modulate = GlowColor;
+        ChangeGlowColor(GlowColor);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     // Simply moves the projectile in its given direction. May be altered by inherited classes.
     public override void _Process(double delta)
     {
-        Position += direction;
+        Position += direction * (float)delta;
         if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 
@@ -61,5 +61,11 @@ public partial class Projectile : Area2D
             GetChild<Sprite2D>(2).GlobalRotation = 0;
         }
         return new Vector2(-Mathf.Sin(Rotation) * Speed, Mathf.Cos(Rotation) * Speed);
+    }
+
+    public void ChangeGlowColor(Color color)
+    {
+        GlowColor = color;
+        GetChild<Sprite2D>(1).Modulate = color;
     }
 }

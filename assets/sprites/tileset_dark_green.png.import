@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bscxb8jpatgi6"
-path="res://.godot/imported/Menu_hovered.png-3d5d669fa3ac94c595eacd36a864811b.ctex"
+uid="uid://co6y4xbaqx7pp"
+path="res://.godot/imported/tileset_dark_green.png-dc36ab14e22d11d0698087eb3fbf0132.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Menu_hovered.png"
-dest_files=["res://.godot/imported/Menu_hovered.png-3d5d669fa3ac94c595eacd36a864811b.ctex"]
+source_file="res://assets/sprites/tileset_dark_green.png"
+dest_files=["res://.godot/imported/tileset_dark_green.png-dc36ab14e22d11d0698087eb3fbf0132.ctex"]
 
 [params]
 

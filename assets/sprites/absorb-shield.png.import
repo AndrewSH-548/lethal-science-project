@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt28ynulvxjn1"
-path="res://.godot/imported/play_hover.png-eb723bae9818a8e481d347ed2b96abc4.ctex"
+uid="uid://beqbh2mu03vys"
+path="res://.godot/imported/absorb-shield.png-c9bf4f9a31610b2294f018e1f768da08.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/play_hover.png"
-dest_files=["res://.godot/imported/play_hover.png-eb723bae9818a8e481d347ed2b96abc4.ctex"]
+source_file="res://assets/sprites/absorb-shield.png"
+dest_files=["res://.godot/imported/absorb-shield.png-c9bf4f9a31610b2294f018e1f768da08.ctex"]
 
 [params]
 

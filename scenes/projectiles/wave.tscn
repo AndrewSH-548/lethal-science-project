@@ -12,6 +12,7 @@ size = Vector2(59.5263, 19)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_mk3qo")
+Speed = 200
 Damage = 10
 projectileBreak = ExtResource("2_8xpth")
 
