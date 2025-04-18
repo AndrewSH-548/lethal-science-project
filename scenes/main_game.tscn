@@ -1372,7 +1372,7 @@ shape = SubResource("RectangleShape2D_sehyx")
 
 [node name="AbsorbShield" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_oojmo")
-position = Vector2(1, -5)
+position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_c32t2")
 script = ExtResource("23_5noht")
 
