@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qbwshm0gw6p1"
-path="res://.godot/imported/settings_hover.png-2c990c08a19a3d0c24cb4777fd047244.ctex"
+path="res://.godot/imported/settings_Hover.png-16c23a6d5809e33ce3130425a4762ccc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/settings_hover.png"
-dest_files=["res://.godot/imported/settings_hover.png-2c990c08a19a3d0c24cb4777fd047244.ctex"]
+source_file="res://assets/UI/settings_Hover.png"
+dest_files=["res://.godot/imported/settings_Hover.png-16c23a6d5809e33ce3130425a4762ccc.ctex"]
 
 [params]
 

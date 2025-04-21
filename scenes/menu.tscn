@@ -1,23 +1,27 @@
-[gd_scene load_steps=22 format=3 uid="uid://cu5jmhnrb7gqh"]
+[gd_scene load_steps=26 format=3 uid="uid://cu5jmhnrb7gqh"]
 
 [ext_resource type="Script" uid="uid://cb6vuwkax5sr7" path="res://assets/scripts/UI/MenuManager.cs" id="1_70i5f"]
 [ext_resource type="Script" uid="uid://c5484w1umqc5x" path="res://assets/scripts/UI/TogglePauseVisibility.cs" id="2_mj5lg"]
-[ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/ui/quit.png" id="3_ufwb2"]
-[ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/ui/quit_hover.png" id="4_6cdou"]
-[ext_resource type="Texture2D" uid="uid://c8xanbif4rfl6" path="res://assets/ui/how-to-play.png" id="5_7jp70"]
-[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/ui/play.png" id="5_i42df"]
-[ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/ui/play_hover.png" id="6_7jp70"]
-[ext_resource type="Texture2D" uid="uid://cdmxcwhuqbn1n" path="res://assets/ui/how-to-play_hover.png" id="6_mxgkd"]
-[ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/ui/settings.png" id="7_mxgkd"]
-[ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/ui/settings_hover.png" id="8_g6gyw"]
+[ext_resource type="Script" path="res://assets/scripts/UI/MainMenu.cs" id="2_oi1it"]
+[ext_resource type="Texture2D" uid="uid://csjjj6mulxeit" path="res://assets/UI/quit.png" id="3_ufwb2"]
+[ext_resource type="Texture2D" uid="uid://3w2pegy83pvp" path="res://assets/UI/quit_Hover.png" id="4_6cdou"]
+[ext_resource type="Texture2D" uid="uid://c8xanbif4rfl6" path="res://assets/UI/how-to-play.png" id="5_7jp70"]
+[ext_resource type="Texture2D" uid="uid://8k3c2otguhlg" path="res://assets/UI/Play.png" id="5_i42df"]
+[ext_resource type="Texture2D" uid="uid://bt28ynulvxjn1" path="res://assets/UI/play_Hover.png" id="6_7jp70"]
+[ext_resource type="Texture2D" uid="uid://cdmxcwhuqbn1n" path="res://assets/UI/how-to-play_hover.png" id="6_mxgkd"]
+[ext_resource type="Texture2D" uid="uid://d2s7owxdplxk0" path="res://assets/UI/settings.png" id="7_mxgkd"]
+[ext_resource type="Texture2D" uid="uid://qbwshm0gw6p1" path="res://assets/UI/settings_Hover.png" id="8_g6gyw"]
 [ext_resource type="Script" uid="uid://13mdk1pp25vg" path="res://assets/scripts/UI/Settings.cs" id="9_6cdou"]
 [ext_resource type="FontFile" uid="uid://7a4g2ldonm6g" path="res://assets/fonts/Oxanium-Bold.ttf" id="10_81l6r"]
+[ext_resource type="Texture2D" path="res://assets/sprites/logo_text.png" id="11_fy8yy"]
 [ext_resource type="Script" uid="uid://88ehevy6ucqj" path="res://assets/scripts/UI/EndScreen.cs" id="11_ufwb2"]
 [ext_resource type="FontFile" uid="uid://dbew1xf21vuuh" path="res://assets/fonts/Oxanium-ExtraBold.ttf" id="12_6cdou"]
 [ext_resource type="PackedScene" uid="uid://csiuj07ubewhu" path="res://scenes/projectiles/wave.tscn" id="12_81l6r"]
+[ext_resource type="Texture2D" uid="uid://dpvtexgxr2rpx" path="res://assets/UI/resume.png" id="12_fy8yy"]
 [ext_resource type="Script" uid="uid://vx0mnq6voxrf" path="res://assets/scripts/TutorialMenu.cs" id="13_6cdou"]
-[ext_resource type="Texture2D" uid="uid://c5jiltqdbh5wd" path="res://assets/ui/menu.png" id="16_g6gyw"]
-[ext_resource type="Texture2D" uid="uid://bscxb8jpatgi6" path="res://assets/ui/menu_hover.png" id="17_3dmrc"]
+[ext_resource type="Texture2D" uid="uid://0yf75shsmpqi" path="res://assets/UI/resume_Hover.png" id="13_6wigr"]
+[ext_resource type="Texture2D" uid="uid://c5jiltqdbh5wd" path="res://assets/UI/menu.png" id="16_g6gyw"]
+[ext_resource type="Texture2D" uid="uid://bscxb8jpatgi6" path="res://assets/UI/menu_hover.png" id="17_3dmrc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dmrc"]
 bg_color = Color(0.376471, 0.333333, 0.768627, 1)
@@ -56,7 +60,76 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_70i5f")
 
+[node name="MainMenu" type="CanvasLayer" parent="."]
+script = ExtResource("2_oi1it")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainMenu"]
+offset_right = 416.0
+offset_bottom = 416.0
+alignment_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.187595, 0.220994, 0.248877, 1)
+
+[node name="titlePaused" type="Label" parent="MainMenu/AspectRatioContainer/ColorRect"]
+visible = false
+layout_mode = 0
+offset_left = 144.0
+offset_top = 40.0
+offset_right = 336.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 50
+text = "PAUSED
+"
+
+[node name="play" type="TextureButton" parent="MainMenu"]
+offset_left = 18.0
+offset_top = 220.0
+offset_right = 198.0
+offset_bottom = 280.0
+texture_normal = ExtResource("5_i42df")
+texture_hover = ExtResource("6_7jp70")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="tutorial" type="TextureButton" parent="MainMenu"]
+offset_left = 218.0
+offset_top = 220.0
+offset_right = 398.0
+offset_bottom = 280.0
+texture_normal = ExtResource("5_7jp70")
+texture_hover = ExtResource("6_mxgkd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="settings" type="TextureButton" parent="MainMenu"]
+offset_left = 18.0
+offset_top = 316.0
+offset_right = 198.0
+offset_bottom = 376.0
+texture_normal = ExtResource("7_mxgkd")
+texture_hover = ExtResource("8_g6gyw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="quit" type="TextureButton" parent="MainMenu"]
+offset_left = 218.0
+offset_top = 316.0
+offset_right = 398.0
+offset_bottom = 376.0
+texture_normal = ExtResource("3_ufwb2")
+texture_hover = ExtResource("4_6cdou")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="MainMenu"]
+position = Vector2(208, 106)
+scale = Vector2(0.457534, 0.457534)
+texture = ExtResource("11_fy8yy")
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("2_mj5lg")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseMenu"]
@@ -68,7 +141,7 @@ alignment_vertical = 0
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu/AspectRatioContainer"]
 layout_mode = 2
-color = Color(0.684842, 0.19404, 0.556889, 1)
+color = Color(0.0618044, 0.211088, 0.261577, 0.356863)
 
 [node name="titlePaused" type="Label" parent="PauseMenu/AspectRatioContainer/ColorRect"]
 visible = false
@@ -86,8 +159,8 @@ offset_left = 107.0
 offset_top = 76.0
 offset_right = 311.0
 offset_bottom = 142.0
-texture_normal = ExtResource("5_i42df")
-texture_hover = ExtResource("6_7jp70")
+texture_normal = ExtResource("12_fy8yy")
+texture_hover = ExtResource("13_6wigr")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -122,40 +195,39 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="SettingsMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("9_6cdou")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="SettingsMenu"]
-offset_left = -24.0
-offset_top = 40.0
-offset_right = 448.0
-offset_bottom = 400.0
+[node name="Container" type="AspectRatioContainer" parent="SettingsMenu"]
+offset_right = 416.0
+offset_bottom = 416.0
 
-[node name="ColorRect" type="ColorRect" parent="SettingsMenu/AspectRatioContainer"]
+[node name="Rect" type="ColorRect" parent="SettingsMenu/Container"]
 layout_mode = 2
 color = Color(0.266667, 0, 1, 1)
 
-[node name="Settings" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="Settings" type="Label" parent="SettingsMenu/Container/Rect"]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 16.0
-offset_right = 284.0
-offset_bottom = 67.0
+offset_left = 117.0
+offset_top = 11.0
+offset_right = 316.0
+offset_bottom = 62.0
 theme_override_fonts/font = ExtResource("10_81l6r")
 theme_override_font_sizes/font_size = 50
 text = "Settings"
 
-[node name="VolumeSlider" type="HSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="VolumeSlider" type="HSlider" parent="SettingsMenu/Container/Rect"]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 71.0
-offset_right = 331.0
-offset_bottom = 119.0
+offset_left = 59.0
+offset_top = 66.0
+offset_right = 363.0
+offset_bottom = 114.0
 min_value = -30.0
 max_value = 0.0
 step = 0.01
 value = -15.0
 
-[node name="Volume" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/VolumeSlider"]
+[node name="Volume" type="Label" parent="SettingsMenu/Container/Rect/VolumeSlider"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.174
@@ -171,12 +243,12 @@ theme_override_font_sizes/font_size = 25
 text = "Master Volume
 "
 
-[node name="DifficultySelect" type="OptionButton" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="DifficultySelect" type="OptionButton" parent="SettingsMenu/Container/Rect"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 134.0
-offset_right = 268.0
-offset_bottom = 165.0
+offset_left = 114.0
+offset_top = 129.0
+offset_right = 300.0
+offset_bottom = 160.0
 selected = 1
 item_count = 3
 popup/item_0/text = "Easy"
@@ -186,7 +258,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Hard"
 popup/item_2/id = 2
 
-[node name="Difficulty" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/DifficultySelect"]
+[node name="Difficulty" type="Label" parent="SettingsMenu/Container/Rect/DifficultySelect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.174
@@ -203,28 +275,28 @@ text = "Difficulty
 "
 horizontal_alignment = 1
 
-[node name="backToMenu" type="TextureButton" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="backToMenu" type="TextureButton" parent="SettingsMenu/Container/Rect"]
 layout_mode = 0
-offset_left = 84.0
-offset_top = 307.0
-offset_right = 263.0
-offset_bottom = 357.0
+offset_left = 119.0
+offset_top = 329.0
+offset_right = 298.0
+offset_bottom = 379.0
 texture_normal = ExtResource("16_g6gyw")
 texture_hover = ExtResource("17_3dmrc")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Red Slider" type="VSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="Red Slider" type="VSlider" parent="SettingsMenu/Container/Rect"]
 layout_mode = 0
-offset_left = 28.0
+offset_left = 30.0
 offset_top = 189.0
-offset_right = 64.0
+offset_right = 66.0
 offset_bottom = 268.0
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="R" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/Red Slider"]
+[node name="R" type="Label" parent="SettingsMenu/Container/Rect/Red Slider"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = 79.0
@@ -233,22 +305,22 @@ offset_bottom = 102.0
 text = "R"
 horizontal_alignment = 1
 
-[node name="Green Slider" type="VSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="Green Slider" type="VSlider" parent="SettingsMenu/Container/Rect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.951
 anchor_top = -2.528
 anchor_right = -0.951
 anchor_bottom = -2.528
-offset_left = 431.36
-offset_top = 1099.08
-offset_right = 467.36
-offset_bottom = 1178.08
+offset_left = 485.616
+offset_top = 1240.65
+offset_right = 521.616
+offset_bottom = 1319.65
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="G" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/Green Slider"]
+[node name="G" type="Label" parent="SettingsMenu/Container/Rect/Green Slider"]
 layout_mode = 0
 offset_top = 77.0
 offset_right = 40.0
@@ -256,21 +328,21 @@ offset_bottom = 100.0
 text = "G"
 horizontal_alignment = 1
 
-[node name="Blue Slider" type="VSlider" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="Blue Slider" type="VSlider" parent="SettingsMenu/Container/Rect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.951
 anchor_top = -2.528
 anchor_right = -0.951
 anchor_bottom = -2.528
-offset_left = 492.36
-offset_top = 1099.08
-offset_right = 528.36
-offset_bottom = 1178.08
+offset_left = 545.616
+offset_top = 1240.65
+offset_right = 581.616
+offset_bottom = 1319.65
 max_value = 1.0
 step = 0.01
 
-[node name="B" type="Label" parent="SettingsMenu/AspectRatioContainer/ColorRect/Blue Slider"]
+[node name="B" type="Label" parent="SettingsMenu/Container/Rect/Blue Slider"]
 layout_mode = 0
 offset_left = -4.0
 offset_top = 75.9999
@@ -279,17 +351,20 @@ offset_bottom = 98.9999
 text = "B"
 horizontal_alignment = 1
 
-[node name="backPannel" type="Panel" parent="SettingsMenu/AspectRatioContainer/ColorRect"]
+[node name="backPannel" type="Panel" parent="SettingsMenu/Container/Rect"]
 layout_mode = 1
-offset_left = 225.0
-offset_top = 205.0
-offset_right = 305.0
-offset_bottom = 248.0
+offset_left = 256.0
+offset_top = 246.0
+offset_right = 336.0
+offset_bottom = 289.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3dmrc")
 
 [node name="Wave" parent="SettingsMenu" instance=ExtResource("12_81l6r")]
 position = Vector2(296, 270)
 Speed = 0
+
+[node name="WaveHitbox" parent="SettingsMenu/Wave" index="0"]
+position = Vector2(232, -21)
 
 [node name="EndMenu" type="CanvasLayer" parent="."]
 visible = false
@@ -393,16 +468,22 @@ Be careful, as you'll be stuck in a cooldown after attempting to absorb.
 Your progress will be shown by a calm meter on the top. Fill it completely to win!"
 autowrap_mode = 3
 
+[connection signal="pressed" from="MainMenu/play" to="." method="OnPlayPressed"]
+[connection signal="pressed" from="MainMenu/tutorial" to="TutorialMenu" method="Open"]
+[connection signal="pressed" from="MainMenu/settings" to="." method="OnSettingsPressed"]
+[connection signal="pressed" from="MainMenu/quit" to="." method="OnQuitPressed"]
 [connection signal="pressed" from="PauseMenu/resume" to="." method="OnResumePressed"]
 [connection signal="pressed" from="PauseMenu/tutorial" to="TutorialMenu" method="Open"]
 [connection signal="pressed" from="PauseMenu/settings" to="." method="OnSettingsPressed"]
 [connection signal="pressed" from="PauseMenu/quit" to="." method="OnQuitPressed"]
-[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/VolumeSlider" to="SettingsMenu" method="OnVolumeSliderChanged"]
-[connection signal="item_selected" from="SettingsMenu/AspectRatioContainer/ColorRect/DifficultySelect" to="SettingsMenu" method="OnDifficultySelected"]
-[connection signal="pressed" from="SettingsMenu/AspectRatioContainer/ColorRect/backToMenu" to="." method="OnBackPressed"]
-[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/Red Slider" to="SettingsMenu" method="RedSliderValueChanged"]
-[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/Green Slider" to="SettingsMenu" method="GreenSliderValueChanged"]
-[connection signal="value_changed" from="SettingsMenu/AspectRatioContainer/ColorRect/Blue Slider" to="SettingsMenu" method="BlueSliderValueChanged"]
+[connection signal="value_changed" from="SettingsMenu/Container/Rect/VolumeSlider" to="SettingsMenu" method="OnVolumeSliderChanged"]
+[connection signal="item_selected" from="SettingsMenu/Container/Rect/DifficultySelect" to="SettingsMenu" method="OnDifficultySelected"]
+[connection signal="pressed" from="SettingsMenu/Container/Rect/backToMenu" to="." method="OnBackPressed"]
+[connection signal="value_changed" from="SettingsMenu/Container/Rect/Red Slider" to="SettingsMenu" method="RedSliderValueChanged"]
+[connection signal="value_changed" from="SettingsMenu/Container/Rect/Green Slider" to="SettingsMenu" method="GreenSliderValueChanged"]
+[connection signal="value_changed" from="SettingsMenu/Container/Rect/Blue Slider" to="SettingsMenu" method="BlueSliderValueChanged"]
 [connection signal="pressed" from="EndMenu/Background/reset button" to="EndMenu" method="OnResetPressed"]
 [connection signal="pressed" from="EndMenu/Background/menu button" to="EndMenu" method="OnBackToMenu"]
 [connection signal="pressed" from="TutorialMenu/CloseButton" to="TutorialMenu" method="Close"]
+
+[editable path="SettingsMenu/Wave"]

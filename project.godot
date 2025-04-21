@@ -13,7 +13,8 @@ config_version=5
 config/name="lethal-science-project"
 run/main_scene="uid://cu5jmhnrb7gqh"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
-config/icon="res://assets/icon.svg"
+config/icon="uid://dl8m0msaohgx"
+config/windows_native_icon="res://assets/sprites/logo_notext.ico"
 
 [display]
 
