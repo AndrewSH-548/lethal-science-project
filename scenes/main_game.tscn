@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=203 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/aria/death.png" id="13_jmxl0"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
-[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/scripts/AbsorbShield.gdshader" id="22_5noht"]
+[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/shaders/AbsorbShield.gdshader" id="22_5noht"]
 [ext_resource type="Texture2D" uid="uid://beqbh2mu03vys" path="res://assets/sprites/absorb-shield.png" id="23_4v0b0"]
 [ext_resource type="Script" uid="uid://dryia60ndmbdw" path="res://assets/scripts/AbsorbShield.cs" id="23_5noht"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
@@ -144,6 +144,9 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_l2epv")
 sources/1 = SubResource("TileSetAtlasSource_oojmo")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wpxwh"]
+radius = 37.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmxad"]
 atlas = ExtResource("3_bbhr7")
@@ -966,7 +969,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oojmo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jk70c"]
 shader = ExtResource("22_5noht")
 shader_parameter/cooldown_progress = 0.0
 shader_parameter/use_transparency = false
@@ -1353,13 +1356,14 @@ tile_set = SubResource("TileSet_aaalo")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar", "deathIrisWipe")]
 physics_interpolation_mode = 1
-position = Vector2(208, 289)
+position = Vector2(205, 287)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
 healthBar = NodePath("../UI Elements/PlayerHealth")
 deathIrisWipe = NodePath("../UI Elements/DeathIrisWipe")
 damageSound = ExtResource("4_urnot")
 deathSound = ExtResource("5_6vdpn")
+shieldHitbox = SubResource("CircleShape2D_wpxwh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -8)
@@ -1371,7 +1375,7 @@ position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_sehyx")
 
 [node name="AbsorbShield" type="AnimatedSprite2D" parent="Player"]
-material = SubResource("ShaderMaterial_oojmo")
+material = SubResource("ShaderMaterial_jk70c")
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_c32t2")
 script = ExtResource("23_5noht")

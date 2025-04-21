@@ -12,7 +12,6 @@ public partial class Player : CharacterBody2D
 	int maxHealth = 50;
 	int currentHealth;
 	float speed = 200.0f;
-
 	
 	AnimatedSprite2D sprites;
 	AbsorbShield absorbShield;
@@ -34,6 +33,10 @@ public partial class Player : CharacterBody2D
 	[Export] AudioStreamWav damageSound;
 	[Export] AudioStreamWav deathSound;
     AudioStreamPlayer soundPlayer;
+
+	CollisionShape2D hitbox;
+    RectangleShape2D normalHitbox;
+    [Export] Shape2D shieldHitbox;
 
     public bool IsAbsorbing
 	{
@@ -72,10 +75,6 @@ public partial class Player : CharacterBody2D
 
 		sprites = GetChild<AnimatedSprite2D>(0);
 		absorbShield = GetChild<AbsorbShield>(2);
-		absorbShield.AnimationFinished += () =>
-		{
-			absorbShield.Animation = "default";
-		};
 		sprites.Play();
 		
 		soundPlayer = new AudioStreamPlayer();
@@ -89,6 +88,7 @@ public partial class Player : CharacterBody2D
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
+			SwapHitbox(false);
 			absorbShield.Play("default");
 			absorbShield.StartReload();
 		});
@@ -103,7 +103,9 @@ public partial class Player : CharacterBody2D
 			Modulate = Color.FromHtml("FFFFFF");
 			isDamaged = false;
 		});
-		
+
+		hitbox = GetChild<CollisionShape2D>(1);
+		normalHitbox = (RectangleShape2D)hitbox.Shape;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -121,6 +123,7 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
+			SwapHitbox(true);
 			absorbShield.Play("active");
             absorptionTimer.Start();
         }
@@ -139,7 +142,6 @@ public partial class Player : CharacterBody2D
 		if (isOnCooldown)
 		{
 			absorbShield.CooldownProgress += delta;
-			GD.Print(absorbShield.CooldownProgress);
 		}
     }
 
@@ -224,5 +226,10 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-    #endregion
+	#endregion
+
+	public void SwapHitbox(bool isShielding)
+	{
+		hitbox.Shape = isShielding ? shieldHitbox : normalHitbox;
+	}
 }

@@ -18,6 +18,10 @@ public partial class AbsorbShield : AnimatedSprite2D
     public override void _Ready()
     {
         cooldownShader = Material as ShaderMaterial;
+        AnimationFinished += () =>
+        {
+            Animation = "default";
+        };
     }
 
     public override void _Process(double delta)
