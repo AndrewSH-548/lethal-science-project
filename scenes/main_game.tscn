@@ -1028,7 +1028,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ehsd")
 }, {
-"duration": 3.0,
+"duration": 12.0,
 "texture": null
 }],
 "loop": false,
@@ -1379,6 +1379,7 @@ script = ExtResource("23_5noht")
 [node name="AbsorbShieldSprite" type="AnimatedSprite2D" parent="Player/AbsorbShield"]
 material = SubResource("ShaderMaterial_jk70c")
 sprite_frames = SubResource("SpriteFrames_c32t2")
+animation = &"break"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AbsorbShield"]
 shape = SubResource("CircleShape2D_mkn3m")

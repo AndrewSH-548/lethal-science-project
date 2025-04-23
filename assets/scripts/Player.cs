@@ -81,7 +81,6 @@ public partial class Player : CharacterBody2D
 		absorptionTimer = GameManager.Instance.CreateTimer(this, 0.4f, () =>
 		{
 			isAbsorbing = false;
-			absorbShield.Toggle(false);
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
@@ -116,10 +115,10 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
-			absorbShield.Toggle(true);
 			absorbShield.Sprite.Play("active");
             absorptionTimer.Start();
         }
+		absorbShield.Toggle(isAbsorbing);
 		MoveAndSlide();
         
         if (isDamaged)
