@@ -43,7 +43,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jp70"]
-bg_color = Color(0.945098, 0.176471, 0.756863, 0.866667)
+bg_color = Color(0.265354, 0.30558, 0.340796, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -422,7 +422,6 @@ theme_override_font_sizes/font_size = 24
 text = "This is a Test"
 
 [node name="TutorialMenu" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("13_6cdou")
 
 [node name="TUTORIAL" type="Panel" parent="TutorialMenu"]

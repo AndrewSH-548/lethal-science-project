@@ -12,7 +12,6 @@ public partial class Player : CharacterBody2D
 	int maxHealth = 50;
 	int currentHealth;
 	float speed = 200.0f;
-
 	
 	AnimatedSprite2D sprites;
 	AbsorbShield absorbShield;
@@ -72,10 +71,6 @@ public partial class Player : CharacterBody2D
 
 		sprites = GetChild<AnimatedSprite2D>(0);
 		absorbShield = GetChild<AbsorbShield>(2);
-		absorbShield.AnimationFinished += () =>
-		{
-			absorbShield.Animation = "default";
-		};
 		sprites.Play();
 		
 		soundPlayer = new AudioStreamPlayer();
@@ -89,21 +84,20 @@ public partial class Player : CharacterBody2D
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
-			absorbShield.Play("default");
+			absorbShield.Sprite.Play("default");
 			absorbShield.StartReload();
 		});
 		cooldownTimer = GameManager.Instance.CreateTimer(this, cooldownTime, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
-			absorbShield.Play("ready");
+			absorbShield.Sprite.Play("ready");
 		});
 		damageBuffer = GameManager.Instance.CreateTimer(this, 1.5f, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isDamaged = false;
 		});
-		
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -121,9 +115,10 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
-			absorbShield.Play("active");
+			absorbShield.Sprite.Play("active");
             absorptionTimer.Start();
         }
+		absorbShield.Toggle(isAbsorbing);
 		MoveAndSlide();
         
         if (isDamaged)
@@ -139,7 +134,6 @@ public partial class Player : CharacterBody2D
 		if (isOnCooldown)
 		{
 			absorbShield.CooldownProgress += delta;
-			GD.Print(absorbShield.CooldownProgress);
 		}
     }
 
@@ -148,7 +142,7 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Play();
 		currentHealth -= projectileDamage;
 		isDamaged = true;
-		absorbShield.Play("break");
+		absorbShield.Sprite.Play("break");
 		damageBuffer.Start();
 		UpdateHealthBar();
     }
@@ -160,7 +154,8 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
 		soundPlayer.Play();
-		absorbShield.QueueFree();
+		absorbShield.Sprite.AnimationFinished += QueueFree;
+		absorbShield.Sprite.Play("break");
 		deathTimer.Start();
 		sprites.Play("death");
 	}
@@ -224,5 +219,5 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-    #endregion
+	#endregion
 }

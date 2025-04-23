@@ -27,4 +27,5 @@ texture = ExtResource("2_j5fsj")
 [node name="DartSprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_rmmqy")
 
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
