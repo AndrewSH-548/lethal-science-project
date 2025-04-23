@@ -4,6 +4,7 @@ extends Node
 @export var TrackName: String;
 @export var ClickTrackEnabled: bool;
 @export var PrintToConsoleEnabled: bool = false # for debugging
+var countInTimer : Timer
 
 var IsPlaying:
 	get:
@@ -26,7 +27,14 @@ func _ready():
 	rhythmNotifier.beats(BeatLength).connect(Beat);
 	interactive_stream = root_channel.stream as AudioStreamInteractive
 	
-	start()
+	countInTimer = Timer.new()
+	countInTimer.wait_time = BeatLength * 4
+	countInTimer.one_shot = true
+	add_child(countInTimer)
+	countInTimer.start()
+	countInTimer.timeout.connect(start)
+
+	#start()
 
 # Always plays from the start of the song.
 func start():
