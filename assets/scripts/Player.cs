@@ -34,10 +34,6 @@ public partial class Player : CharacterBody2D
 	[Export] AudioStreamWav deathSound;
     AudioStreamPlayer soundPlayer;
 
-	CollisionShape2D hitbox;
-    RectangleShape2D normalHitbox;
-    [Export] Shape2D shieldHitbox;
-
     public bool IsAbsorbing
 	{
 		get { return isAbsorbing; }
@@ -85,27 +81,24 @@ public partial class Player : CharacterBody2D
 		absorptionTimer = GameManager.Instance.CreateTimer(this, 0.4f, () =>
 		{
 			isAbsorbing = false;
+			absorbShield.Toggle(false);
 			Modulate = Color.FromHtml("999999");
 			isOnCooldown = true;
 			cooldownTimer.Start();
-			SwapHitbox(false);
-			absorbShield.Play("default");
+			absorbShield.Sprite.Play("default");
 			absorbShield.StartReload();
 		});
 		cooldownTimer = GameManager.Instance.CreateTimer(this, cooldownTime, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
-			absorbShield.Play("ready");
+			absorbShield.Sprite.Play("ready");
 		});
 		damageBuffer = GameManager.Instance.CreateTimer(this, 1.5f, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isDamaged = false;
 		});
-
-		hitbox = GetChild<CollisionShape2D>(1);
-		normalHitbox = (RectangleShape2D)hitbox.Shape;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -123,8 +116,8 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("absorb") && !isOnCooldown && !isDamaged)
 		{
 			isAbsorbing = true;
-			SwapHitbox(true);
-			absorbShield.Play("active");
+			absorbShield.Toggle(true);
+			absorbShield.Sprite.Play("active");
             absorptionTimer.Start();
         }
 		MoveAndSlide();
@@ -150,7 +143,7 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Play();
 		currentHealth -= projectileDamage;
 		isDamaged = true;
-		absorbShield.Play("break");
+		absorbShield.Sprite.Play("break");
 		damageBuffer.Start();
 		UpdateHealthBar();
     }
@@ -162,7 +155,8 @@ public partial class Player : CharacterBody2D
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
 		soundPlayer.Play();
-		absorbShield.QueueFree();
+		absorbShield.Sprite.AnimationFinished += QueueFree;
+		absorbShield.Sprite.Play("break");
 		deathTimer.Start();
 		sprites.Play("death");
 	}
@@ -227,9 +221,4 @@ public partial class Player : CharacterBody2D
 	}
 
 	#endregion
-
-	public void SwapHitbox(bool isShielding)
-	{
-		hitbox.Shape = isShielding ? shieldHitbox : normalHitbox;
-	}
 }

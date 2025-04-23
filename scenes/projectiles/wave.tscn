@@ -28,4 +28,5 @@ texture = ExtResource("2_bn75w")
 texture_filter = 1
 texture = ExtResource("2_u0aa4")
 
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

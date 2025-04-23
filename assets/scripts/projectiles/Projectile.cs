@@ -37,6 +37,12 @@ public partial class Projectile : Area2D
         if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 
+    public void OnAreaEntered(AbsorbShield area)
+    {
+        GetParent<Enemy>().Pacify();
+        Destroy();
+    }
+
     public void OnBodyEntered(Player body)
     {
         if (body.IsAbsorbing)
@@ -44,12 +50,7 @@ public partial class Projectile : Area2D
         else if (!body.IsDamaged)
             body.Damage(Damage);
 
-        Break breakAnim = projectileBreak.Instantiate() as Break;
-        breakAnim.glowColor = GlowColor;
-        breakAnim.Position = GlobalPosition - GetParent<Enemy>().GlobalPosition;
-        GetParent<Enemy>().AddChild(breakAnim);
-
-        QueueFree();
+        Destroy();
     }
 
     protected Vector2 CurveMotion(float rotation)
@@ -67,5 +68,15 @@ public partial class Projectile : Area2D
     {
         GlowColor = color;
         GetChild<Sprite2D>(1).Modulate = color;
+    }
+    
+    private void Destroy()
+    {
+        Break breakAnim = projectileBreak.Instantiate() as Break;
+        breakAnim.glowColor = GlowColor;
+        breakAnim.Position = GlobalPosition - GetParent<Enemy>().GlobalPosition;
+        GetParent<Enemy>().AddChild(breakAnim);
+
+        QueueFree();
     }
 }
