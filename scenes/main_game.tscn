@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=203 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bmablyowdggw7" path="res://assets/sprites/aria/death.png" id="13_jmxl0"]
 [ext_resource type="Script" uid="uid://tqrq8y57q2oe" path="res://assets/scripts/conductor.gd" id="18_6vdpn"]
 [ext_resource type="Script" uid="uid://cn0uglp3akrpe" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="19_jmxl0"]
-[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/scripts/AbsorbShield.gdshader" id="22_5noht"]
+[ext_resource type="Shader" uid="uid://bluww2qudxg1" path="res://assets/shaders/AbsorbShield.gdshader" id="22_5noht"]
 [ext_resource type="Texture2D" uid="uid://beqbh2mu03vys" path="res://assets/sprites/absorb-shield.png" id="23_4v0b0"]
 [ext_resource type="Script" uid="uid://dryia60ndmbdw" path="res://assets/scripts/AbsorbShield.cs" id="23_5noht"]
 [ext_resource type="AudioStream" uid="uid://d3cahd4s71clp" path="res://assets/songs/freakbattle/initial.ogg" id="23_dp0eu"]
@@ -966,7 +966,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sehyx"]
 size = Vector2(32, 32)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oojmo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jk70c"]
 shader = ExtResource("22_5noht")
 shader_parameter/cooldown_progress = 0.0
 shader_parameter/use_transparency = false
@@ -1028,7 +1028,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ehsd")
 }, {
-"duration": 3.0,
+"duration": 12.0,
 "texture": null
 }],
 "loop": false,
@@ -1060,6 +1060,9 @@ animations = [{
 "name": &"ready",
 "speed": 10.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkn3m"]
+radius = 37.0
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_ibep1"]
 clip_count = 2
@@ -1337,7 +1340,6 @@ shader_parameter/screen_width = 1920.0
 shader_parameter/screen_height = 1080.0
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("player", "enemy", "conductor")]
-position = Vector2(2, 2)
 script = ExtResource("1_dp0eu")
 player = NodePath("Player")
 enemy = NodePath("Boss")
@@ -1347,13 +1349,13 @@ metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 modulate = Color(0.699653, 0.699653, 0.699653, 1)
-position = Vector2(62, 0)
+position = Vector2(64, 0)
 tile_map_data = PackedByteArray("AAD//wAAAQABAAAAAAAAAAAAAQABAAAAAAABAAAAAQABAAAAAAACAAAAAQABAAAAAAADAAAAAQABAAAAAAAEAAAAAQABAAAAAAAFAAAAAQABAAAAAAAGAAAAAQABAAAAAAD+/wAAAQAAAAAAAAAHAAAAAQABAAAAAAD//wEAAQABAAEAAAAAAAEAAQABAAEAAAABAAEAAQABAAEAAAACAAEAAQABAAEAAAADAAEAAQABAAEAAAAEAAEAAQABAAEAAAAFAAEAAQABAAEAAAAGAAEAAQABAAEAAAAHAAEAAQABAAEAAAAGAAIAAQABAAEAAAAFAAIAAQACAAEAAAAEAAIAAQABAAEAAAADAAIAAQABAAEAAAACAAIAAQABAAEAAAABAAIAAQABAAEAAAAAAAIAAQACAAEAAAD//wIAAQABAAEAAAD//wMAAQABAAEAAAAAAAMAAQACAAEAAAABAAMAAQACAAEAAAACAAMAAQACAAEAAAADAAMAAQABAAEAAAAEAAMAAQABAAEAAAAFAAMAAQABAAEAAAAGAAMAAQABAAEAAAAHAAIAAQABAAEAAAAHAAMAAQABAAEAAAAHAAQAAQABAAIAAAAHAAUAAQACAAMAAAAIAAAAAQABAAAAAAAIAAEAAQABAAEAAAAIAAIAAQABAAEAAAAIAAMAAQABAAEAAAAIAAQAAQACAAIAAAAIAAUAAQACAAMAAAAIAAYAAQACAAMAAAAIAAcAAQABAAMAAAAIAAgAAQACAAQAAAD//wQAAQABAAIAAAAAAAQAAQABAAIAAAABAAQAAQACAAIAAAACAAQAAQACAAIAAAADAAQAAQABAAIAAAAEAAQAAQACAAIAAAAFAAQAAQACAAIAAAAGAAQAAQACAAIAAAD//wUAAQABAAMAAAAAAAUAAQABAAMAAAABAAUAAQABAAMAAAACAAUAAQACAAMAAAADAAUAAQABAAMAAAAEAAUAAQACAAMAAAAFAAUAAQABAAMAAAAGAAUAAQABAAMAAAAHAAYAAQABAAMAAAAGAAYAAQACAAQAAAAFAAYAAQACAAQAAAAEAAYAAQACAAQAAAADAAYAAQACAAQAAAACAAYAAQACAAQAAAABAAYAAQABAAMAAAAAAAYAAQABAAMAAAD//wYAAQACAAMAAAD//wcAAQABAAMAAAAAAAcAAQABAAMAAAABAAgAAQACAAQAAAACAAgAAQACAAQAAAADAAgAAQACAAQAAAAEAAgAAQACAAQAAAAFAAgAAQABAAQAAAAFAAcAAQACAAQAAAAGAAcAAQACAAQAAAAEAAcAAQABAAQAAAADAAcAAQABAAQAAAACAAcAAQABAAQAAAABAAcAAQACAAQAAAAAAAgAAQACAAQAAAD//wgAAQABAAMAAAAGAAgAAQABAAQAAAAHAAgAAQACAAQAAAAHAAcAAQACAAQAAAAHAAkAAQACAAQAAAAGAAkAAQABAAQAAAAFAAkAAQABAAQAAAAEAAkAAQACAAQAAAADAAkAAQABAAQAAAACAAkAAQACAAQAAAABAAkAAQACAAQAAAAAAAkAAQACAAQAAAD//wkAAQACAAQAAAD+/wEAAQAAAAQAAAD+/wIAAQAAAAIAAAD+/wMAAQAAAAQAAAD+/wQAAQAAAAIAAAD+/wUAAQAAAAQAAAD+/wYAAQAAAAQAAAD+/wcAAQAAAAQAAAD+/wgAAQAAAAQAAAD+/wkAAQAAAAIAAAD+/woAAQAAAAQAAAAIAAoAAQABAAQAAAAIAAkAAQACAAQAAAD//woAAQACAAQAAAAAAAoAAQABAAQAAAABAAoAAQABAAQAAAACAAoAAQACAAQAAAADAAoAAQACAAQAAAAEAAoAAQACAAQAAAAFAAoAAQABAAQAAAAGAAoAAQABAAQAAAAHAAoAAQACAAQAAAAJAAUAAQACAAMAAAAJAAYAAQACAAMAAAAJAAcAAQACAAMAAAAJAAgAAQABAAMAAAAJAAkAAQACAAQAAAAJAAoAAQACAAQAAAD//wsAAQACAAQAAAAAAAsAAQABAAQAAAABAAsAAQABAAQAAAACAAsAAQABAAQAAAADAAsAAQABAAQAAAAEAAsAAQACAAQAAAAFAAsAAQACAAQAAAAGAAsAAQABAAQAAAAHAAsAAQACAAQAAAAIAAsAAQACAAQAAAAJAAsAAQACAAQAAAD+/wsAAQAAAAIAAAD+/wwAAQAAAAUAAAD//wwAAQABAAUAAAAAAAwAAQABAAUAAAABAAwAAQABAAUAAAACAAwAAQABAAUAAAADAAwAAQABAAUAAAAEAAwAAQABAAUAAAAFAAwAAQABAAUAAAAGAAwAAQABAAUAAAAHAAwAAQABAAUAAAAIAAwAAQABAAUAAAAJAAwAAQABAAUAAAAKAAwAAQADAAUAAAAKAAsAAQADAAQAAAAKAAoAAQADAAIAAAAKAAkAAQADAAQAAAAKAAgAAQADAAQAAAAKAAcAAQADAAIAAAAKAAYAAQADAAQAAAAKAAUAAQADAAQAAAAKAAQAAQADAAQAAAAKAAMAAQADAAIAAAAKAAIAAQADAAIAAAAKAAEAAQADAAQAAAAKAAAAAQADAAAAAAAJAAAAAQABAAAAAAAJAAMAAQABAAEAAAAJAAIAAQABAAEAAAAJAAEAAQABAAEAAAAJAAQAAQACAAIAAAA=")
 tile_set = SubResource("TileSet_aaalo")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar", "deathIrisWipe")]
 physics_interpolation_mode = 1
-position = Vector2(208, 289)
+position = Vector2(208, 279)
 collision_layer = 3
 script = ExtResource("2_s6vgu")
 healthBar = NodePath("../UI Elements/PlayerHealth")
@@ -1362,19 +1364,35 @@ damageSound = ExtResource("4_urnot")
 deathSound = ExtResource("5_6vdpn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_dwecv")
 animation = &"idle-down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 16)
+position = Vector2(0, 25)
 shape = SubResource("RectangleShape2D_sehyx")
 
-[node name="AbsorbShield" type="AnimatedSprite2D" parent="Player"]
-material = SubResource("ShaderMaterial_oojmo")
-position = Vector2(0, -7)
-sprite_frames = SubResource("SpriteFrames_c32t2")
+[node name="AbsorbShield" type="Area2D" parent="Player"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("23_5noht")
+
+[node name="AbsorbShieldSprite" type="AnimatedSprite2D" parent="Player/AbsorbShield"]
+material = SubResource("ShaderMaterial_jk70c")
+sprite_frames = SubResource("SpriteFrames_c32t2")
+animation = &"break"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AbsorbShield"]
+shape = SubResource("CircleShape2D_mkn3m")
+disabled = true
+
+[node name="AbsorbShieldSprite" type="AnimatedSprite2D" parent="Player/AbsorbShield"]
+material = SubResource("ShaderMaterial_jk70c")
+sprite_frames = SubResource("SpriteFrames_c32t2")
+animation = &"break"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AbsorbShield"]
+shape = SubResource("CircleShape2D_mkn3m")
+disabled = true
 
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("BossObject")]
 script = ExtResource("18_6vdpn")

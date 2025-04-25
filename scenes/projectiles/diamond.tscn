@@ -23,4 +23,5 @@ texture = ExtResource("3_8dwtu")
 [node name="DiamondSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_ivgf2")
 
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
