@@ -1385,15 +1385,6 @@ animation = &"break"
 shape = SubResource("CircleShape2D_mkn3m")
 disabled = true
 
-[node name="AbsorbShieldSprite" type="AnimatedSprite2D" parent="Player/AbsorbShield"]
-material = SubResource("ShaderMaterial_jk70c")
-sprite_frames = SubResource("SpriteFrames_c32t2")
-animation = &"break"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AbsorbShield"]
-shape = SubResource("CircleShape2D_mkn3m")
-disabled = true
-
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("BossObject")]
 script = ExtResource("18_6vdpn")
 TrackName = "freakbattle"
