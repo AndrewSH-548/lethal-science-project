@@ -1376,9 +1376,10 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_c32t2")
 script = ExtResource("23_5noht")
 
-[node name="Conductor" type="Node" parent="."]
+[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("BossObject")]
 script = ExtResource("18_6vdpn")
 TrackName = "freakbattle"
+BossObject = NodePath("../Boss")
 BeatLength = 0.25
 
 [node name="RhythmNotifier" type="Node" parent="Conductor"]
