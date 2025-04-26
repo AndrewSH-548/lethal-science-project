@@ -4,6 +4,8 @@ extends Node
 @export var TrackName: String;
 @export var ClickTrackEnabled: bool;
 @export var PrintToConsoleEnabled: bool = false # for debugging
+@export var BossObject : Node;
+var countInTimer : Timer
 
 var IsPlaying:
 	get:
@@ -26,7 +28,19 @@ func _ready():
 	rhythmNotifier.beats(BeatLength).connect(Beat);
 	interactive_stream = root_channel.stream as AudioStreamInteractive
 	
-	start()
+	countInTimer = Timer.new()
+	countInTimer.wait_time = BeatLength * 4
+	countInTimer.one_shot = true
+	add_child(countInTimer)
+	countInTimer.start()
+	countInTimer.timeout.connect(start)
+
+	# boss falls in from top of screen
+	var bossPos = BossObject.position.y
+	BossObject.position.y = -50 # offscreen
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(BossObject, "position:y", bossPos, countInTimer.wait_time).set_trans(Tween.TRANS_SINE)
 
 # Always plays from the start of the song.
 func start():
