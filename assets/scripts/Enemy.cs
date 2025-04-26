@@ -38,6 +38,8 @@ public partial class Enemy : StaticBody2D
 	int currentGuideIndex;
     int guideLength;
 
+	public bool IsFullyPacified { get; private set; }
+
 	public int CalmCurrent
 	{
 		get { return calmCurrent; }
@@ -63,7 +65,7 @@ public partial class Enemy : StaticBody2D
         guideLength = currentShootingGuide.Length;
 
         sprite = GetChild<AnimatedSprite2D>(0);
-		sprite.AnimationFinished += () => { sprite.Animation = "idle"; };
+		sprite.AnimationFinished += () => { if (!IsFullyPacified) sprite.Animation = "idle"; };
 		
 		soundPlayer = new AudioStreamPlayer();
 		soundPlayer.Stream = pacifySound;
@@ -177,7 +179,6 @@ public partial class Enemy : StaticBody2D
 		sprite.Play("damage");
 		calmCurrent += 5;
 		UpdateCalmness();
-		if (calmCurrent >= calmMax) End();
 	}
 
 	private void UpdateCalmness()
@@ -190,10 +191,16 @@ public partial class Enemy : StaticBody2D
 	{
 		projectileColor = color;
 	}
-	private void End()
+	public void End(Action timeoutFunction)
 	{
-
-		
-        //GetParent<Node2D>().QueueFree();
+        IsFullyPacified = true;
+        if (enemyName != "head" && !enemyName.Contains("horn")) return;
+		float pacifyAnimLength = GameManager.GetAnimationLength(sprite.SpriteFrames, "pacify");
+		if (enemyName == "head")
+		{
+			Timer pacifyTimer = GameManager.CreateTimer(this, pacifyAnimLength, timeoutFunction);
+			pacifyTimer.Start();
+		}
+		sprite.Play("pacify");
     }
 }

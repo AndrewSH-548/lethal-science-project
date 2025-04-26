@@ -1,4 +1,4 @@
-[gd_scene load_steps=203 format=4 uid="uid://maknoij2sh4o"]
+[gd_scene load_steps=210 format=4 uid="uid://maknoij2sh4o"]
 
 [ext_resource type="Texture2D" uid="uid://cflwrk83ha6y0" path="res://assets/sprites/demo-tileset.png" id="1_0uvb2"]
 [ext_resource type="Script" uid="uid://dyfaukqodcx8m" path="res://assets/scripts/GameManager.cs" id="1_dp0eu"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://dvgr5efydusq7" path="res://assets/scripts/Limb.cs" id="31_6vdpn"]
 [ext_resource type="Texture2D" uid="uid://153oyhi617gv" path="res://assets/sprites/chelsea/arm.png" id="32_jmxl0"]
 [ext_resource type="PackedScene" uid="uid://jdvg21k84bli" path="res://scenes/projectiles/dart.tscn" id="33_g2o8j"]
+[ext_resource type="Texture2D" uid="uid://ddmgxi7xeefv5" path="res://assets/sprites/chelsea/head_pacify.png" id="34_jk70c"]
 [ext_resource type="Texture2D" uid="uid://bkw1fudtm4hpg" path="res://assets/sprites/chelsea/body.png" id="34_oojmo"]
 [ext_resource type="PackedScene" uid="uid://c4eqsti8iq7j4" path="res://scenes/projectiles/diamond.tscn" id="35_5noht"]
 [ext_resource type="Texture2D" uid="uid://dnorgr7xaaqs8" path="res://assets/sprites/chelsea/horn.png" id="36_4v0b0"]
@@ -1102,6 +1103,30 @@ region = Rect2(128, 0, 128, 128)
 atlas = ExtResource("29_1vioj")
 region = Rect2(0, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sffie"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js1wn"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ep8y"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1aci3"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmlog"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c32t2"]
+atlas = ExtResource("34_jk70c")
+region = Rect2(768, 0, 128, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_pjtuq"]
 animations = [{
 "frames": [{
@@ -1134,6 +1159,41 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3a3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgocm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sffie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js1wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ep8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js1wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ep8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1aci3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmlog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c32t2")
+}],
+"loop": false,
+"name": &"pacify",
+"speed": 8.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b02dr"]
@@ -1344,7 +1404,6 @@ script = ExtResource("1_dp0eu")
 player = NodePath("Player")
 enemy = NodePath("Boss")
 conductor = NodePath("Conductor")
-Difficulty = 1
 metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -1379,7 +1438,6 @@ script = ExtResource("23_5noht")
 [node name="AbsorbShieldSprite" type="AnimatedSprite2D" parent="Player/AbsorbShield"]
 material = SubResource("ShaderMaterial_jk70c")
 sprite_frames = SubResource("SpriteFrames_c32t2")
-animation = &"break"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AbsorbShield"]
 shape = SubResource("CircleShape2D_mkn3m")
@@ -1490,7 +1548,6 @@ animation = &"swing"
 
 [node name="RightHorn" type="StaticBody2D" parent="Boss" node_paths=PackedStringArray("conductor")]
 z_index = 1
-position = Vector2(0, 2)
 script = ExtResource("31_6vdpn")
 enemyName = "horn-right"
 conductor = NodePath("../../Conductor")

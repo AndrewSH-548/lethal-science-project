@@ -22,6 +22,7 @@ public partial class GameManager : Node2D
     public delegate void GameLoseEventHandler();
 
     bool deathCalled = false;
+    bool pacifyCalled = false;
     
     [Export] public Difficulty Difficulty { get; set; } = Difficulty.Hard;
 
@@ -41,10 +42,14 @@ public partial class GameManager : Node2D
             });
             deathCalled = true;
         }
-        if (enemy.CalmCurrent>=enemy.CalmMax)
+        if (enemy.CalmCurrent>=enemy.CalmMax && !pacifyCalled)
         {
             conductor.Call("stop");
-            EmitSignal(SignalName.GameWin);
+            enemy.End(() =>
+            {
+                EmitSignal(SignalName.GameWin);
+            });
+            pacifyCalled = true;
         }
     }
 
@@ -58,7 +63,7 @@ public partial class GameManager : Node2D
         QueueFree(); // remove current instance
     }
 
-    public Timer CreateTimer(Node parent, float waitTime, Action timeoutFunction)
+    public static Timer CreateTimer(Node parent, float waitTime, Action timeoutFunction)
     {
         Timer timer = new()
         {
@@ -69,5 +74,9 @@ public partial class GameManager : Node2D
         timer.Timeout += timeoutFunction;
         parent.AddChild(timer);
         return timer;
+    }
+
+    public static float GetAnimationLength(SpriteFrames spriteFrames, string animationName) {
+        return spriteFrames.GetFrameCount(animationName) / (float)spriteFrames.GetAnimationSpeed(animationName);
     }
 }

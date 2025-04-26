@@ -78,7 +78,7 @@ public partial class Player : CharacterBody2D
         soundPlayer.VolumeDb -= 4;
         AddChild(soundPlayer);
 
-		absorptionTimer = GameManager.Instance.CreateTimer(this, 0.4f, () =>
+		absorptionTimer = GameManager.CreateTimer(this, 0.4f, () =>
 		{
 			isAbsorbing = false;
 			Modulate = Color.FromHtml("999999");
@@ -87,13 +87,13 @@ public partial class Player : CharacterBody2D
 			absorbShield.Sprite.Play("default");
 			absorbShield.StartReload();
 		});
-		cooldownTimer = GameManager.Instance.CreateTimer(this, cooldownTime, () =>
+		cooldownTimer = GameManager.CreateTimer(this, cooldownTime, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isOnCooldown = false;
 			absorbShield.Sprite.Play("ready");
 		});
-		damageBuffer = GameManager.Instance.CreateTimer(this, 1.5f, () =>
+		damageBuffer = GameManager.CreateTimer(this, 1.5f, () =>
 		{
 			Modulate = Color.FromHtml("FFFFFF");
 			isDamaged = false;
@@ -150,11 +150,11 @@ public partial class Player : CharacterBody2D
 	public void Death(Action timeoutFunction)
 	{
 		deathIrisWipe.TriggerIrisWipe();
-		Timer deathTimer = GameManager.Instance.CreateTimer(this, (float)deathSound.GetLength() - 2, timeoutFunction);
+		Timer deathTimer = GameManager.CreateTimer(this, (float)deathSound.GetLength() - 2, timeoutFunction);
 		soundPlayer.Stream = deathSound;
 		soundPlayer.VolumeDb = 0;
 		soundPlayer.Play();
-		absorbShield.Sprite.AnimationFinished += QueueFree;
+		absorbShield.Sprite.AnimationFinished += absorbShield.QueueFree;
 		absorbShield.Sprite.Play("break");
 		deathTimer.Start();
 		sprites.Play("death");
