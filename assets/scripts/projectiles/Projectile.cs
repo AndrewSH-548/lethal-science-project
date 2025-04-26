@@ -39,8 +39,9 @@ public partial class Projectile : Area2D
         if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 
-    public void OnAreaEntered(AbsorbShield area)
+    public void OnAreaEntered(Node area)
     {
+        if (area is not AbsorbShield) return;
         GetParent<Enemy>().Pacify();
         Destroy();
     }

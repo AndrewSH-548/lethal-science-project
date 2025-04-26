@@ -1605,7 +1605,7 @@ texture_progress = ExtResource("30_urnot")
 tint_over = Color(0.954457, 1.01797e-05, 2.88785e-06, 1)
 
 [node name="BossCalmness" type="TextureProgressBar" parent="UI Elements"]
-z_index = 20
+z_index = 9
 offset_left = 36.0
 offset_top = -1.0
 offset_right = 380.0
