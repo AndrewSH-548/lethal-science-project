@@ -33,12 +33,15 @@ public partial class Projectile : Area2D
     // Simply moves the projectile in its given direction. May be altered by inherited classes.
     public override void _Process(double delta)
     {
+        //Cast to "Limb" type to properly work on Chelsea's limbs. Only those fire projectiles for now, but this may need a rework later.
+        if (GetParent<Limb>().IsFullyPacified) QueueFree();
         Position += direction * (float)delta;
         if (GlobalPosition.X > 600 || GlobalPosition.X < -50 || GlobalPosition.Y > 600 || GlobalPosition.Y < -50) QueueFree();
     }
 
-    public void OnAreaEntered(AbsorbShield area)
+    public void OnAreaEntered(Node area)
     {
+        if (area is not AbsorbShield) return;
         GetParent<Enemy>().Pacify();
         Destroy();
     }

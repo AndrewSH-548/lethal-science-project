@@ -360,6 +360,7 @@ offset_bottom = 289.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3dmrc")
 
 [node name="Wave" parent="SettingsMenu" instance=ExtResource("12_81l6r")]
+process_mode = 4
 position = Vector2(296, 270)
 Speed = 0
 

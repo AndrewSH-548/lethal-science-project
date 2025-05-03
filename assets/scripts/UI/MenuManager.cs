@@ -12,7 +12,7 @@ public partial class MenuManager : Control
     public event GameInitializedEventHandler OnGameInitialized;
 
     private bool isPaused = false;
-    private bool isGameStarted = false;
+    public bool IsGameStarted { get; private set; } = false;
     private bool inOptions = false;
 
     public Difficulty Difficulty { get; set; } = Difficulty.Normal;
@@ -63,6 +63,7 @@ public partial class MenuManager : Control
         GetParent().AddChild(gameNode);
         MainMenu.Instance.ToggleVisibility();
         Settings.Instance.ToggleDifficultySelect();
+        IsGameStarted = true;
     }
 
     public void OnResumePressed()
@@ -93,6 +94,7 @@ public partial class MenuManager : Control
     {
         Settings.Instance.ToggleDifficultySelect();
         MainMenu.Instance.ToggleVisibility();
+        IsGameStarted = false;
     }
 
     private bool AllMenusClear()
